@@ -5,6 +5,20 @@ autocmd! bufwritepost .vimrc source %
 noremap <F2> :source ~/.vimrc<CR>
 noremap <F3> :sp ~/.vimrc<CR>
 
+"Use Q instead of @q to enable easier one-shot macros
+noremap Q @q
+
+"Use ctrl-space for autocompletion
+inoremap <C-Space> <C-N>
+
+"Double-tap backslash to clear search results
+nmap <silent> <leader>\ :silent :nohlsearch<CR>
+
+"Use \h to preview markdown in browser with Hammer
+nmap <silent> <leader>h :Hammer<CR>
+
+
+
 syntax on
 set hidden
 
@@ -69,21 +83,9 @@ set whichwrap=b,s,h,l,<,>,[,]
 nnoremap <C-e> 3<C-e> 
 nnoremap <C-y> 3<C-y> 
 
-"Use Q instead of @q to enable easier one-shot macros
-noremap Q @q
-
-"Use ctrl-space for autocompletion
-inoremap <C-Space> <C-N>
-
 "Consolidate backup files
 set backupdir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
-
-"Double-tap backslash to clear search results
-nmap <silent> <leader>\ :silent :nohlsearch<CR>
-
-"Use \h to preview markdown in browser with Hammer
-nmap <silent> <leader>h :Hammer<CR>
 
 try
   "Include file matching plugin (use with \t)
