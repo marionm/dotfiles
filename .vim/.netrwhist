@@ -1,0 +1,5 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_1='/Users/marionm/.rvm/gems/ruby-1.9.2-p290@likeassets_connect_server/gems/rack-perftools_profiler-0.4.1'
+let g:netrw_dirhist_2='/Library/Ruby/Gems/1.8/gems/activerecord-3.0.4'
+let g:netrw_dirhist_3='/Users/marionm/.rvm/gems/ruby-1.9.2-p290@likeassets_connect_vault/gems/likeassets_connect-0.1.15'
