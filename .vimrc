@@ -103,6 +103,8 @@ endtry
 try
   "Open NERDTree at startup
   autocmd VimEnter * NERDTree
+  "Make NERDTree smaller
+  "7winc <
   "Focus in editing window instead of NERDTree
   autocmd VimEnter * wincmd p
 catch
