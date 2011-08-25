@@ -5,6 +5,9 @@ autocmd! bufwritepost .vimrc source %
 noremap <F2> :source ~/.vimrc<CR>
 noremap <F3> :sp ~/.vimrc<CR>
 
+"Map F12 to a sort of hacky full-file XML formatting thing
+noremap <F12> :se ft=xml<CR>ggVGJ:s/> *</>\r</g<CR>gg=G
+
 "Use Q instead of @q to enable easier one-shot macros
 noremap Q @q
 
