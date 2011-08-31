@@ -57,8 +57,10 @@ set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 "Show entered partial commands in ruler
 set showcmd
-"Highlight current line
-set cursorline
+"Highlight current line in GUIs
+if has('gui_running')
+  set cursorline
+endif
 
 "Hide toolbar
 set guioptions-=T
