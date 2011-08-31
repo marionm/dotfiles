@@ -1,9 +1,9 @@
 "Autoreload _vimrc when saving it
 autocmd! bufwritepost .vimrc source %
 
-"Map F2 to reload .vimrc, F3 to edit it
-noremap <F2> :source ~/.vimrc<CR>
-noremap <F3> :sp ~/.vimrc<CR>
+"Map F2 to edit .vimrc, F3 to reload it
+noremap <F3> :sp $MYVIMRC<CR>
+noremap <F2> :source $MYVIMRC<CR>
 
 "Map F12 to a sort of hacky full-file XML formatting thing
 noremap <F12> :se ft=xml<CR>ggVGJ:s/> *</>\r</g<CR>gg=G
