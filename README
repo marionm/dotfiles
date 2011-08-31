@@ -1,1 +1,7 @@
 TODO: Start using pathogen
+
+Installation:
+
+git clone git://github.com/marionm/dotvim
+chmod +x dotvim/*.sh
+dotvim/use-my-vimrc.sh
