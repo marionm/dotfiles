@@ -102,15 +102,17 @@ try
 catch
 endtry
 
-try
-  "Open NERDTree at startup
-  autocmd VimEnter * NERDTree
-  "Make NERDTree smaller
-  "7winc <
-  "Focus in editing window instead of NERDTree
-  autocmd VimEnter * wincmd p
-catch
-endtry
+if has('gui_running')
+  try
+    "Open NERDTree at startup
+    autocmd VimEnter * NERDTree
+    "Make NERDTree smaller
+    "7winc <
+    "Focus in editing window instead of NERDTree
+    autocmd VimEnter * wincmd p
+  catch
+  endtry
+endif
 
 "Set background color
 autocmd VimEnter * highlight Normal guibg=#dfdfdf
