@@ -102,6 +102,9 @@ try
 catch
 endtry
 
+"Make Hammer quiet
+let g:HammerQuiet=1
+
 if has('gui_running')
   try
     "Open NERDTree at startup
