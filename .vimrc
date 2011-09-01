@@ -1,3 +1,19 @@
+func! Mac()
+  return has('unix') && system('uname') == "Darwin\n"
+endfunc
+
+func! Linux()
+  return has('unix') && system('uname') != "Darwin\n"
+endfunc
+
+func! Windows()
+  return has('win32')
+endfunc
+
+func! Gui()
+  return has('gui_running')
+endfunc
+
 "Autoreload _vimrc when saving it
 autocmd! bufwritepost .vimrc source %
 
@@ -42,11 +58,9 @@ set autoindent
 set expandtab
 
 "Set up font by system
-if has('unix')
-  if system('uname') == "Darwin\n"
-    set guifont=Menlo\ Regular:h13
-  endif
-elseif has('win32')
+if Mac()
+  set guifont=Menlo\ Regular:h13
+elseif Windows()
   set guifont=Courier_New:h10
 endif
 
@@ -58,7 +72,7 @@ set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 "Show entered partial commands in ruler
 set showcmd
 "Highlight current line in GUIs
-if has('gui_running')
+if Gui()
   set cursorline
 endif
 
@@ -105,7 +119,7 @@ endtry
 "Make Hammer quiet
 let g:HammerQuiet=1
 
-if has('gui_running')
+if Gui()
   try
     "Open NERDTree at startup
     autocmd VimEnter * NERDTree
