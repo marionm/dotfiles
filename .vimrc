@@ -136,6 +136,11 @@ autocmd VimEnter * highlight Normal guibg=#dfdfdf
 "Make file info more readable given above background color
 autocmd VimEnter * highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
 
+"Set colorscheme based on system and GUI
+if Linux() && !Gui()
+  colorscheme torte
+endif
+
 "Enable xml folding
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
