@@ -18,8 +18,8 @@ endfunc
 autocmd! bufwritepost .vimrc source %
 
 "Map F2 to edit .vimrc, F3 to reload it
-noremap <F3> :sp $MYVIMRC<CR>
-noremap <F2> :source $MYVIMRC<CR>
+noremap <F2> :sp $MYVIMRC<CR>
+noremap <F3> :source $MYVIMRC<CR>
 
 "Map F12 to a sort of hacky full-file XML formatting thing
 noremap <F12> :se ft=xml<CR>ggVGJ:s/> *</>\r</g<CR>gg=G
