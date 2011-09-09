@@ -71,8 +71,8 @@ set ruler
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 "Show entered partial commands in ruler
 set showcmd
-"Highlight current line in GUIs
-if Gui()
+"Highlight current line in Mac GUIs
+if Mac() && Gui()
   set cursorline
 endif
 
