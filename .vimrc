@@ -131,13 +131,13 @@ if Gui()
   endtry
 endif
 
-"Set background color
-autocmd VimEnter * highlight Normal guibg=#dfdfdf
-"Make file info more readable given above background color
-autocmd VimEnter * highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
-
-"Set colorscheme based on system and GUI
-if Linux() && !Gui()
+"Set colorscheme based on system
+if Mac()
+  "Set background color
+  autocmd VimEnter * highlight Normal guibg=#dfdfdf
+  "Make file info more readable given above background color
+  autocmd VimEnter * highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
+else
   colorscheme torte
 endif
 
