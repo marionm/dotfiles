@@ -36,6 +36,17 @@ nmap <silent> <leader>\ :silent :nohlsearch<CR>
 "Use \h to preview markdown in browser with Hammer
 nmap <silent> <leader>h :Hammer<CR>
 
+"Map \n to toggle NERDTree
+nmap <silent> <leader>n :NERDTreeToggle<CR>
+
+"Map \r to reveal in NERDTree
+nmap <silent> <leader>r :NERDTreeFind<CR>
+
+"Map \a to Ack current word
+nmap <leader>a :Ack <C-R><C-W><CR>
+"Map \A to prep Ack for current word
+nmap <leader>A :Ack <C-R><C-W>
+
 
 
 syntax on
