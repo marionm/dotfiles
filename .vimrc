@@ -51,6 +51,7 @@ nmap <leader>A :Ack <C-R><C-W>
 
 syntax on
 set hidden
+set pastetoggle=<F5>
 
 filetype on
 filetype plugin on
