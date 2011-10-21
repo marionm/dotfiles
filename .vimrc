@@ -116,8 +116,11 @@ try
 catch
 endtry
 
-"Make Hammer quiet
-let g:HammerQuiet=1
+try
+  "Make Hammer quiet
+  let g:HammerQuiet=1
+catch
+endtry
 
 if Gui()
   try
