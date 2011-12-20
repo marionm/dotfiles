@@ -153,7 +153,8 @@ if Mac()
   "Make file info more readable given above background color
   autocmd VimEnter * highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
 else
-  colorscheme torte
+  set background=dark
+  colorscheme solarized
 endif
 
 "Enable xml folding
