@@ -119,16 +119,6 @@ set backupdir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 try
-  "Include file matching plugin (use with \t)
-  runtime macros/matchit.vim
-  "Show the file matching plugin at the top
-  let g:CommandTMatchWindowAtTop=1
-  "Make the directory tree refresh itself automatically in normal use
-  nmap <silent> <leader>t :CommandTFlush<CR>:CommandT<CR>
-catch
-endtry
-
-try
   "Make Hammer quiet
   let g:HammerQuiet=1
 catch
