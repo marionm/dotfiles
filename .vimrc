@@ -150,3 +150,4 @@ endif
 "Enable xml folding
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
+set foldlevelstart=20
