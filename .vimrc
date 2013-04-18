@@ -111,6 +111,10 @@ set whichwrap=b,s,h,l,<,>,[,]
 nnoremap <C-e> 3<C-e> 
 nnoremap <C-y> 3<C-y> 
 
+"Improved split behavior
+set splitbelow
+set splitright
+
 "Consolidate backup files
 set backupdir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
