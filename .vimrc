@@ -33,9 +33,6 @@ inoremap <C-Space> <C-N>
 "Double-tap backslash to clear search results
 nmap <silent> <leader>\ :silent :nohlsearch<CR>
 
-"Use \h to preview markdown in browser with Hammer
-nmap <silent> <leader>h :Hammer<CR>
-
 "Map \n to toggle NERDTree
 nmap <silent> <leader>n :NERDTreeToggle<CR>
 
@@ -117,12 +114,6 @@ nnoremap <C-y> 3<C-y>
 "Consolidate backup files
 set backupdir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
-
-try
-  "Make Hammer quiet
-  let g:HammerQuiet=1
-catch
-endtry
 
 if Gui()
   try
