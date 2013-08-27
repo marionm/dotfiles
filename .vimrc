@@ -127,11 +127,11 @@ set directory=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 if Gui()
   try
     "Open NERDTree at startup
-    autocmd VimEnter * NERDTree
+    " autocmd VimEnter * NERDTree
     "Make NERDTree smaller
-    "7winc <
+    " 7winc <
     "Focus in editing window instead of NERDTree
-    autocmd VimEnter * wincmd p
+    " autocmd VimEnter * wincmd p
   catch
   endtry
 endif
