@@ -1,7 +1,2 @@
-TODO: Start using Vundle
-
-Installation:
-
 git clone git://github.com/marionm/dotvim
-chmod +x dotvim/*.sh
 dotvim/use-my-vimrc.sh
