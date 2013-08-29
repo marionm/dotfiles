@@ -65,6 +65,9 @@ set tabstop=2
 set shiftwidth=2
 set nowrap
 set autoindent
+set ttyfast
+set showmode
+set encoding=utf-8
 
 "Use tabs
 " set noexpandtab
@@ -79,12 +82,16 @@ elseif Windows()
 endif
 
 "Show line numbers
-set number
+" set number
+"Show relative line numbers
+set relativenumber
 "Show file info at bottom
 set ruler 
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
 "Show entered partial commands in ruler
 set showcmd
+"Always show status
+set laststatus=2
 "Highlight current line in Mac GUIs
 if Mac() && Gui()
   set cursorline
@@ -123,6 +130,10 @@ set splitright
 "Consolidate backup files
 set backupdir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
+
+"Enable undo files
+set undofile
+set undodir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 if Gui()
   try
