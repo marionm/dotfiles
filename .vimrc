@@ -81,10 +81,14 @@ elseif Windows()
   set guifont=Courier_New:h10
 endif
 
-"Show line numbers
-" set number
-"Show relative line numbers
-set relativenumber
+if version >= 703
+  "Show relative line numbers
+  set relativenumber
+else
+  "Show line numbers
+ set number
+endif
+
 "Show file info at bottom
 set ruler 
 set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
@@ -132,8 +136,10 @@ set backupdir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 set directory=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
 
 "Enable undo files
-set undofile
-set undodir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
+if version >= 703
+  set undofile
+  set undodir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp
+endif
 
 if Gui()
   try
