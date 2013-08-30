@@ -84,6 +84,8 @@ endif
 if version >= 703
   "Show relative line numbers
   set relativenumber
+  " Map \l to toggle between number and relativenumber
+  nnoremap <silent> <leader>l :if &number==0<CR>set number<CR>else<CR>set relativenumber<CR>endif<CR>
 else
   "Show line numbers
  set number
