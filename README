@@ -1,8 +1,8 @@
 # Check out
-git clone https://github.com/marionm/dotvim
+git clone https://github.com/marionm/dotfiles
 
 # Apply
-dotvim/apply.sh
+dotfiles/apply.sh
 
 # Revert
-dotvim/revert.sh
+dotfiles/revert.sh
