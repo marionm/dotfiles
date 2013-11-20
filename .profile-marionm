@@ -1,0 +1,4 @@
+alias be="bundle exec"
+
+export EDITOR=vim
+export BUNDLER_EDITOR=gvim

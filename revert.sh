@@ -7,3 +7,6 @@ fi
 if [ -f ~/.vimrc-orig ]; then
   mv ~/.vimrc-orig ~/.vimrc
 fi
+
+# Bash
+rm -f ~/.profile-marionm
