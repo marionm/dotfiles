@@ -59,6 +59,9 @@ filetype on
 filetype plugin on
 filetype indent on
 
+au BufRead,BufNewFile *.pde set filetype=arduino
+au BufRead,BufNewFile *.ino set filetype=arduino
+
 set mouse=a
 
 set tabstop=2
