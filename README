@@ -1,2 +1,8 @@
-git clone git://github.com/marionm/dotvim
-dotvim/use-my-vimrc.sh
+# Check out
+git clone https://github.com/marionm/dotvim
+
+# Apply
+dotvim/apply.sh
+
+# Revert
+dotvim/revert.sh

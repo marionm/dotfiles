@@ -1,9 +1,9 @@
 #!/bin/bash
 
+# Vim
 if [ -d ~/.vim-orig ]; then
   mv ~/.vim-orig ~/.vim
+fi
+if [ -f ~/.vimrc-orig ]; then
   mv ~/.vimrc-orig ~/.vimrc
-else
-  echo Nothing to restore!
-  exit 1
 fi
