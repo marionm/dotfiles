@@ -8,5 +8,8 @@ if [ -f ~/.vimrc-orig ]; then
   mv ~/.vimrc-orig ~/.vimrc
 fi
 
+# Git
+sed -i -e '/# start marionm/,/# end marionm/d' ~/.gitconfig
+
 # Bash
 rm -f ~/.profile-marionm

@@ -12,6 +12,11 @@ fi
 cp -R $DIR/.vim* ~
 
 # Git
+if ! grep -q '# start marionm' ~/.gitconfig; then
+  echo '# start marionm' >> ~/.gitconfig
+  cat $DIR/.gitconfig >> ~/.gitconfig
+  echo '# end marionm' >> ~/.gitconfig
+fi
 cp $DIR/.git-completion.sh ~
 cp $DIR/.git-branch-prompt.sh ~
 

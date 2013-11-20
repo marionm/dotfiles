@@ -1,0 +1,16 @@
+[color]
+  diff = auto
+  status = auto
+  branch = auto
+[alias]
+  ci = commit
+  co = checkout
+  st = status
+  s  = status
+  br = branch
+  b  = branch
+  d  = diff
+  ds = diff --staged
+  ln = log --name-status
+  l  = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit
+  la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --all --graph
