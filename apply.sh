@@ -11,6 +11,10 @@ if [ ! -f ~/.vimrc-orig ]; then
 fi
 cp -R $DIR/.vim* ~
 
+# Git
+cp $DIR/.git-completion.sh ~
+cp $DIR/.git-branch-prompt.sh ~
+
 # Bash
 cp $DIR/.profile-marionm ~
 if ! grep -q profile-marionm ~/.bashrc; then

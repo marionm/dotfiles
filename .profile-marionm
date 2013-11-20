@@ -2,3 +2,10 @@ alias be="bundle exec"
 
 export EDITOR=vim
 export BUNDLER_EDITOR=gvim
+
+if [ -f ~/.git-completion.sh ]; then
+  . ~/.git-completion.sh
+fi
+if [ -f ~/.git-branch-prompt.sh ]; then
+  . ~/.git-branch-prompt.sh
+fi
