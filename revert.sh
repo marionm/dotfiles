@@ -9,7 +9,7 @@ if [ -f ~/.vimrc-orig ]; then
 fi
 
 # Git
-sed -i -e '/# start marionm/,/# end marionm/d' ~/.gitconfig
+sed -i '' '/# start marionm/,/# end marionm/d' ~/.gitconfig
 
 # Bash
 rm -f ~/.profile-marionm
