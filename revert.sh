@@ -8,6 +8,11 @@ if [ -f ~/.vimrc-orig ]; then
   mv ~/.vimrc-orig ~/.vimrc
 fi
 
+# IRB
+if [ -f ~/.irbrc-orig ]; then
+  mv ~/.irbrc-orig ~/.irbrc
+fi
+
 # Git
 sed -i '' '/# start marionm/,/# end marionm/d' ~/.gitconfig
 

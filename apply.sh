@@ -11,6 +11,12 @@ if [ -f ~/.vimrc ] && [ ! -f ~/.vimrc-orig ]; then
 fi
 cp -R $DIR/.vim* ~
 
+# IRB
+if [ -f ~/.irbrc ] && [ ! -f ~/.irbrc-orig ]; then
+  mv ~/.irb ~/.irbrc-orig
+fi
+cp $DIR/.irbrc ~
+
 # Git
 if ! grep -q '# start marionm' ~/.gitconfig; then
   echo '# start marionm' >> ~/.gitconfig
