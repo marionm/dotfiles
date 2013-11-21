@@ -3,10 +3,10 @@
 DIR=`dirname $0`
 
 # Vim
-if [ ! -d ~/.vim-orig ]; then
+if [ -d ~/.vim ] && [ ! -d ~/.vim-orig ]; then
   mv ~/.vim ~/.vim-orig
 fi
-if [ ! -f ~/.vimrc-orig ]; then
+if [ -f ~/.vimrc ] && [ ! -f ~/.vimrc-orig ]; then
   mv ~/.vimrc ~/.vimrc-orig
 fi
 cp -R $DIR/.vim* ~
