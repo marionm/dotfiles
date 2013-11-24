@@ -4,9 +4,9 @@ function parse_git_branch {
 }
 
 function proml {
-  local BRANCH="\[\033[0;35m\]"
-  local  BLACK="\[\033[0;30m\]"
-  PS1="$BLACK\u@\h:\W$BRANCH\$(parse_git_branch)$BLACK\$ "
+  local BRANCH="\[\e[35m\]"
+  local  RESET="\[\e[0m\]"
+  PS1="$RESET\u@\h:\W$BRANCH\$(parse_git_branch)$RESET\$ "
 }
 
 proml
