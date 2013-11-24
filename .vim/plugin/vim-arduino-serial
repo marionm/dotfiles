@@ -3,15 +3,15 @@
 echo "use Ctrl-a, k to exit the screen utility"
 
 port=$(ls /dev/tty.* | grep usb)
-# osascript -e 'tell application "Terminal" to do script "screen '.$port'"'
+
 osascript -e \
   "tell application \"iTerm\"
     activate
-    set myterm to (make new terminal)
+    set myterm to (current terminal)
     tell myterm
-      launch session \"Default\"
-      set _session to current session
-      tell _session
+      set mysession to (make new session at the end of sessions)
+      tell mysession
+        exec command \"/bin/bash -l\"
         write text \"screen $port\"
       end tell
     end tell
