@@ -13,7 +13,7 @@ cp -R $DIR/.vim* ~
 
 # IRB
 if [ -f ~/.irbrc ] && [ ! -f ~/.irbrc-orig ]; then
-  mv ~/.irb ~/.irbrc-orig
+  mv ~/.irbrc ~/.irbrc-orig
 fi
 cp $DIR/.irbrc ~
 
