@@ -9,6 +9,7 @@ fi
 if [ -f ~/.vimrc ] && [ ! -f ~/.vimrc-orig ]; then
   mv ~/.vimrc ~/.vimrc-orig
 fi
+rm -rf ~/.vim
 cp -R $DIR/.vim* ~
 
 # IRB
