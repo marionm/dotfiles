@@ -84,14 +84,12 @@ elseif Windows()
   set guifont=Courier_New:h10
 endif
 
+set number
 if version >= 703
-  "Show relative line numbers
-  set relativenumber
-  " Map \l to toggle between number and relativenumber
+  "Default to relative line numbers
+  " set relativenumber
+  "Map \l to toggle between number and relativenumber
   nnoremap <silent> <leader>l :if &number==0<CR>set number<CR>else<CR>set relativenumber<CR>endif<CR>
-else
-  "Show line numbers
- set number
 endif
 
 "Show file info at bottom
