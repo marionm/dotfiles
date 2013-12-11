@@ -18,6 +18,13 @@ if [ -f ~/.irbrc ] && [ ! -f ~/.irbrc-orig ]; then
 fi
 cp $DIR/.irbrc ~
 
+# tmux
+if [ -f ~/.tmux.conf ] && [ ! -f ~/.tmux.conf-orig ]; then
+  mv ~/.tmux.conf ~/.tmux.conf-orig
+fi
+cp $DIR/.tmux.conf ~
+
+
 # Git
 if ! grep -q '# start marionm' ~/.gitconfig; then
   echo '# start marionm' >> ~/.gitconfig

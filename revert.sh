@@ -13,6 +13,11 @@ if [ -f ~/.irbrc-orig ]; then
   mv ~/.irbrc-orig ~/.irbrc
 fi
 
+# tmux
+if [ -f ~/.tmux.conf-orig ]; then
+  mv ~/.tmux.conf-orig ~/.tmux.conf
+fi
+
 # Git
 sed -i '' '/# start marionm/,/# end marionm/d' ~/.gitconfig
 
