@@ -1,4 +1,4 @@
-Configuration files for Bash, Git, and Vim.
+Various configuration files, most notably for Vim and Git.
 
 Clone and apply with:
 ```
@@ -11,6 +11,6 @@ Revert with:
 dotfiles/revert.sh
 ```
 
-Todos:
-1) Switch to Pathogen for Vim plugins
-2) Remove osascript dependency from vim-arduino-serial
+TODO:
+* Switch to Pathogen for Vim plugins
+* Remove osascript dependency from vim-arduino-serial
