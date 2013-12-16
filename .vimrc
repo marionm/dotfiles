@@ -21,8 +21,8 @@ autocmd! bufwritepost .vimrc source %
 noremap <F2> :sp $MYVIMRC<CR>
 noremap <F3> :source $MYVIMRC<CR>
 
-"Map F12 to a sort of hacky full-file XML formatting thing
-noremap <F12> :se ft=xml<CR>ggVGgJ:s/> *</>\r</g<CR>gg=G
+"Map F12 to a super hacky full-file XML formatting macro
+noremap <F12> O<ESC>ggVGgJ:s/> *</>\r</g<CR>:se ft=xml<CR>gg=G
 
 "Use Q instead of @q to enable easier one-shot macros
 noremap Q @q
