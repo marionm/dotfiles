@@ -2,13 +2,26 @@
 "       in your path.
 " On Ubuntu:
 "   sudo apt-get install ack-grep
-"   ln -s /usr/bin/ack-grep /usr/bin/ack
 " With MacPorts:
 "   sudo port install p5-app-ack
 
-let g:ackprg="ack\\ -H\\ --nocolor\\ --nogroup"
+function! SetAckCommand()
+  if executable('ack-grep')
+    let g:ackprg = "ack-grep"
+  elseif executable('ack')
+    let g:ackprg = "ack"
+  else
+    echo "Neither 'ack-grep' nor 'ack' found on the path"
+    return 0
+  endif
+  let g:ackprg = g:ackprg . "\\ -H\\ --nocolor\\ --nogroup"
+  return 1
+endfunction
 
 function! Ack(args)
+    if !SetAckCommand()
+      return
+    endif
     let grepprg_bak=&grepprg
     exec "set grepprg=" . g:ackprg
     execute "silent! grep " . a:args
@@ -18,6 +31,9 @@ function! Ack(args)
 endfunction
 
 function! AckAdd(args)
+    if !SetAckCommand()
+      return
+    endif
     let grepprg_bak=&grepprg
     exec "set grepprg=" . g:ackprg
     execute "silent! grepadd " . a:args
@@ -27,6 +43,9 @@ function! AckAdd(args)
 endfunction
 
 function! LAck(args)
+    if !SetAckCommand()
+      return
+    endif
     let grepprg_bak=&grepprg
     exec "set grepprg=" . g:ackprg
     execute "silent! lgrep " . a:args
@@ -36,6 +55,9 @@ function! LAck(args)
 endfunction
 
 function! LAckAdd(args)
+    if !SetAckCommand()
+      return
+    endif
     let grepprg_bak=&grepprg
     exec "set grepprg=" . g:ackprg
     execute "silent! lgrepadd " . a:args
