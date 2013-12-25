@@ -74,7 +74,7 @@ if !exists('g:vim_arduino_map_keys')
 endif
 
 if g:vim_arduino_map_keys
-  nnoremap <leader>ac :call ArduinoCompile()<CR>
-  nnoremap <leader>ad :call ArduinoDeploy()<CR>
-  nnoremap <leader>as :call ArduinoSerialMonitor()<CR>
+  nnoremap <leader>c :call ArduinoCompile()<CR>
+  nnoremap <leader>d :call ArduinoDeploy()<CR>
+  nnoremap <leader>s :call ArduinoSerialMonitor()<CR>
 endif
