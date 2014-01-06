@@ -79,7 +79,7 @@ set expandtab
 
 "Set up font by system
 if Mac()
-  set guifont=Menlo\ Regular:h13
+  set guifont=Monaco:h13
 elseif Windows()
   set guifont=Courier_New:h10
 endif
