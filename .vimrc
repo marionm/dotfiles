@@ -54,6 +54,7 @@ nnoremap <C-H> <C-W><C-H>
 syntax on
 set hidden
 set pastetoggle=<F5>
+let &titleold=""
 
 filetype on
 filetype plugin on
