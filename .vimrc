@@ -139,11 +139,12 @@ endfunc
 
 func! GlossyScreen()
   set background=light
-  if Mac() && Gui()
+  try
     colorscheme macvim
-    autocmd VimEnter * highlight Normal guibg=#dfdfdf
-    autocmd VimEnter * highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
-  endif
+    highlight Normal guibg=#dfdfdf
+    highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
+  catch
+  endtry
   let g:matteScreen=0
 endfunc
 
