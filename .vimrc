@@ -34,6 +34,11 @@ nmap <silent> <leader>g :call SwitchScreenType()<CR>
 noremap <F2> :sp $MYVIMRC<CR>
 noremap <F3> :source $MYVIMRC<CR>
 
+"Open NERDTree at startup, make it smaller, and focus in editing window
+" autocmd VimEnter * NERDTree
+" autocmd VimEnter * 7winc <
+" autocmd VimEnter * wincmd p
+
 "Autoreload _vimrc when saving it
 autocmd! bufwritepost .vimrc source %
 
@@ -183,16 +188,3 @@ if version >= 703
   set undodir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp,c:\tmp
 endif
 
-
-
-if Gui()
-  try
-    "Open NERDTree at startup
-    " autocmd VimEnter * NERDTree
-    "Make NERDTree smaller
-    " 7winc <
-    "Focus in editing window instead of NERDTree
-    " autocmd VimEnter * wincmd p
-  catch
-  endtry
-endif
