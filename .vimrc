@@ -119,18 +119,6 @@ set splitright
 
 
 
-func! Mac()
-  return has('unix') && system('uname') == "Darwin\n"
-endfunc
-
-func! Windows()
-  return has('win32')
-endfunc
-
-func! Gui()
-  return has('gui_running')
-endfunc
-
 func! MatteScreen()
   colorscheme solarized
   set background=dark
@@ -168,6 +156,20 @@ else
   call MatteScreen()
   " call GlossyScreen()
 endif
+
+
+
+func! Mac()
+  return has('unix') && system('uname') == "Darwin\n"
+endfunc
+
+func! Linux()
+  return has('unix') && system('uname') != "Darwin\n"
+endfunc
+
+func! Windows()
+  return has('win32')
+endfunc
 
 "Set font based on system
 if Mac()
