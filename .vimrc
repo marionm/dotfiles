@@ -156,9 +156,18 @@ func! SwitchScreenType()
   end
 endfunc
 
-"Set colorscheme based on screen type
-call MatteScreen()
-" call GlossyScreen()
+if exists("g:matteScreen")
+  "Reset colorscheme after a configuration reload to prevent weirdness
+  if g:matteScreen
+    call MatteScreen()
+  else
+    call GlossyScreen()
+  endif
+else
+  "Set initial colorscheme based on configured screen type
+  call MatteScreen()
+  " call GlossyScreen()
+endif
 
 "Set font based on system
 if Mac()
