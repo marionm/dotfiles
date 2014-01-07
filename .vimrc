@@ -27,6 +27,9 @@ nmap <silent> <leader>r :NERDTreeFind<CR>
 "Map \n to toggle NERDTree
 nmap <silent> <leader>n :NERDTreeToggle<CR>
 
+"Map \g to switch colors for screen type
+nmap <silent> <leader>g :call SwitchScreenType()<CR>
+
 "Map F2 to edit .vimrc, F3 to reload it
 noremap <F2> :sp $MYVIMRC<CR>
 noremap <F3> :source $MYVIMRC<CR>
@@ -123,20 +126,33 @@ func! Gui()
   return has('gui_running')
 endfunc
 
-"Set colorscheme based on system
-if Mac()
-  set background=light
-  if Gui()
-    colorscheme macvim
-  endif
-  "Set background color
-  autocmd VimEnter * highlight Normal guibg=#dfdfdf
-  "Make file info more readable given above background color
-  autocmd VimEnter * highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
-else
-  set background=dark
+func! MatteScreen()
   colorscheme solarized
-endif
+  set background=dark
+  let g:matteScreen=1
+endfunc
+
+func! GlossyScreen()
+  set background=light
+  if Mac() && Gui()
+    colorscheme macvim
+    autocmd VimEnter * highlight Normal guibg=#dfdfdf
+    autocmd VimEnter * highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
+  endif
+  let g:matteScreen=0
+endfunc
+
+func! SwitchScreenType()
+  if g:matteScreen
+    call GlossyScreen()
+  else
+    call MatteScreen()
+  end
+endfunc
+
+"Set colorscheme based on screen type
+call MatteScreen()
+" call GlossyScreen()
 
 "Set font based on system
 if Mac()
