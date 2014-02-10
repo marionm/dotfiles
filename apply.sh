@@ -24,6 +24,11 @@ if [ -f ~/.tmux.conf ] && [ ! -f ~/.tmux.conf-orig ]; then
 fi
 cp $DIR/.tmux.conf ~
 
+# screen
+if [ -f ~/.screenrc ] && [ ! -f ~/.screenrc-orig ]; then
+  mv ~/.screenrc ~/.screenrc-orig
+fi
+cp $DIR/.screenrc ~
 
 # Git
 if ! grep -q '# start marionm' ~/.gitconfig; then
