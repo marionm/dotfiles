@@ -1,30 +1,17 @@
 #!/bin/bash
 
-# Vim
-if [ -d ~/.vim-orig ]; then
-  mv ~/.vim-orig ~/.vim
-fi
-if [ -f ~/.vimrc-orig ]; then
-  mv ~/.vimrc-orig ~/.vimrc
-fi
+revert() {
+  if [ -d $1-orig ]; then
+    mv $1-orig $1
+  fi
+}
 
-# IRB
-if [ -f ~/.irbrc-orig ]; then
-  mv ~/.irbrc-orig ~/.irbrc
-fi
+revert ~/.vim
+revert ~/.vimrc
+revert ~/.irbrc
+revert ~/.tmux.conf
+revert ~/.screenrc
 
-# tmux
-if [ -f ~/.tmux.conf-orig ]; then
-  mv ~/.tmux.conf-orig ~/.tmux.conf
-fi
-
-# screen
-if [ -f ~/.screenrc-orig ]; then
-  mv ~/.screenrc-orig ~/.screenrc
-fi
-
-# Git
 sed -i '' '/# start marionm/,/# end marionm/d' ~/.gitconfig
 
-# Bash
 rm -f ~/.profile-marionm
