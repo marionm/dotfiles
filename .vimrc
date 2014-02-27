@@ -10,8 +10,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-"Map jj to escape in insert mode
-imap jj <ESC>
+"Map jk to escape in insert mode
+imap jk <ESC>
 
 "Map \a to Ack current word
 nmap <leader>a :Ack <C-R><C-W><CR>
