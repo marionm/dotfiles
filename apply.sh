@@ -12,6 +12,7 @@ backup ~/.vim
 backup ~/.vimrc
 rm -rf ~/.vim
 cp -R $DIR/.vim* ~
+vim -c BundleInstall -c qa
 
 backup ~/.irbrc
 cp $DIR/.irbrc ~

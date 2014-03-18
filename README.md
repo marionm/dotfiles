@@ -10,7 +10,3 @@ Revert with:
 ```
 dotfiles/revert.sh
 ```
-
-TODO:
-* Switch to Pathogen for Vim plugins
-* Remove osascript dependency from vim-arduino-serial

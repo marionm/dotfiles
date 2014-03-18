@@ -1,3 +1,27 @@
+set nocompatible
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#rc()
+Bundle 'gmarik/vundle'
+
+Bundle 'altercation/vim-colors-solarized'
+
+Bundle 'kien/ctrlp.vim'
+Bundle 'mileszs/ack.vim'
+Bundle 'scrooloose/nerdtree'
+
+Bundle 'tpope/vim-endwise'
+Bundle 'tpope/vim-surround'
+
+Bundle 'gregsexton/MatchTag'
+Bundle 'lukaszb/vim-web-indent'
+Bundle 'sukima/xmledit'
+Bundle 'tclem/vim-arduino'
+Bundle 'vim-scripts/Arduino-syntax-file'
+
+
+
 "Use Q instead of @q to enable easier one-shot macros
 noremap Q @q
 
@@ -123,7 +147,7 @@ set splitright
 
 
 func! MatteScreen()
-  colorscheme solarized
+  silent! colorscheme solarized
   set background=dark
   let g:matteScreen=1
 endfunc
@@ -131,7 +155,7 @@ endfunc
 func! GlossyScreen()
   set background=light
   try
-    colorscheme macvim
+    silent! colorscheme macvim
     highlight Normal guibg=#dfdfdf
     highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
   catch
