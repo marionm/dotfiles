@@ -202,15 +202,9 @@ func! Linux()
   return has('unix') && system('uname') != "Darwin\n"
 endfunc
 
-func! Windows()
-  return has('win32')
-endfunc
-
 "Set font based on system
 if Mac()
   set guifont=Monaco:h13
-elseif Windows()
-  set guifont=Courier_New:h10
 endif
 
 
