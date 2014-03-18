@@ -34,7 +34,8 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-"Map jk to escape in insert mode
+"Map jj and jk to escape in insert mode
+imap jj <ESC>
 imap jk <ESC>
 
 "Map \a to Ack current word
