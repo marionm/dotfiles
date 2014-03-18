@@ -6,6 +6,7 @@ call vundle#rc()
 Bundle 'gmarik/vundle'
 
 Bundle 'altercation/vim-colors-solarized'
+Bundle 'nathanaelkane/vim-indent-guides'
 
 Bundle 'kien/ctrlp.vim'
 Bundle 'mileszs/ack.vim'
