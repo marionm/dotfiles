@@ -1,38 +1,40 @@
 #!/bin/bash
 
 DIR=`dirname $0`
+. $DIR/util.sh
 
-backup() {
-  if [ -d $1 ] && [ ! -d $1-orig ]; then
-    mv $1 $1-orig
+if argument vim; then
+  replace ~/.vim
+  replace ~/.vimrc
+  vim -c BundleInstall -c qa
+fi
+
+if argument irb; then
+  replace ~/.irbrc
+fi
+
+if argument tmux; then
+  replace ~/.tmux.conf
+fi
+
+if argument screen; then
+  replace ~/.screenrc
+fi
+
+if argument git; then
+  if ! grep -q '# start marionm' ~/.gitconfig; then
+    echo '# start marionm' >> ~/.gitconfig
+    cat $DIR/.gitconfig >> ~/.gitconfig
+    echo '# end marionm' >> ~/.gitconfig
   fi
-}
-
-backup ~/.vim
-backup ~/.vimrc
-rm -rf ~/.vim
-cp -R $DIR/.vim* ~
-vim -c BundleInstall -c qa
-
-backup ~/.irbrc
-cp $DIR/.irbrc ~
-
-backup ~/.tmux.conf
-cp $DIR/.tmux.conf ~
-
-backup ~/.screenrc
-cp $DIR/.screenrc ~
-
-if ! grep -q '# start marionm' ~/.gitconfig; then
-  echo '# start marionm' >> ~/.gitconfig
-  cat $DIR/.gitconfig >> ~/.gitconfig
-  echo '# end marionm' >> ~/.gitconfig
+  cp $DIR/.git-completion.sh ~
+  cp $DIR/.git-branch-prompt.sh ~
 fi
-cp $DIR/.git-completion.sh ~
-cp $DIR/.git-branch-prompt.sh ~
 
-cp $DIR/.profile-marionm ~
-if ! grep -q profile-marionm ~/.bashrc; then
-  echo 'if [ -f ~/.profile-marionm ]; then . ~/.profile-marionm; fi' >> ~/.bashrc
+if argument bash; then
+  cp $DIR/.profile-marionm ~
+  if ! grep -q profile-marionm ~/.bashrc; then
+    echo 'if [ -f ~/.profile-marionm ]; then . ~/.profile-marionm; fi' >> ~/.bashrc
+  fi
+  . ~/.bashrc
 fi
-. ~/.bashrc

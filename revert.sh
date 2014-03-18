@@ -1,17 +1,29 @@
 #!/bin/bash
 
-revert() {
-  if [ -d $1-orig ]; then
-    mv $1-orig $1
-  fi
-}
+. `dirname $0`/util.sh
 
-revert ~/.vim
-revert ~/.vimrc
-revert ~/.irbrc
-revert ~/.tmux.conf
-revert ~/.screenrc
+if argument vim; then
+  revert ~/.vim
+  revert ~/.vimrc
+fi
 
-sed -i '' '/# start marionm/,/# end marionm/d' ~/.gitconfig
+if argument irb; then
+  revert ~/.irbrc
+fi
 
-rm -f ~/.profile-marionm
+if argument tmux; then
+  revert ~/.tmux.conf
+fi
+
+if argument screen; then
+  echo doit
+  revert ~/.screenrc
+fi
+
+if argument git; then
+  sed -i '' '/# start marionm/,/# end marionm/d' ~/.gitconfig
+fi
+
+if argument bash; then
+  rm -f ~/.profile-marionm
+fi
