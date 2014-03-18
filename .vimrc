@@ -57,6 +57,12 @@ nmap <silent> <leader>n :NERDTreeToggle<CR>
 "Map \g to switch colors for screen type
 nmap <silent> <leader>g :call SwitchScreenType()<CR>
 
+"Use custom Arduino bindings
+let g:vim_arduino_map_keys = 0
+nnoremap <leader>c :call ArduinoCompile()<CR>
+nnoremap <leader>d :call ArduinoDeploy()<CR>
+nnoremap <leader>s :call ArduinoSerialMonitor()<CR>
+
 "Map F2 to edit .vimrc, F3 to reload it
 noremap <F2> :sp $MYVIMRC<CR>
 noremap <F3> :source $MYVIMRC<CR>
