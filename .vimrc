@@ -1,25 +1,27 @@
 set nocompatible
-filetype off
 
-set rtp+=~/.vim/bundle/vundle/
-call vundle#rc()
-Bundle 'gmarik/vundle'
+set rtp+=~/.vim/bundle/neobundle.vim/
+call neobundle#rc(expand('~/.vim/bundle'))
+NeoBundleFetch 'Shougo/neobundle.vim'
 
-Bundle 'altercation/vim-colors-solarized'
-Bundle 'nathanaelkane/vim-indent-guides'
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
-Bundle 'kien/ctrlp.vim'
-Bundle 'mileszs/ack.vim'
-Bundle 'scrooloose/nerdtree'
+NeoBundle 'kien/ctrlp.vim'
+NeoBundle 'mileszs/ack.vim'
+NeoBundle 'scrooloose/nerdtree'
 
-Bundle 'tpope/vim-endwise'
-Bundle 'tpope/vim-surround'
+NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-surround'
 
-Bundle 'gregsexton/MatchTag'
-Bundle 'lukaszb/vim-web-indent'
-Bundle 'sukima/xmledit'
-Bundle 'tclem/vim-arduino'
-Bundle 'vim-scripts/Arduino-syntax-file'
+NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'lukaszb/vim-web-indent'
+NeoBundle 'sukima/xmledit'
+NeoBundle 'tclem/vim-arduino'
+NeoBundle 'vim-scripts/Arduino-syntax-file'
+
+filetype plugin indent on
+syntax on
 
 
 
@@ -83,11 +85,6 @@ set hidden
 set mouse=a
 set encoding=utf-8
 set ttyfast
-
-syntax on
-filetype on
-filetype plugin on
-filetype indent on
 
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino

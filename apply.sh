@@ -6,7 +6,7 @@ DIR=`dirname $0`
 if argument vim; then
   replace ~/.vim
   replace ~/.vimrc
-  vim -c BundleInstall -c qa
+  vim -c NeoBundleInstall -c qa
 fi
 
 if argument irb; then
