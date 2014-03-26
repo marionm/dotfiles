@@ -58,6 +58,10 @@ nmap <silent> <leader>r :NERDTreeFind<CR>
 "Map \n to toggle NERDTree
 nmap <silent> <leader>n :NERDTreeToggle<CR>
 
+"Map \bd to delete all empty buffers
+"The set/echo ensures the message is displayed even if an open window is closed
+nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers()<CR>:echo 'Deleted ' . deleted . ' buffer(s)'<CR>
+
 "Map \g to switch colors for screen type
 nmap <silent> <leader>g :call SwitchScreenType()<CR>
 
@@ -148,6 +152,25 @@ nnoremap <C-y> 3<C-y>
 "Improve split behavior
 set splitbelow
 set splitright
+
+
+
+func! DeleteEmptyBuffers()
+  let [deleted, i, highest] = [0, 1, bufnr('$')]
+
+  while i <= highest
+    if buflisted(i) && bufname(i) == ''
+      try
+        exec 'bdelete' i
+        let deleted += 1
+      catch
+      endtry
+    endif
+    let i += 1
+  endwhile
+
+  return deleted
+endfunc
 
 
 
