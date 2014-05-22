@@ -12,11 +12,11 @@ NeoBundle 'mileszs/ack.vim'
 NeoBundle 'scrooloose/nerdtree'
 
 NeoBundle 'tpope/vim-endwise'
+NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'lukaszb/vim-web-indent'
-NeoBundle 'sukima/xmledit'
 NeoBundle 'tclem/vim-arduino'
 NeoBundle 'vim-scripts/Arduino-syntax-file'
 
