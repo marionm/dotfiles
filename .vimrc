@@ -249,3 +249,5 @@ if version >= 703
   set undodir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp,c:\tmp
 endif
 
+"Some plugin conflicts with git commit message detection; do it manually
+autocmd BufNewFile,BufRead *.git/{,modules/**/}{COMMIT_EDIT,MERGE_}MSG set ft=gitcommit
