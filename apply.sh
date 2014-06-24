@@ -4,6 +4,7 @@ DIR=`dirname $0`
 . $DIR/util.sh
 
 if argument vim; then
+  (cd $DIR ; git submodule update --init)
   replace ~/.vim
   replace ~/.vimrc
   vim -c NeoBundleInstall -c qa
