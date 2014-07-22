@@ -5,10 +5,15 @@ alias gvim='UBUNTU_MENUPROXY= gvim'
 
 export EDITOR=vim
 export BUNDLER_EDITOR=gvim
-export PROMPT_COMMAND='echo -ne "\033]0;$TITLE\007"'
+
+export PROMPT_COMMAND='echo -ne "\033]0;${TITLE-${PWD##*/}}\007"'
 
 function title {
-  TITLE=$*;
+  TITLE=$*
+}
+
+function notitle {
+  unset TITLE
 }
 
 if [ -f ~/.git-completion.sh ]; then
