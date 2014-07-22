@@ -6,9 +6,9 @@ git clone https://github.com/marionm/dotfiles
 dotfiles/apply.sh
 ````
 
-The apply script will take arguments if only some changes are desired. For example, to apply only vim and tmux:
+The apply script will reconfigure everything by default, or it can take any of `bash`, `git`, `irb`, `screen`, `tmux`, and `vim` as arguments. For example, to apply only git and vim:
 ```
-dotfiles/apply.sh vim tmux
+dotfiles/apply.sh git vim
 ```
 
 Revert with:
