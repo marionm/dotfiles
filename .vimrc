@@ -46,6 +46,9 @@ nmap <leader>a :Ack <C-R><C-W><CR>
 "Map \A to prep Ack for current word
 nmap <leader>A :Ack <C-R><C-W>
 
+"Add binding for new vertical window
+nmap <C-W>N :vnew<CR>
+
 "Map F5 to paste mode toggle
 set pastetoggle=<F5>
 
