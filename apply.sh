@@ -23,11 +23,11 @@ if argument screen; then
 fi
 
 if argument git; then
-  if ! grep -q '# start marionm' ~/.gitconfig; then
-    echo '# start marionm' >> ~/.gitconfig
-    cat $DIR/.gitconfig >> ~/.gitconfig
-    echo '# end marionm' >> ~/.gitconfig
-  fi
+  $DIR/revert.sh git
+  echo '# start marionm' >> ~/.gitconfig
+  cat $DIR/.gitconfig >> ~/.gitconfig
+  echo '# end marionm' >> ~/.gitconfig
+
   cp $DIR/.git-completion.sh ~
   cp $DIR/.git-branch-prompt.sh ~
 fi
