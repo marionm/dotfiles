@@ -116,9 +116,9 @@ endif
 
 set cursorline
 set showmode
-"Show file info at bottom
+"Show buffer number and cursor position in ruler
 set ruler 
-set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%)
+set rulerformat=%=\:b%n\ %l,%c%V\ %P
 "Show entered partial commands in ruler
 set showcmd
 "Always show status
