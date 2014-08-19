@@ -21,7 +21,10 @@ if argument screen; then
 fi
 
 if argument git; then
-  sed -i '' '/# start marionm/,/# end marionm/d' ~/.gitconfig
+  TARGET=~/.gitconfig
+  TMP=/tmp/.gitconfig.marionm
+  sed -e '/# start marionm/,/# end marionm/d' $TARGET > $TMP
+  mv $TMP $TARGET
 fi
 
 if argument bash; then
