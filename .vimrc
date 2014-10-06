@@ -17,6 +17,8 @@ NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'gregsexton/MatchTag'
 NeoBundle 'lukaszb/vim-web-indent'
+NeoBundle 'scrooloose/syntastic'
+
 NeoBundle 'tclem/vim-arduino'
 NeoBundle 'vim-scripts/Arduino-syntax-file'
 
@@ -155,6 +157,15 @@ nnoremap <C-y> 3<C-y>
 "Improve split behavior
 set splitbelow
 set splitright
+
+
+
+"Make syntastic a bit more permissive for HTML
+let g:syntastic_html_tidy_ignore_errors = [
+  \ 'proprietary attribute "ng-',
+  \ '<html> proprietary attribute "class"',
+  \ '<img> lacks "alt" attribute'
+\ ]
 
 
 
