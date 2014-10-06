@@ -163,6 +163,7 @@ set splitright
 "Make syntastic a bit more permissive for HTML
 let g:syntastic_html_tidy_ignore_errors = [
   \ 'proprietary attribute "ng-',
+  \ '<a> escaping malformed URI reference',
   \ '<html> proprietary attribute "class"',
   \ '<img> lacks "alt" attribute'
 \ ]
