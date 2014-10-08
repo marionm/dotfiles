@@ -165,7 +165,9 @@ let g:syntastic_html_tidy_ignore_errors = [
   \ 'proprietary attribute "ng-',
   \ '<a> escaping malformed URI reference',
   \ '<html> proprietary attribute "class"',
-  \ '<img> lacks "alt" attribute'
+  \ '<img> lacks "alt" attribute',
+  \ '<img> lacks "src" attribute',
+  \ '<input> proprietary attribute "required"'
 \ ]
 
 
