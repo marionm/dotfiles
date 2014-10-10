@@ -258,6 +258,9 @@ set foldlevelstart=20
 "Map F12 to a super hacky full-file XML formatting macro
 noremap <F12> O<ESC>ggVGgJ:s/> *</>\r</g<CR>:se ft=xml<CR>gg=G
 
+"Map F11 to a super hacky full-file Ruby object formatting macro
+noremap <F11> O<ESC>ggVGgJ:%s/{/{\r/g<CR>:%s/}/\r}/g<CR>:%s/,/,\r/g<CR>:%s/=>/ => /g<CR>:se ft=ruby<CR>gg=G
+
 
 
 "Consolidate backup files
