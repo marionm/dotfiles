@@ -162,7 +162,7 @@ set splitright
 
 "Set ctrlp exclusions
 "If it isn't working, run :ClearAllCtrlPCaches
-let g:ctrlp_custom_ignore = 'bower_components/\|node_modules/\|cordova/'
+let g:ctrlp_custom_ignore = 'bower_components/\|node_modules/\|cordova\|dist/'
 
 "Make syntastic a bit more permissive for HTML
 let g:syntastic_html_tidy_ignore_errors = [
