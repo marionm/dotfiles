@@ -164,14 +164,15 @@ set splitright
 "If it isn't working, run :ClearAllCtrlPCaches
 let g:ctrlp_custom_ignore = 'bower_components/\|node_modules/\|cordova\|dist/'
 
-"Make syntastic a bit more permissive for HTML
+"Make syntastic a bit more permissive for HTML and AngularJS
 let g:syntastic_html_tidy_ignore_errors = [
-  \ 'proprietary attribute "ng-',
+  \ 'proprietary attribute',
+  \ 'missing <',
+  \ 'trimming empty <',
   \ '<a> escaping malformed URI reference',
-  \ '<html> proprietary attribute "class"',
   \ '<img> lacks "alt" attribute',
   \ '<img> lacks "src" attribute',
-  \ '<input> proprietary attribute "required"'
+  \ '<ng-include>', '</ng-include>'
 \ ]
 
 
