@@ -166,13 +166,15 @@ let g:ctrlp_custom_ignore = 'bower_components/\|node_modules/\|cordova\|dist/'
 
 "Make syntastic a bit more permissive for HTML and AngularJS
 let g:syntastic_html_tidy_ignore_errors = [
+  \ 'escaping malformed URI reference',
   \ 'proprietary attribute',
   \ 'missing <',
   \ 'trimming empty <',
-  \ '<a> escaping malformed URI reference',
-  \ '<img> lacks "alt" attribute',
-  \ '<img> lacks "src" attribute',
-  \ '<ng-include>', '</ng-include>'
+  \ '<img> lacks "',
+  \ '<bb-', '</bb-',
+  \ '<nc-', '</nc-',
+  \ '<ng-include>', '</ng-include>',
+  \ '<ng-transclude>', '</ng-transclude>'
 \ ]
 
 
