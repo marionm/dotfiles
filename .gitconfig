@@ -11,6 +11,7 @@
 [alias]
   ci = commit
   co = checkout
+  cp = cherry-pick
   st = status
   s  = status
   br = branch
