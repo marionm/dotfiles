@@ -265,6 +265,8 @@ noremap <F12> O<ESC>ggVGgJ:s/> *</>\r</g<CR>:se ft=xml<CR>gg=G
 "Map F11 to a super hacky full-file Ruby object formatting macro
 noremap <F11> O<ESC>ggVGgJ:%s/{/{\r/g<CR>:%s/}/\r}/g<CR>:%s/,/,\r/g<CR>:%s/=>/ => /g<CR>:se ft=ruby<CR>gg=G
 
+"Map F10 to a super hacky angular test injection helper
+noremap <F10> ^"iy$Ivar <ESC>A;<ESC>o<CR>beforeEach(inject(function(<CR>_<C-R>i_<CR>) {<ESC>k:s/, /_, _/g<CR>jo<C-R>i, <ESC>:s/\(\$\?\w*\), /_\1_ = \1;\r/g<CR>O}));<ESC>Vgg= 
 
 
 "Consolidate backup files
