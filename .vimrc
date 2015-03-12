@@ -11,6 +11,7 @@ NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'scrooloose/nerdtree'
 
+NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'tpope/vim-ragtag'
