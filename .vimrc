@@ -72,6 +72,10 @@ nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers()<CR>:echo 'Deleted '
 "Map \g to switch colors for screen type
 nmap <silent> <leader>g :call SwitchScreenType()<CR>
 
+"Map \* and \# to begin seaching for current selection
+vmap <silent> <leader>* "*y:/<C-R>*<CR>
+vmap <silent> <leader># "*y:?<C-R>*<CR>
+
 "Use custom Arduino bindings
 let g:vim_arduino_map_keys = 0
 nnoremap <leader>c :call ArduinoCompile()<CR>
