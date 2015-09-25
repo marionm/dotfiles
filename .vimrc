@@ -18,7 +18,9 @@ NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'tpope/vim-surround'
 
 NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'lukaszb/vim-web-indent'
+NeoBundle 'mxw/vim-jsx'
 NeoBundle 'scrooloose/syntastic'
 
 NeoBundle 'tclem/vim-arduino'
@@ -72,15 +74,20 @@ nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers()<CR>:echo 'Deleted '
 "Map \g to switch colors for screen type
 nmap <silent> <leader>g :call SwitchScreenType()<CR>
 
-"Map \* and \# to begin seaching for current selection
-vmap <silent> <leader>* "*y:/<C-R>*<CR>
-vmap <silent> <leader># "*y:?<C-R>*<CR>
+"Map * and # to begin seaching for current selection
+vmap * "*y:/<C-R>*<CR>
+vmap # "*y:?<C-R>*<CR>
+
+"Map \be, \d, and \is to Jasmine test templates
+nmap <leader>be obeforeEach(() => {<CR>});<ESC>k=}o  
+nmap <leader>d o<CR>describe('', () => {<CR>});<ESC>k=}f'a
+nmap <leader>i o<CR>it('', () => {<CR>});<ESC>k=}f'a
 
 "Use custom Arduino bindings
-let g:vim_arduino_map_keys = 0
-nnoremap <leader>c :call ArduinoCompile()<CR>
-nnoremap <leader>d :call ArduinoDeploy()<CR>
-nnoremap <leader>s :call ArduinoSerialMonitor()<CR>
+" let g:vim_arduino_map_keys = 0
+" nnoremap <leader>c :call ArduinoCompile()<CR>
+" nnoremap <leader>d :call ArduinoDeploy()<CR>
+" nnoremap <leader>s :call ArduinoSerialMonitor()<CR>
 
 "Map F2 to edit .vimrc, F3 to reload it
 noremap <F2> :sp $MYVIMRC<CR>
@@ -183,6 +190,8 @@ let g:syntastic_html_tidy_ignore_errors = [
   \ '<ng-transclude>', '</ng-transclude>'
 \ ]
 
+let g:syntastic_javascript_checkers = ['jsxhint']
+
 
 
 func! DeleteEmptyBuffers()
@@ -259,9 +268,11 @@ endif
 
 
 
-"Enable xml folding
+"Enable XML and JS folding
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
+au FileType javascript call JavaScriptFold()
+au FileType javascript normal zn
 set foldlevelstart=20
 
 "Map F12 to a super hacky full-file XML formatting macro
@@ -271,7 +282,7 @@ noremap <F12> O<ESC>ggVGgJ:s/> *</>\r</g<CR>:se ft=xml<CR>gg=G
 noremap <F11> O<ESC>ggVGgJ:%s/{/{\r/g<CR>:%s/}/\r}/g<CR>:%s/,/,\r/g<CR>:%s/=>/ => /g<CR>:se ft=ruby<CR>gg=G
 
 "Map F10 to a super hacky angular test injection helper
-noremap <F10> ^"iy$Ivar <ESC>A;<ESC>o<CR>beforeEach(inject(function(<CR>_<C-R>i_<CR>) {<ESC>k:s/, /_, _/g<CR>jo<C-R>i, <ESC>:s/\(\$\?\w*\), /\1 = _\1_;\r/g<CR>O}));<ESC>Vgg= 
+noremap <F10> ^"iy$Ilet <ESC>A;<ESC>o<CR>beforeEach(inject((<CR>_<C-R>i_<CR>) => {<ESC>k:s/, /_, _/g<CR>jo<C-R>i, <ESC>:s/\(\$\?\w*\), /\1 = _\1_;\r/g<CR>O}));<ESC>Vgg= 
 
 
 "Consolidate backup files
