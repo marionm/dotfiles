@@ -4,27 +4,36 @@ set rtp+=~/.vim/bundle/neobundle.vim/
 call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
-NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+" General
+NeoBundle 'kana/vim-fakeclip'
+NeoBundle 'scrooloose/syntastic'
+NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'tpope/vim-surround'
 
+" Navigation
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'scrooloose/nerdtree'
 
-NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'tpope/vim-ragtag'
-NeoBundle 'tpope/vim-surround'
+" Visual
+NeoBundle 'altercation/vim-colors-solarized'
+NeoBundle 'nathanaelkane/vim-indent-guides'
 
-NeoBundle 'gregsexton/MatchTag'
+" Arduino
+" NeoBundle 'tclem/vim-arduino'
+" NeoBundle 'vim-scripts/Arduino-syntax-file'
+
+" JavaScript
 NeoBundle 'jelera/vim-javascript-syntax'
 NeoBundle 'lukaszb/vim-web-indent'
 NeoBundle 'mxw/vim-jsx'
-NeoBundle 'scrooloose/syntastic'
 
-NeoBundle 'tclem/vim-arduino'
-NeoBundle 'vim-scripts/Arduino-syntax-file'
+" Markup
+NeoBundle 'gregsexton/MatchTag'
+NeoBundle 'tpope/vim-ragtag'
+
+" Ruby
+NeoBundle 'tpope/vim-endwise'
 
 filetype plugin indent on
 syntax on
