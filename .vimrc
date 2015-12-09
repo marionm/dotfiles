@@ -7,6 +7,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 " General
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'tpope/vim-surround'
 
@@ -34,6 +35,7 @@ NeoBundle 'tpope/vim-ragtag'
 
 " Ruby
 NeoBundle 'tpope/vim-endwise'
+NeoBundle 'vim-ruby/vim-ruby'
 
 filetype plugin indent on
 syntax on
