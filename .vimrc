@@ -182,6 +182,9 @@ nnoremap <C-y> 3<C-y>
 set splitbelow
 set splitright
 
+" Location list navigation
+nmap [[ :lprevious<CR>
+nmap ]] :lnext<CR>
 
 
 " Set ctrlp exclusions
@@ -202,6 +205,13 @@ let g:syntastic_html_tidy_ignore_errors = [
 \ ]
 
 let g:syntastic_javascript_checkers = ['jsxhint']
+
+" Enable automatic population of location list, add bindings
+let syntastic_always_populate_loc_list = 1
+nmap \E :SyntasticCheck<CR>
+nmap \e :Errors<CR>
+
+
 
 
 
