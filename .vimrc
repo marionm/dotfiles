@@ -186,6 +186,10 @@ set splitright
 nmap [[ :execute "try\n lprevious\n catch\n ll 99999\n endtry"<CR>
 nmap ]] :execute "try\n lnext\n catch\n ll 1\n endtry"<CR>
 
+" Quickfist list (Ack) navigation
+nmap [a :cprevious<CR>
+nmap ]a :cnext<CR>
+
 
 " Set ctrlp exclusions
 " If it isn't working, run :ClearAllCtrlPCaches
