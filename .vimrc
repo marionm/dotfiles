@@ -182,9 +182,9 @@ nnoremap <C-y> 3<C-y>
 set splitbelow
 set splitright
 
-" Location list navigation
-nmap [[ :lprevious<CR>
-nmap ]] :lnext<CR>
+" Location list navigation, with wraparound
+nmap [[ :execute "try\n lprevious\n catch\n ll 99999\n endtry"<CR>
+nmap ]] :execute "try\n lnext\n catch\n ll 1\n endtry"<CR>
 
 
 " Set ctrlp exclusions
