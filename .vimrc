@@ -9,6 +9,8 @@ NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'terryma/vim-multiple-cursors'
+NeoBundle 'tmhedberg/matchit'
+NeoBundle 'tpope/vim-commentary'
 NeoBundle 'tpope/vim-surround'
 
 " Navigation
