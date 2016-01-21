@@ -22,7 +22,7 @@ NeoBundle 'scrooloose/nerdtree'
 
 " Visual
 NeoBundle 'altercation/vim-colors-solarized'
-NeoBundle 'nathanaelkane/vim-indent-guides'
+" NeoBundle 'nathanaelkane/vim-indent-guides'
 
 " Arduino
 " NeoBundle 'tclem/vim-arduino'
@@ -82,11 +82,6 @@ nmap ]a :cnext<CR>
 nmap [[ :execute "try\n lprevious\n catch\n ll 99999\n endtry"<CR>
 nmap ]] :execute "try\n lnext\n catch\n ll 1\n endtry"<CR>
 
-" Map \be, \d, and \is to Jasmine test templates
-nmap <leader>be obeforeEach(() => {<CR>});<ESC>k=}o  
-nmap <leader>d o<CR>describe('', () => {<CR>});<ESC>k=}f'a
-nmap <leader>i o<CR>it('', () => {<CR>});<ESC>k=}f'a
-
 " Map F2 to edit .vimrc, F3 to reload it
 noremap <F2> :sp $MYVIMRC<CR>
 noremap <F3> :source $MYVIMRC<CR>
@@ -103,6 +98,11 @@ noremap <F12> O<ESC>ggVGgJ:s/> *</>\r</g<CR>:se ft=xml<CR>gg=G
 
 
 """ Function bindings
+
+" Map \be, \d, and \i to framework specific test templates
+nmap <leader>be :call BeforeBlock()<CR>
+nmap <leader>d :call DescribeBlock()<CR>
+nmap <leader>i :call ItBlock()<CR>
 
 " Map \bd to delete all empty buffers
 " The set/echo ensures the message is displayed even if an open window is closed
@@ -323,6 +323,30 @@ let syntastic_always_populate_loc_list = 1
 
 """ Functions
 
+func! BeforeBlock()
+  if &filetype == "javascript"
+    call feedkeys("obeforeEach(() => {});k=}o  ")
+  elseif &filetype == "ruby"
+    call feedkeys("obefore dok=}jddko")
+  endif
+endfunc
+
+func! DescribeBlock()
+  if &filetype == "javascript"
+    call feedkeys("odescribe('', () => {});k=}f'a")
+  elseif &filetype == "ruby"
+    call feedkeys("odescribe '' dok=}jddkf'a")
+  endif
+endfunc
+
+func! ItBlock()
+  if &filetype == "javascript"
+    call feedkeys("oit('', () => {});k=}f'a")
+  elseif &filetype == "ruby"
+    call feedkeys("oit '' dok=}jddkf'a")
+  endif
+endfunc
+
 func! DeleteEmptyBuffers()
   let [deleted, i, highest] = [0, 1, bufnr('$')]
 
@@ -339,3 +363,9 @@ func! DeleteEmptyBuffers()
 
   return deleted
 endfunc
+
+" Map \be, \d, and \is to Jasmine test templates
+" nmap <leader>be obeforeEach(() => {<CR>});<ESC>k=}o  
+" nmap <leader>d o<CR>describe('', () => {<CR>});<ESC>k=}f'a
+" nmap <leader>i o<CR>it('', () => {<CR>});<ESC>k=}f'a
+
