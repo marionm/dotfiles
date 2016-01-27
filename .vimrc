@@ -363,9 +363,3 @@ func! DeleteEmptyBuffers()
 
   return deleted
 endfunc
-
-" Map \be, \d, and \is to Jasmine test templates
-" nmap <leader>be obeforeEach(() => {<CR>});<ESC>k=}o  
-" nmap <leader>d o<CR>describe('', () => {<CR>});<ESC>k=}f'a
-" nmap <leader>i o<CR>it('', () => {<CR>});<ESC>k=}f'a
-
