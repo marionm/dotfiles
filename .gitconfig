@@ -5,10 +5,11 @@
 [merge]
   tool = vimdiff
 [color]
-  diff = auto
+  diff   = auto
   status = auto
   branch = auto
 [alias]
+  a  = add
   ci = commit
   co = checkout
   cp = cherry-pick
