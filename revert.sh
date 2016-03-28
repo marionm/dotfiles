@@ -7,8 +7,8 @@ if argument vim; then
   revert ~/.vimrc
 fi
 
-if argument irb; then
-  revert ~/.irbrc
+if argument pry; then
+  revert ~/.pryrc
 fi
 
 if argument tmux; then

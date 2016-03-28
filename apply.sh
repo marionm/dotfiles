@@ -10,8 +10,8 @@ if argument vim; then
   vim -c NeoBundleInstall -c qa
 fi
 
-if argument irb; then
-  replace ~/.irbrc
+if argument pry; then
+  replace ~/.pryrc
 fi
 
 if argument tmux; then
