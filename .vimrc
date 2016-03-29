@@ -335,7 +335,7 @@ func! DescribeBlock()
   if &filetype == "javascript"
     call feedkeys("odescribe('', () => {});k=}f'a")
   elseif &filetype == "ruby"
-    call feedkeys("odescribe \"\" dok=}jddkf'a")
+    call feedkeys("odescribe \"\" dok=}jddkf\"a")
   endif
 endfunc
 
@@ -343,7 +343,7 @@ func! ItBlock()
   if &filetype == "javascript"
     call feedkeys("oit('', () => {});k=}f'a")
   elseif &filetype == "ruby"
-    call feedkeys("oit \"\" dok=}jddkf'a")
+    call feedkeys("oit \"\" dok=}jddkf\"a")
   endif
 endfunc
 
