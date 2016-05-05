@@ -8,6 +8,7 @@ NeoBundleFetch 'Shougo/neobundle.vim'
 
 " General
 NeoBundle 'kana/vim-fakeclip'
+NeoBundle 'MarcWeber/vim-addon-local-vimrc'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'terryma/vim-multiple-cursors'
@@ -291,23 +292,6 @@ else
 endif
 
 
-
-" Set ctrlp exclusions
-" If it isn't working, run :ClearAllCtrlPCaches
-let g:ctrlp_custom_ignore = 'bower_components/\|node_modules/\|cordova\|dist\|deployer/'
-
-" Make syntastic a bit more permissive for HTML and AngularJS
-let g:syntastic_html_tidy_ignore_errors = [
-  \ 'escaping malformed URI reference',
-  \ 'proprietary attribute',
-  \ 'missing <',
-  \ 'trimming empty <',
-  \ '<img> lacks "',
-  \ '<bb-', '</bb-',
-  \ '<nc-', '</nc-',
-  \ '<ng-include>', '</ng-include>',
-  \ '<ng-transclude>', '</ng-transclude>'
-\ ]
 
 let g:syntastic_javascript_checkers = ['jsxhint']
 
