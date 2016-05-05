@@ -186,6 +186,7 @@ if version >= 703
 endif
 
 set cursorline
+set colorcolumn=100
 set showmode
 " Show buffer number and cursor position in ruler
 set ruler 
