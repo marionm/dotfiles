@@ -75,7 +75,7 @@ nmap <silent> <leader>\ :silent :nohlsearch<CR>
 vmap * "*y:/<C-R>*<CR>
 vmap # "*y:?<C-R>*<CR>
 
-" Quickfist list (Ack) navigation
+" Quickfist list (Ack/ag) navigation
 nmap [a :cprevious<CR>
 nmap ]a :cnext<CR>
 
@@ -94,7 +94,7 @@ noremap <F10> ^"iy$Ilet <ESC>A;<ESC>o<CR>beforeEach(inject((<CR>_<C-R>i_<CR>) =>
 noremap <F11> O<ESC>ggVGgJ:%s/{/{\r/g<CR>:%s/}/\r}/g<CR>:%s/,/,\r/g<CR>:%s/=>/ => /g<CR>:se ft=ruby<CR>gg=G
 
 " Map F12 to a super hacky full-file XML formatting macro
-noremap <F12> O<ESC>ggVGgJ:s/> *</>\r</g<CR>:se ft=xml<CR>gg=G
+noremap <F11> OggVGgJ:s/> *</>\r</g:se ft=xmlgg=G
 
 
 
@@ -140,7 +140,24 @@ nmap <silent> <leader>n :NERDTreeToggle<CR>
 
 
 
-""" Settings
+""" Plugin settings
+
+" Enable automatic population of location list
+let syntastic_always_populate_loc_list = 1
+
+" Use ag for Ack (if available)
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" Open NERDTree at startup, make it smaller, and focus in editing window
+" autocmd VimEnter * NERDTree
+" autocmd VimEnter * 7winc <
+" autocmd VimEnter * wincmd p
+
+
+
+""" Vim settings
 
 filetype plugin indent on
 syntax on
@@ -290,18 +307,6 @@ else
   call MatteScreen()
   " call GlossyScreen()
 endif
-
-
-
-let g:syntastic_javascript_checkers = ['jsxhint']
-
-" Enable automatic population of location list
-let syntastic_always_populate_loc_list = 1
-
-" Open NERDTree at startup, make it smaller, and focus in editing window
-" autocmd VimEnter * NERDTree
-" autocmd VimEnter * 7winc <
-" autocmd VimEnter * wincmd p
 
 
 
