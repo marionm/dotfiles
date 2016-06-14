@@ -17,12 +17,20 @@
   branch = auto
   diff   = auto
   status = auto
+[diff]
+  compactionHeuristic = true
 [format]
   pretty = format:%Cblue%cd %Cgreen%h %Creset%s %Cblue(%cN)%Cgreen%d
+[interactive]
+  diffFilter = diff-highlight | less
 [merge]
   tool = vimdiff
 [log]
   date = format:%F %I:%M %p
+[pager]
+  diff = diff-highlight | less
+  log  = diff-highlight | less
+  show = diff-highlight | less
 [pull]
   rebase = true
 [push]
