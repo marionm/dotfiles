@@ -1,25 +1,25 @@
+[alias]
+  a  = add
+  b  = branch
+  br = branch
+  d  = diff
+  ds = diff --staged
+  ci = commit
+  co = checkout
+  cp = cherry-pick
+  l  = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
+  la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --graph --all
+  lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --graph
+  ln = log --name-status
+  s  = status
+  st = status
+[color]
+  branch = auto
+  diff   = auto
+  status = auto
+[merge]
+  tool = vimdiff
 [pull]
   rebase = true
 [push]
   default = upstream
-[merge]
-  tool = vimdiff
-[color]
-  diff   = auto
-  status = auto
-  branch = auto
-[alias]
-  a  = add
-  ci = commit
-  co = checkout
-  cp = cherry-pick
-  st = status
-  s  = status
-  br = branch
-  b  = branch
-  d  = diff
-  ds = diff --staged
-  ln = log --name-status
-  l  = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
-  lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --graph
-  la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --graph --all
