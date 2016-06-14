@@ -7,9 +7,9 @@
   ci = commit
   co = checkout
   cp = cherry-pick
-  l  = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit
-  la = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --graph --all
-  lg = log --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%ci) %C(bold blue)<%an>%Creset' --abbrev-commit --graph
+  l  = log
+  la = log --graph --all
+  lg = log --graph
   ln = log --name-status
   s  = status
   st = status
@@ -17,6 +17,8 @@
   branch = auto
   diff   = auto
   status = auto
+[format]
+  pretty = format:%Cblue%cd %Cgreen%h %Creset%s %Cblue(%cN)%Cgreen%d
 [merge]
   tool = vimdiff
 [pull]
