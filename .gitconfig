@@ -21,6 +21,8 @@
   pretty = format:%Cblue%cd %Cgreen%h %Creset%s %Cblue(%cN)%Cgreen%d
 [merge]
   tool = vimdiff
+[log]
+  date = format:%F %I:%M %p
 [pull]
   rebase = true
 [push]
