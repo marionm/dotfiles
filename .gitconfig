@@ -2,11 +2,11 @@
   a  = add
   b  = branch
   br = branch
-  d  = diff
-  ds = diff --staged
   ci = commit
   co = checkout
   cp = cherry-pick
+  d  = diff
+  ds = diff --staged
   l  = log
   la = log --graph --all
   lg = log --graph
