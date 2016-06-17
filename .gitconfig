@@ -10,6 +10,7 @@
   l  = log
   la = log --graph --all
   lg = log --graph
+  lm = log --pretty=medium
   ln = log --name-status
   s  = status
   st = status
