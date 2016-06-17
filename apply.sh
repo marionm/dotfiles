@@ -24,9 +24,15 @@ fi
 
 if argument git; then
   $DIR/revert.sh git
-  echo '# start marionm' >> ~/.gitconfig
+
+  cp ~/.gitconfig ~/.gitconfig.original
+
+  echo '# start marionm' > ~/.gitconfig
   cat $DIR/.gitconfig >> ~/.gitconfig
   echo '# end marionm' >> ~/.gitconfig
+  cat ~/.gitconfig.original >> ~/.gitconfig
+
+  rm ~/.gitconfig.original
 
   cp $DIR/.git-completion.sh ~
   cp $DIR/.git-branch-prompt.sh ~
