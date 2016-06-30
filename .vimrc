@@ -144,11 +144,6 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" Open NERDTree at startup, make it smaller, and focus in editing window
-" autocmd VimEnter * NERDTree
-" autocmd VimEnter * 7winc <
-" autocmd VimEnter * wincmd p
-
 
 
 """ Vim settings
@@ -165,16 +160,10 @@ set tabstop=2
 set shiftwidth=2
 set nowrap
 set autoindent
-
-" Use tabs
-" set noexpandtab
-" ...or grudgingly conform to other people and use spaces
 set expandtab
 
 set number
 if version >= 703
-  "Default to relative line numbers
-  " set relativenumber
   "Map \l to toggle relative line numbering
   nnoremap <silent> <leader>l :if &relativenumber==0<CR>set relativenumber<CR>else<CR>set norelativenumber<CR>endif<CR>
 endif
