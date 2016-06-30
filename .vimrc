@@ -87,14 +87,8 @@ nmap ]] :execute "try\n lnext\n catch\n ll 1\n endtry"<CR>
 noremap <F2> :sp $MYVIMRC<CR>
 noremap <F3> :source $MYVIMRC<CR>
 
-" Map F10 to a super hacky angular test injection helper
-noremap <F10> ^"iy$Ilet <ESC>A;<ESC>o<CR>beforeEach(inject((<CR>_<C-R>i_<CR>) => {<ESC>k:s/, /_, _/g<CR>jo<C-R>i, <ESC>:s/\(\$\?\w*\), /\1 = _\1_;\r/g<CR>O}));<ESC>Vgg= 
-
-" Map F11 to a super hacky full-file Ruby object formatting macro
-noremap <F11> O<ESC>ggVGgJ:%s/{/{\r/g<CR>:%s/}/\r}/g<CR>:%s/,/,\r/g<CR>:%s/=>/ => /g<CR>:se ft=ruby<CR>gg=G
-
-" Map F12 to a super hacky full-file XML formatting macro
-noremap <F11> OggVGgJ:s/> *</>\r</g:se ft=xmlgg=G
+" Map \fx to XML formatting with xmllint
+noremap <leader>fx :%!xmllint --format -:set ft=xml
 
 
 
