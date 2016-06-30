@@ -60,7 +60,7 @@ imap jj <ESC>
 imap jk <ESC>
 
 " Add binding for new vertical window
-nmap <C-W>N :vnew<CR>
+nmap <C-W>N :vnew
 
 " Map F5 to paste mode toggle
 set pastetoggle=<F5>
@@ -69,23 +69,23 @@ set pastetoggle=<F5>
 inoremap <C-Space> <C-N>
 
 " Double-tap backslash to clear search results
-nmap <silent> <leader>\ :silent :nohlsearch<CR>
+nmap <silent> <leader>\ :silent :nohlsearch
 
 " Map * and # to begin seaching for current selection
-vmap * "*y:/<C-R>*<CR>
-vmap # "*y:?<C-R>*<CR>
+vmap * "*y:/<C-R>*
+vmap # "*y:?<C-R>*
 
 " Quickfist list (Ack/ag) navigation
-nmap [a :cprevious<CR>
-nmap ]a :cnext<CR>
+nmap [a :cprevious
+nmap ]a :cnext
 
 " Location list navigation, with wraparound
-nmap [[ :execute "try\n lprevious\n catch\n ll 99999\n endtry"<CR>
-nmap ]] :execute "try\n lnext\n catch\n ll 1\n endtry"<CR>
+nmap [[ :execute "try\n lprevious\n catch\n ll 99999\n endtry"
+nmap ]] :execute "try\n lnext\n catch\n ll 1\n endtry"
 
 " Map F2 to edit .vimrc, F3 to reload it
-noremap <F2> :sp $MYVIMRC<CR>
-noremap <F3> :source $MYVIMRC<CR>
+noremap <F2> :sp $MYVIMRC
+noremap <F3> :source $MYVIMRC
 
 " Map \fx to XML formatting with xmllint
 noremap <leader>fx :%!xmllint --format -:set ft=xml
@@ -95,42 +95,42 @@ noremap <leader>fx :%!xmllint --format -:set ft=xml
 """ Function bindings
 
 " Map \be, \d, and \i to framework specific test templates
-nmap <leader>be :call BeforeBlock()<CR>
-nmap <leader>d :call DescribeBlock()<CR>
-nmap <leader>i :call ItBlock()<CR>
+nmap <leader>be :call BeforeBlock()
+nmap <leader>d :call DescribeBlock()
+nmap <leader>i :call ItBlock()
 
 " Map \bd to delete all empty buffers
 " The set/echo ensures the message is displayed even if an open window is closed
-nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers()<CR>:echo 'Deleted ' . deleted . ' buffer(s)'<CR>
+nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . deleted . ' buffer(s)'
 
 " Map \g to switch colors for screen type
-nmap <silent> <leader>g :call SwitchScreenType()<CR>
+nmap <silent> <leader>g :call SwitchScreenType()
 
 
 
 """ Plugin bindings
 
 " Map \a to Ack current word
-nmap <leader>a :Ack! <C-R><C-W><CR>
+nmap <leader>a :Ack! <C-R><C-W>
 
 " Map \A to prep Ack for current word
 nmap <leader>A :Ack! <C-R><C-W>
 
 " Bindings for Syntastic errors
-nmap \E :SyntasticCheck<CR>
-nmap \e :Errors<CR>
+nmap \E :SyntasticCheck
+nmap \e :Errors
 
 " Map \r to reveal in NERDTree
-nmap <silent> <leader>r :NERDTreeFind<CR>
+nmap <silent> <leader>r :NERDTreeFind
 
 " Map \n to toggle NERDTree
-nmap <silent> <leader>n :NERDTreeToggle<CR>
+nmap <silent> <leader>n :NERDTreeToggle
 
 " Use custom Arduino bindings
 " let g:vim_arduino_map_keys = 0
-" nnoremap <leader>c :call ArduinoCompile()<CR>
-" nnoremap <leader>d :call ArduinoDeploy()<CR>
-" nnoremap <leader>s :call ArduinoSerialMonitor()<CR>
+" nnoremap <leader>c :call ArduinoCompile()
+" nnoremap <leader>d :call ArduinoDeploy()
+" nnoremap <leader>s :call ArduinoSerialMonitor()
 
 
 
@@ -165,7 +165,7 @@ set expandtab
 set number
 if version >= 703
   "Map \l to toggle relative line numbering
-  nnoremap <silent> <leader>l :if &relativenumber==0<CR>set relativenumber<CR>else<CR>set norelativenumber<CR>endif<CR>
+  nnoremap <silent> <leader>l :if &relativenumber==0set relativenumberelseset norelativenumberendif
 endif
 
 set cursorline
