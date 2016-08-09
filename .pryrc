@@ -1,4 +1,4 @@
-if defined?(PryDebugger)
+if defined?(PryByebug)
   debugging_commands = {
     c: "continue",
     f: "finish",
