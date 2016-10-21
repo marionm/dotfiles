@@ -1,7 +1,18 @@
 stty -ixon
 
-alias be="bundle exec"
+alias be='bundle exec'
 alias gvim='UBUNTU_MENUPROXY= gvim'
+
+alias ra='git rebase --abort'
+alias rc='git rebase --continue'
+
+alias rebase_on_master='~/.git-branch-helper rebase'
+alias merged='~/.git-branch-helper mark_as_merged'
+alias re='rebase_on_master'
+alias rei='rebase_on_master -i'
+alias rep='rebase_on_master -p'
+alias reip='rebase_on_master -i -p'
+alias repi='rebase_on_master -i -p'
 
 export EDITOR=vim
 export BUNDLER_EDITOR=gvim
@@ -19,6 +30,7 @@ function notitle {
 if [ -f ~/.git-completion.sh ]; then
   . ~/.git-completion.sh
 fi
+
 if [ -f ~/.git-branch-prompt.sh ]; then
   . ~/.git-branch-prompt.sh
 fi

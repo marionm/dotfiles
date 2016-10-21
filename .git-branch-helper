@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+# Require a clean index
+git diff-index --quiet HEAD --
+if [[ $? != 0 ]]; then
+  >&2 echo There are uncommitted changes present
+  exit 1
+fi
+
+# Do this after the above so a useful error can be displayed
+set -e
+
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+if [[ $BRANCH == 'master' ]]; then
+  >&2 echo Already on master branch
+  exit 1
+fi
+
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -p|--pull) PULL=true ;;
+    -i|--interactive) REBASE_ARGS=$1 ;;
+    mark_as_merged) PULL=true; COMMAND=$1 ;;
+    rebase) COMMAND=$1 ;;
+  esac
+  shift
+done
+
+if [[ $PULL ]]; then
+  git checkout master
+  git pull
+fi
+
+if [[ $COMMAND == 'rebase' ]]; then
+  if [[ $PULL ]]; then
+    git checkout $BRANCH
+  fi
+  git rebase $REBASE_ARGS master
+elif [[ $COMMAND == 'mark_as_merged' ]]; then
+  git branch -d $BRANCH
+  git remote prune origin
+fi
