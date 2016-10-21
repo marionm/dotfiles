@@ -97,6 +97,7 @@ noremap <leader>fx :%!xmllint --format -:set ft=xml
 " Map \be, \d, and \i to framework specific test templates
 nmap <leader>be :call BeforeBlock()
 nmap <leader>d :call DescribeBlock()
+nmap <leader>c :call ContextBlock()
 nmap <leader>i :call ItBlock()
 
 " Map \bd to delete all empty buffers
@@ -310,6 +311,10 @@ func! DescribeBlock()
   elseif &filetype == "ruby"
     call feedkeys("odescribe \"\" dok=}jddkf\"a")
   endif
+endfunc
+
+func! ContextBlock()
+  call feedkeys("ocontext \"\" dok=}jddkf\"a")
 endfunc
 
 func! ItBlock()
