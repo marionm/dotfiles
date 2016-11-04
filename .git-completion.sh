@@ -1820,6 +1820,18 @@ complete -o bashdefault -o default -o nospace -F _git_rebase grb 2>/dev/null \
 complete -o bashdefault -o default -o nospace -F _gitk gitk 2>/dev/null \
 	|| complete -o default -o nospace -F _gitk gitk
 
+# marionm aliases
+complete -o bashdefault -o default -o nospace -F _git_rebase re 2>/dev/null \
+	|| complete -o default -o nospace -F _git_rebase re
+complete -o bashdefault -o default -o nospace -F _git_rebase rei 2>/dev/null \
+	|| complete -o default -o nospace -F _git_rebase rei
+complete -o bashdefault -o default -o nospace -F _git_rebase rep 2>/dev/null \
+	|| complete -o default -o nospace -F _git_rebase rep
+complete -o bashdefault -o default -o nospace -F _git_rebase reip 2>/dev/null \
+	|| complete -o default -o nospace -F _git_rebase reip
+complete -o bashdefault -o default -o nospace -F _git_rebase repi 2>/dev/null \
+	|| complete -o default -o nospace -F _git_rebase repi
+
 # The following are necessary only for Cygwin, and only are needed
 # when the user has tab-completed the executable name and consequently
 # included the '.exe' suffix.
