@@ -10,33 +10,35 @@ fi
 # Do this after the above so a useful error can be displayed
 set -e
 
-BRANCH=`git rev-parse --abbrev-ref HEAD`
-if [[ $BRANCH == 'master' ]]; then
-  >&2 echo Already on master branch
-  exit 1
-fi
-
+TARGET_BRANCH=master
 while [[ $# -gt 0 ]]; do
   case $1 in
     -p|--pull) PULL=true ;;
     -i|--interactive) REBASE_ARGS=$1 ;;
-    mark_as_merged) PULL=true; COMMAND=$1 ;;
+    mark_as_merged) COMMAND=$1; PULL=true ;;
     rebase) COMMAND=$1 ;;
+    *) TARGET_BRANCH=$1 ;;
   esac
   shift
 done
 
+CURRENT_BRANCH=`git rev-parse --abbrev-ref HEAD`
+if [[ $CURRENT_BRANCH == $TARGET_BRANCH ]]; then
+  >&2 echo Already on $TARGET_BRANCH branch
+  exit 1
+fi
+
 if [[ $PULL ]]; then
-  git checkout master
+  git checkout $TARGET_BRANCH
   git pull
 fi
 
 if [[ $COMMAND == 'rebase' ]]; then
   if [[ $PULL ]]; then
-    git checkout $BRANCH
+    git checkout $CURRENT_BRANCH
   fi
-  git rebase $REBASE_ARGS master
+  git rebase $REBASE_ARGS $TARGET_BRANCH
 elif [[ $COMMAND == 'mark_as_merged' ]]; then
-  git branch -d $BRANCH
+  git branch -d $CURRENT_BRANCH
   git remote prune origin
 fi
