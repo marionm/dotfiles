@@ -35,6 +35,7 @@ if argument git; then
   rm ~/.gitconfig.original
 
   cp $DIR/.git-completion.sh ~
+  cp $DIR/.git-branch-helper ~
   cp $DIR/.git-branch-prompt.sh ~
 fi
 
