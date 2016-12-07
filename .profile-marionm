@@ -14,6 +14,13 @@ alias rep='rebase_on_master -p'
 alias reip='rebase_on_master -i -p'
 alias repi='rebase_on_master -i -p'
 
+alias rspec-branch='
+  git diff --name-status master *_spec.rb |
+  grep -E "^(A|M)" |
+  awk "{print \$2}" |
+  xargs spring rspec
+'
+
 export EDITOR=vim
 export BUNDLER_EDITOR=gvim
 
