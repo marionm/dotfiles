@@ -115,11 +115,13 @@ nmap <silent> <leader>g :call SwitchScreenType()
 
 """ Plugin bindings
 
-" Map \a to Ack current word
+" Map \a to Ack current word/selection
 nmap <leader>a :Ack! <C-R><C-W>
+vmap <leader>a "*y:Ack! '*'
 
-" Map \A to prep Ack for current word
+" Map \A to prep Ack for current word/selection
 nmap <leader>A :Ack! <C-R><C-W>
+vmap <leader>A "*y:Ack! '*'
 
 " Bindings for Syntastic errors
 nmap \E :SyntasticCheck
