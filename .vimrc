@@ -72,8 +72,8 @@ set pastetoggle=<F5>
 " Use ctrl-space for autocompletion
 inoremap <C-Space> <C-N>
 
-" Double-tap backslash to clear search results
-nmap <silent> <leader>\ :silent :nohlsearch
+" Double-tap leader to clear search results
+nmap <silent> <leader><leader> :silent :nohlsearch
 
 " Map * and # to begin seaching for current selection
 vmap * "*y:/<C-R>*
@@ -180,7 +180,7 @@ set cursorline
 set colorcolumn=100
 set showmode
 " Show buffer number and cursor position in ruler
-set ruler 
+set ruler
 set rulerformat=%=\:b%n\ %l,%c%V\ %P
 " Show entered partial commands in ruler
 set showcmd
@@ -212,8 +212,8 @@ set incsearch
 set scrolloff=3
 set backspace=indent,eol,start
 set whichwrap=b,s,h,l,<,>,[,]
-nnoremap <C-e> 3<C-e> 
-nnoremap <C-y> 3<C-y> 
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
 
 " Improve split behavior
 set splitbelow
