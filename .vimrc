@@ -7,16 +7,20 @@ call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " General
+NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'MarcWeber/vim-addon-local-vimrc'
+NeoBundle 'mbbill/undotree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'terryma/vim-expand-region'
 NeoBundle 'terryma/vim-multiple-cursors'
 NeoBundle 'tmhedberg/matchit'
 NeoBundle 'tpope/vim-commentary'
+NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-surround'
 
 " Navigation
+NeoBundle 'bogado/file-line'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'mileszs/ack.vim'
 NeoBundle 'scrooloose/nerdtree'
@@ -126,6 +130,9 @@ nmap <silent> <leader>r :NERDTreeFind
 
 " Map \n to toggle NERDTree
 nmap <silent> <leader>n :NERDTreeToggle
+
+" Map \u to toggle undo tree
+nmap <silent> <leader>u :UndotreeToggle
 
 " Use custom Arduino bindings
 " let g:vim_arduino_map_keys = 0
