@@ -83,9 +83,9 @@ vmap # "*y:?<C-R>*
 nmap [a :cprevious
 nmap ]a :cnext
 
-" Location list navigation, with wraparound
-nmap [[ :execute "try\n lprevious\n catch\n ll 99999\n endtry"
-nmap ]] :execute "try\n lnext\n catch\n ll 1\n endtry"
+" Location list (Syntastic) navigation, with wraparound
+nmap [e :execute "try\n lprevious\n catch\n ll 99999\n endtry"
+nmap ]e :execute "try\n lnext\n catch\n ll 1\n endtry"
 
 " Map F2 to edit .vimrc, F3 to reload it
 noremap <F2> :sp $MYVIMRC
