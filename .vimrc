@@ -191,9 +191,7 @@ endif
 set cursorline
 set colorcolumn=81,101
 set showmode
-" Show buffer number and cursor position in ruler
 set ruler
-set rulerformat=%=\:b%n\ %l,%c%V\ %P
 " Show entered partial commands in ruler
 set showcmd
 " Always show status
