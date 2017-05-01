@@ -43,6 +43,7 @@ NeoBundle 'tpope/vim-ragtag'
 NeoBundle 'Valloric/MatchTagAlways'
 
 " Ruby
+NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'tpope/vim-endwise'
 NeoBundle 'vim-ruby/vim-ruby'
 
@@ -142,6 +143,10 @@ nmap \e :Errors
 " nnoremap <leader>d :call ArduinoDeploy()
 " nnoremap <leader>s :call ArduinoSerialMonitor()
 
+" vim-rspec
+map <Leader>s :call RunNearestSpec()<CR>
+map <Leader>p :call RunLastSpec()<CR>
+map <Leader>t :call RunCurrentSpecFile()<CR>
 
 
 
@@ -155,11 +160,16 @@ endif
 " syntastic
 let syntastic_always_populate_loc_list = 1
 
+" vim-rspec
+" TODO: Make this more generic
+let g:rspec_runner="os_x_iterm2"
+let g:rspec_command="spring rspec {spec}"
+
 
 """ Vim settings
 
-filetype plugin indent on
 syntax on
+filetype plugin indent on
 
 set hidden
 set mouse=a
