@@ -117,28 +117,26 @@ nmap <silent> <leader>g :call SwitchScreenType()
 
 """ Plugin bindings
 
-" Map \a to Ack current word/selection
-nmap <leader>a :Ack! <C-R><C-W>
-vmap <leader>a "*y:Ack! '*'
+" ack.vim
 
-" Map \A to prep Ack for current word/selection
+" Ack / prepare for word under cursor
+nmap <leader>a :Ack! <C-R><C-W>
 nmap <leader>A :Ack! <C-R><C-W>
+
+" Ack / prepare for selection
+vmap <leader>a "*y:Ack! '*'
 vmap <leader>A "*y:Ack! '*'
 
-" Bindings for Syntastic errors
+" nerdtree
+nmap <silent> <leader>r :NERDTreeFind
+nmap <silent> <leader>n :NERDTreeToggle
+nmap <silent> <leader>u :UndotreeToggle
+
+" syntastic
 nmap \E :SyntasticCheck
 nmap \e :Errors
 
-" Map \r to reveal in NERDTree
-nmap <silent> <leader>r :NERDTreeFind
-
-" Map \n to toggle NERDTree
-nmap <silent> <leader>n :NERDTreeToggle
-
-" Map \u to toggle undo tree
-nmap <silent> <leader>u :UndotreeToggle
-
-" Use custom Arduino bindings
+" vim-arduino
 " let g:vim_arduino_map_keys = 0
 " nnoremap <leader>c :call ArduinoCompile()
 " nnoremap <leader>d :call ArduinoDeploy()
@@ -146,16 +144,16 @@ nmap <silent> <leader>u :UndotreeToggle
 
 
 
+
 """ Plugin settings
 
-" Enable automatic population of location list
-let syntastic_always_populate_loc_list = 1
-
-" Use ag for Ack (if available)
+" ack.vim
 if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
+" syntastic
+let syntastic_always_populate_loc_list = 1
 
 
 """ Vim settings
