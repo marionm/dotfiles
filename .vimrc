@@ -104,6 +104,8 @@ nmap <leader>d :call DescribeBlock()
 nmap <leader>c :call ContextBlock()
 nmap <leader>i :call ItBlock()
 
+nmap <leader>x :call ExtractVariable()
+
 " Map \bd to delete all empty buffers
 " The set/echo ensures the message is displayed even if an open window is closed
 nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . deleted . ' buffer(s)'
@@ -331,6 +333,13 @@ func! ItBlock()
     call feedkeys("oit('', () => {});k=}f'a")
   elseif &filetype == "ruby"
     call feedkeys("oit \"\" dok=}jddkf\"a")
+  endif
+endfunc
+
+" Assigns the last removed text to a variable named to the last added text
+func! ExtractVariable()
+  if &filetype == "ruby"
+    call feedkeys("O. = \"")
   endif
 endfunc
 
