@@ -7,7 +7,7 @@ call neobundle#rc(expand('~/.vim/bundle'))
 NeoBundleFetch 'Shougo/neobundle.vim'
 
 " General
-NeoBundle 'airblade/vim-gitgutter'
+" NeoBundle 'airblade/vim-gitgutter'
 NeoBundle 'kana/vim-fakeclip'
 NeoBundle 'MarcWeber/vim-addon-local-vimrc'
 NeoBundle 'mbbill/undotree'
