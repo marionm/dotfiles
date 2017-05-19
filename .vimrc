@@ -93,7 +93,12 @@ noremap <F2> :sp $MYVIMRC
 noremap <F3> :source $MYVIMRC
 
 " Map \fx to XML formatting with xmllint
-noremap <leader>fx :%!xmllint --format -:set ft=xml
+nmap <leader>fx :%!xmllint --format -<CR>:set ft=xml<CR>
+vmap <leader>fx :!xmllint --format -<CR>
+
+" Map \fj to JSON formatting with python
+nmap <leader>fj :%!python -m json.tool<CR>:set ft=javascript<CR>
+vmap <leader>fj :!python -m json.tool<CR>
 
 
 
