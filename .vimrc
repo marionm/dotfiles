@@ -148,6 +148,11 @@ nmap \e :Errors
 " nnoremap <leader>d :call ArduinoDeploy()
 " nnoremap <leader>s :call ArduinoSerialMonitor()
 
+" vim-fugitive
+" Map dh/dl to apply the left (local) and right (remote) chunk for git mergetool
+nmap dh :diffget 1<Bar>diffupdate<CR>
+nmap dl :diffget 3<Bar>diffupdate<CR>
+
 " vim-rspec
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>p :call RunLastSpec()<CR>
