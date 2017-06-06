@@ -126,7 +126,7 @@ nmap <silent> <leader>g :call SwitchScreenType()
 " ack.vim
 
 " Ack / prepare for word under cursor
-nmap <leader>A :Ack! <C-R><C-W>
+nmap <leader>A :Ack! '<C-R><C-W>'
 nmap <leader>a <leader>A<CR>
 
 " Ack / prepare for selection
