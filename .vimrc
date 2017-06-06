@@ -100,6 +100,9 @@ vmap <leader>fx :!xmllint --format -<CR>
 nmap <leader>fj :%!python -m json.tool<CR>:set ft=javascript<CR>
 vmap <leader>fj :!python -m json.tool<CR>
 
+" Map \h to a hacky one-line Ruby hash exploder
+autocmd FileType ruby nmap <leader>h 0/\(\w:\\| =>\)<CR>?\((\\|\s\)<CR>a{<CR><ESC>$i}<ESC>i<CR><ESC>k:s/,\s*/,\r/g<CR>=i{:nohlsearch<CR>
+
 
 
 """ Function bindings
