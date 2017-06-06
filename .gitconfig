@@ -14,6 +14,7 @@
   ln = log --name-status
   s  = status
   st = status
+  su = submodule update --init --recursive
 [color]
   branch = auto
   diff   = auto
