@@ -20,7 +20,7 @@
   diff   = auto
   status = auto
 [diff]
-  compactionHeuristic = true
+  indentHeuristic = true
 [format]
   pretty = format:%Cblue%cd %Cgreen%h %Creset%s %Cblue(%cN)%Cgreen%d
 [interactive]
