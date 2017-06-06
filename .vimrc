@@ -149,9 +149,17 @@ nmap \e :Errors
 " nnoremap <leader>s :call ArduinoSerialMonitor()
 
 " vim-fugitive
-" Map dh/dl to apply the left (local) and right (remote) chunk for git mergetool
-nmap dh :diffget 1<Bar>diffupdate<CR>
-nmap dl :diffget 3<Bar>diffupdate<CR>
+if &diff
+  " Map dh/dl to apply the left (local) and right (remote) chunk for three-way vimdiff
+  " TODO: Sort of buggy, would be nice to get this working
+  " nmap dh :diffget 1<Bar>diffupdate<CR>
+  " nmap dl :diffget 3<Bar>diffupdate<CR>
+  " In the meantime...
+  nmap gn /====<CR>
+  nmap gN ?====<CR>
+  nmap gk V/>>>><CR>d?<<<<<CR>dd
+  nmap gj V?<<<<<CR>d/>>>><CR>dd
+endif
 
 " vim-rspec
 map <Leader>s :call RunNearestSpec()<CR>
