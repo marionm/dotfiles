@@ -1,53 +1,60 @@
 set nocompatible
 
-""" Plugins
+set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
+if dein#load_state('~/.vim/bundles')
+  call dein#begin('~/.vim/bundles')
+  call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
 
-set rtp+=~/.vim/bundle/neobundle.vim/
-call neobundle#rc(expand('~/.vim/bundle'))
-NeoBundleFetch 'Shougo/neobundle.vim'
+  """ Plugins
 
-" General
-" NeoBundle 'airblade/vim-gitgutter'
-NeoBundle 'kana/vim-fakeclip'
-NeoBundle 'MarcWeber/vim-addon-local-vimrc'
-NeoBundle 'mbbill/undotree'
-NeoBundle 'scrooloose/syntastic'
-NeoBundle 'terryma/vim-expand-region'
-NeoBundle 'terryma/vim-multiple-cursors'
-NeoBundle 'tmhedberg/matchit'
-NeoBundle 'tpope/vim-commentary'
-NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-surround'
+  " General
+  " call dein#add('airblade/vim-gitgutter')
+  call dein#add('kana/vim-fakeclip')
+  call dein#add('MarcWeber/vim-addon-local-vimrc')
+  call dein#add('mbbill/undotree')
+  call dein#add('scrooloose/syntastic')
+  call dein#add('terryma/vim-expand-region')
+  call dein#add('terryma/vim-multiple-cursors')
+  call dein#add('tmhedberg/matchit')
+  call dein#add('tpope/vim-commentary')
+  call dein#add('tpope/vim-fugitive')
+  call dein#add('tpope/vim-surround')
 
-" Navigation
-NeoBundle 'bogado/file-line'
-NeoBundle 'kien/ctrlp.vim'
-NeoBundle 'mileszs/ack.vim'
-NeoBundle 'scrooloose/nerdtree'
+  " Navigation
+  call dein#add('bogado/file-line')
+  call dein#add('kien/ctrlp.vim')
+  call dein#add('mileszs/ack.vim')
+  call dein#add('scrooloose/nerdtree')
 
-" Visual
-NeoBundle 'altercation/vim-colors-solarized'
-" NeoBundle 'nathanaelkane/vim-indent-guides'
+  " Visual
+  call dein#add('altercation/vim-colors-solarized')
+  " call dein#add('nathanaelkane/vim-indent-guides')
 
-" Arduino
-" NeoBundle 'tclem/vim-arduino'
-" NeoBundle 'vim-scripts/Arduino-syntax-file'
+  " Arduino
+  " call dein#add('tclem/vim-arduino')
+  " call dein#add('vim-scripts/Arduino-syntax-file')
 
-" JavaScript
-NeoBundle 'jelera/vim-javascript-syntax'
-NeoBundle 'lukaszb/vim-web-indent'
-NeoBundle 'mxw/vim-jsx'
+  " JavaScript
+  call dein#add('jelera/vim-javascript-syntax')
+  call dein#add('lukaszb/vim-web-indent')
+  call dein#add('mxw/vim-jsx')
 
-" Markup
-NeoBundle 'tpope/vim-ragtag'
-NeoBundle 'Valloric/MatchTagAlways'
+  " Markup
+  call dein#add('tpope/vim-ragtag')
+  call dein#add('Valloric/MatchTagAlways')
 
-" Ruby
-NeoBundle 'thoughtbot/vim-rspec'
-NeoBundle 'tpope/vim-endwise'
-NeoBundle 'vim-ruby/vim-ruby'
+  " Ruby
+  call dein#add('thoughtbot/vim-rspec')
+  call dein#add('tpope/vim-endwise')
+  call dein#add('vim-ruby/vim-ruby')
 
+  call dein#end()
+  call dein#save_state()
+endif
 
+if dein#check_install()
+  call dein#install()
+endif
 
 """ Bindings
 
