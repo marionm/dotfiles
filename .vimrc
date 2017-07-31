@@ -13,6 +13,7 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('MarcWeber/vim-addon-local-vimrc')
   call dein#add('mbbill/undotree')
   call dein#add('scrooloose/syntastic')
+  call dein#add('milkypostman/vim-togglelist')
   call dein#add('terryma/vim-expand-region')
   call dein#add('terryma/vim-multiple-cursors')
   call dein#add('tmhedberg/matchit')
@@ -211,11 +212,6 @@ set autoindent
 set expandtab
 
 set number
-if version >= 703
-  "Map \l to toggle relative line numbering
-  nnoremap <silent> <leader>l :if &relativenumber==0set relativenumberelseset norelativenumberendif
-endif
-
 set cursorline
 set colorcolumn=81,101
 set showmode
