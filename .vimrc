@@ -36,11 +36,13 @@ if dein#load_state('~/.vim/bundles')
   " call dein#add('vim-scripts/Arduino-syntax-file')
 
   " JavaScript
+  call dein#add('kchmck/vim-coffee-script')
   call dein#add('jelera/vim-javascript-syntax')
   call dein#add('lukaszb/vim-web-indent')
   call dein#add('mxw/vim-jsx')
 
   " Markup
+  call dein#add('slim-template/vim-slim')
   call dein#add('tpope/vim-ragtag')
   call dein#add('Valloric/MatchTagAlways')
 
