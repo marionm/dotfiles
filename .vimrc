@@ -12,7 +12,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('kana/vim-fakeclip')
   call dein#add('MarcWeber/vim-addon-local-vimrc')
   call dein#add('mbbill/undotree')
-  call dein#add('scrooloose/syntastic')
   call dein#add('milkypostman/vim-togglelist')
   call dein#add('terryma/vim-expand-region')
   call dein#add('terryma/vim-multiple-cursors')
@@ -20,6 +19,7 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('tpope/vim-commentary')
   call dein#add('tpope/vim-fugitive')
   call dein#add('tpope/vim-surround')
+  call dein#add('w0rp/ale')
 
   " Navigation
   call dein#add('bogado/file-line')
@@ -92,10 +92,6 @@ vmap # "*y:?<C-R>*
 nmap [a :cprevious
 nmap ]a :cnext
 
-" Location list (Syntastic) navigation, with wraparound
-nmap [e :execute "try\n lprevious\n catch\n ll 99999\n endtry"
-nmap ]e :execute "try\n lnext\n catch\n ll 1\n endtry"
-
 " Map F2 to edit .vimrc, F3 to reload it
 noremap <F2> :sp $MYVIMRC
 noremap <F3> :source $MYVIMRC
@@ -144,14 +140,15 @@ nmap <leader>a <leader>A<CR>
 vmap <leader>A "*y:Ack! '*'
 vmap <leader>a <leader>A<CR>
 
+" ale
+" nmap \e <Plug>(ale_fix)
+nmap <silent> [e <Plug>(ale_previous_wrap)
+nmap <silent> ]e <Plug>(ale_next_wrap)
+
 " nerdtree
 nmap <silent> <leader>r :NERDTreeFind
 nmap <silent> <leader>n :NERDTreeToggle
 nmap <silent> <leader>u :UndotreeToggle
-
-" syntastic
-nmap \E :SyntasticCheck
-nmap \e :Errors
 
 " vim-arduino
 " let g:vim_arduino_map_keys = 0
@@ -186,8 +183,9 @@ if executable('ag')
   let g:ackprg = 'ag --vimgrep'
 endif
 
-" syntastic
-let syntastic_always_populate_loc_list = 1
+" ale
+let g:ale_lint_on_enter = 0
+let g:ale_lint_on_text_changed = 'never'
 
 " vim-rspec
 " TODO: Make this more generic
