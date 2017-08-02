@@ -18,6 +18,8 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('tmhedberg/matchit')
   call dein#add('tpope/vim-commentary')
   call dein#add('tpope/vim-fugitive')
+  call dein#add('tpope/vim-repeat')
+  call dein#add('tpope/vim-speeddating')
   call dein#add('tpope/vim-surround')
   call dein#add('w0rp/ale')
 
