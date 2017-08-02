@@ -284,8 +284,11 @@ au FileType javascript normal zn
 set foldlevelstart=20
 
 " Prevent plugins (i.e. vim-ruby) from running expensive operations on mouseover
-if has("gui_running")
+if has("balloon_eval")
   set noballooneval
+
+  " Some plugin keeps turning this back on
+  autocmd FileType ruby set noballooneval
 end
 
 
