@@ -305,7 +305,7 @@ endfunc
 
 " Set font based on system
 if Mac()
-  set guifont=Monaco:h13
+  set guifont=Monaco:h14
 endif
 
 func! MatteScreen()
