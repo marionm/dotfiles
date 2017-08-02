@@ -98,6 +98,9 @@ nmap ]a :cnext
 noremap <F2> :sp $MYVIMRC
 noremap <F3> :source $MYVIMRC
 
+" Map \fr to Ruby
+nmap <leader>fr :set ft=ruby<CR>
+
 " Map \fx to XML formatting with xmllint
 nmap <leader>fx :%!xmllint --format -<CR>:set ft=xml<CR>
 vmap <leader>fx :!xmllint --format -<CR>
