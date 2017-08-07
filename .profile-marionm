@@ -13,6 +13,8 @@ alias rei='rebase_on_master -i'
 alias rep='rebase_on_master -p'
 alias reip='rebase_on_master -i -p'
 alias repi='rebase_on_master -i -p'
+alias rt='git commit -mtmp && rei'
+alias rta='git commit -amtmp && rei'
 
 alias rspec-branch='
   git diff --name-status master *_spec.rb |
