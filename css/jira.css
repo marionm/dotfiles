@@ -1,0 +1,23 @@
+/* Default of 990px is too wide for my tastes */
+body {
+  min-width: 960px;
+}
+
+/* Hide rightmost swimlane columns in narrow formats */
+@media (max-width: 1000px) {
+  #ghx-work .ghx-column:nth-last-child(3) {
+    display: none;
+  }
+}
+
+@media (max-width: 1300px) {
+  #ghx-work .ghx-column:nth-last-child(2) {
+    display: none;
+  }
+}
+
+@media (max-width: 1600px) {
+  #ghx-work .ghx-column:nth-last-child(1) {
+    display: none;
+  }
+}
