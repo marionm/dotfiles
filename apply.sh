@@ -24,6 +24,7 @@ fi
 if argument git; then
   $DIR/revert.sh git
 
+  touch ~/.gitconfig
   cp ~/.gitconfig ~/.gitconfig.original
 
   echo '# start marionm' > ~/.gitconfig
@@ -40,8 +41,11 @@ fi
 
 if argument bash; then
   cp $DIR/.profile-marionm ~
+
+  touch ~/.bashrc
   if ! grep -q profile-marionm ~/.bashrc; then
     echo 'if [ -f ~/.profile-marionm ]; then . ~/.profile-marionm; fi' >> ~/.bashrc
   fi
+
   . ~/.bashrc
 fi
