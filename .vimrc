@@ -130,9 +130,6 @@ nmap <leader>x :call ExtractVariable()
 " The set/echo ensures the message is displayed even if an open window is closed
 nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . deleted . ' buffer(s)'
 
-" Map \g to switch colors for screen type
-nmap <silent> <leader>g :call SwitchScreenType()
-
 
 
 """ Plugin bindings
@@ -295,7 +292,9 @@ end
 
 
 
-""" Appearance
+""" Visual
+
+colorscheme solarized
 
 func! Mac()
   return has('unix') && system('uname') == "Darwin\n"
@@ -308,44 +307,6 @@ endfunc
 " Set font based on system
 if Mac()
   set guifont=Monaco:h14
-endif
-
-func! MatteScreen()
-  silent! colorscheme solarized
-  set background=dark
-  let g:matteScreen=1
-endfunc
-
-func! GlossyScreen()
-  set background=light
-  try
-    silent! colorscheme macvim
-    highlight Normal guibg=#dfdfdf
-    highlight StatusLineNC guibg=DarkSlateGray guifg=Gray70
-  catch
-  endtry
-  let g:matteScreen=0
-endfunc
-
-func! SwitchScreenType()
-  if g:matteScreen
-    call GlossyScreen()
-  else
-    call MatteScreen()
-  end
-endfunc
-
-if exists("g:matteScreen")
-  "Reset colorscheme after a configuration reload to prevent weirdness
-  if g:matteScreen
-    call MatteScreen()
-  else
-    call GlossyScreen()
-  endif
-else
-  "Set initial colorscheme based on configured screen type
-  call MatteScreen()
-  " call GlossyScreen()
 endif
 
 
