@@ -26,7 +26,7 @@ if dein#load_state('~/.vim/bundles')
   " Navigation
   call dein#add('bogado/file-line')
   call dein#add('kien/ctrlp.vim')
-  call dein#add('mileszs/ack.vim')
+  call dein#add('mhinz/vim-grepper')
   call dein#add('scrooloose/nerdtree')
 
   " Visual
@@ -92,9 +92,9 @@ nmap <silent> <leader><leader> :silent :nohlsearch
 vmap * "*y:/<C-R>*
 vmap # "*y:?<C-R>*
 
-" Quickfist list (Ack/ag) navigation
-nmap [a :cprevious
-nmap ]a :cnext
+" Quickfix list navigation
+nmap [a :cprevious<CR>
+nmap ]a :cnext<CR>
 
 " Map F2 to edit .vimrc, F3 to reload it
 noremap <F2> :sp $MYVIMRC
@@ -134,16 +134,6 @@ nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . 
 
 """ Plugin bindings
 
-" ack.vim
-
-" Ack / prepare for word under cursor
-nmap <leader>A :Ack! '<C-R><C-W>'
-nmap <leader>a <leader>A<CR>
-
-" Ack / prepare for selection
-vmap <leader>A "*y:Ack! '*'
-vmap <leader>a <leader>A<CR>
-
 " ale
 " nmap \e <Plug>(ale_fix)
 nmap <silent> [e <Plug>(ale_previous_wrap)
@@ -173,6 +163,12 @@ if &diff
   nmap gj V?<<<<<CR>d/>>>><CR>dd
 endif
 
+" vim-grepper
+nmap gs <plug>(GrepperOperator)
+xmap gs <plug>(GrepperOperator)
+nmap <leader>g :Grepper -cword -noprompt<CR>
+nmap <leader>G :Grepper 
+
 " vim-rspec
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>p :call RunLastSpec()<CR>
@@ -182,14 +178,13 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 
 """ Plugin settings
 
-" ack.vim
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
 " ale
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
+
+" vim-grepper
+let g:grepper = {}
+let g:grepper.simple_prompt = 1
 
 " vim-rspec
 " TODO: Make this more generic
