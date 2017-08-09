@@ -64,3 +64,21 @@ if defined?(PryByebug)
     _pry_.pager.page frames.join($/)
   end
 end
+
+if defined?(ActiveRecord::Base)
+  Pry::Commands.block_command "toggle-active-record-logging", "Toggle ActiveRecord logging" do
+    if ActiveRecord::Base.logger.level == Logger::INFO
+      ActiveRecord::Base.logger.level = Logger::DEBUG
+      output.puts "ActiveRecord logging enabled"
+    else
+      ActiveRecord::Base.logger.level = Logger::INFO
+      output.puts "ActiveRecord logging disabled"
+    end
+  end
+end
+
+if defined?(Rails) && Rails::VERSION::MAJOR == 4
+  Pry::Commands.block_command "tee-active-record-logging", "Tee ActiveRecord logger to STDOUT" do
+    Rails.logger.extend(ActiveSupport::Logger.broadcast(Logger.new(STDOUT)))
+  end
+end
