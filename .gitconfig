@@ -35,7 +35,5 @@
   show = diff-highlight | less
 [pull]
   rebase = true
-[push]
-  default = upstream
 [stash]
   showPatch = true
