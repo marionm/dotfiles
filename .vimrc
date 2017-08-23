@@ -83,9 +83,6 @@ nmap <C-W>N :vnew
 " Map F5 to paste mode toggle
 set pastetoggle=<F5>
 
-" Use ctrl-space for autocompletion
-inoremap <C-Space> <C-N>
-
 " Double-tap leader to clear search results
 nmap <silent> <leader><leader> :silent :nohlsearch
 
