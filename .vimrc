@@ -59,6 +59,7 @@ endif
 
 if dein#check_install()
   call dein#install()
+  helptags ALL
 endif
 
 """ Bindings
