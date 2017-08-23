@@ -95,8 +95,8 @@ nmap [a :cprevious<CR>
 nmap ]a :cnext<CR>
 
 " Map F2 to edit .vimrc, F3 to reload it
-noremap <F2> :sp $MYVIMRC
-noremap <F3> :source $MYVIMRC
+noremap <F2> :tabedit $MYVIMRC<CR>
+noremap <F3> :source $MYVIMRC<CR>
 
 " Map \fr to Ruby
 nmap <leader>fr :set ft=ruby<CR>
