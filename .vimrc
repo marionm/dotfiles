@@ -165,7 +165,7 @@ endif
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 nmap <leader>g :Grepper -cword -noprompt<CR>
-nmap <leader>G :Grepper 
+nmap <leader>G :Grepper -query 
 
 " vim-rspec
 map <Leader>s :call RunNearestSpec()<CR>
