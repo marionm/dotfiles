@@ -17,12 +17,14 @@ if defined?(PryByebug)
     end
   end  
 
-  Pry::Commands.command(/^b!*$/, "show backtrace filtered to working directoy") do
+  # Filters frames based on closeness to the current directory
+  # Useful for filtering out gem internals, but allowing insight local gems
+  def Pry.filter_frames(frames, level_depth = 0)
     groups = Dir.pwd[1..-1].split("/").map do |dirname|
       "(?:(#{dirname})|[^/]+)"
     end
 
-    regex = /^\/#{groups.join("/")}/
+    regex = /^(?:\d+: )?\/#{groups.join("/")}/
     pwd_level = groups.length
 
     known_levels = Set.new
@@ -30,7 +32,7 @@ if defined?(PryByebug)
 
     # Assign each frame a level based on closeness to the working directory
     # If it doesn't match at all, it gets a nil level which counts as max
-    caller.each do |frame|
+    frames.each do |frame|
       matches = regex.match(frame)
 
       if matches
@@ -38,12 +40,11 @@ if defined?(PryByebug)
         known_levels << level
       end
 
-      frames_and_levels << [frame, level]
+      frames_and_levels << [frame.strip, level]
     end
 
     known_levels = known_levels.sort
     max_level = known_levels.last + 1
-    level_depth = Pry.history.to_a.last.gsub(/[^!]/, "").length
     max_allowed_level = known_levels[level_depth] || max_level
 
     # Reject pry frames and those that are further than the current directory
@@ -61,7 +62,26 @@ if defined?(PryByebug)
       end
     end
 
-    _pry_.pager.page frames.join($/)
+    frames
+  end
+
+  Pry::Commands.command(/^b([?!]*)$/, "show current frames filtered to working directoy") do |captures|
+    # Include frame numbers since they actually are frames
+    frames = Pry::Code.new(caller, 0, :text).with_line_numbers.lines
+    _pry_.pager.page Pry.filter_frames(frames, captures.length).join($/)
+  end
+
+  # wat/wut
+  # Like wtf, but filtered
+  Pry::Commands.command(/^w(?:a|u)t([?!]*)$/, "show last error and backtrace filtered to working directoy") do |captures|
+    error = _pry_.last_exception
+    raise Pry::CommandError, "No most-recent exception" unless error
+
+    _pry_.pager.page "#{Pry::Helpers::Text.bold("Exception:")} #{error.class}: #{error.message}"
+    _pry_.pager.page "--"
+
+    # Exclude frame numbers since it is just confusing with pry lines filtered out
+    _pry_.pager.page Pry.filter_frames(error.backtrace, captures.length).join($/)
   end
 end
 
