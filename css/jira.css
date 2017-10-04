@@ -4,20 +4,24 @@ body {
 }
 
 /* Hide rightmost swimlane columns in narrow formats */
-@media (max-width: 1000px) {
-  #ghx-work .ghx-column:nth-last-child(3) {
+@media (max-width: 1080px) {
+  #ghx-work .ghx-column:nth-last-child(3),
+  .ghx-zone-overlay-column:nth-last-child(3) {
     display: none;
   }
 }
 
+
 @media (max-width: 1300px) {
-  #ghx-work .ghx-column:nth-last-child(2) {
+  #ghx-work .ghx-column:nth-last-child(2),
+  .ghx-zone-overlay-column:nth-last-child(2) {
     display: none;
   }
 }
 
 @media (max-width: 1600px) {
-  #ghx-work .ghx-column:nth-last-child(1) {
+  #ghx-work .ghx-column:nth-last-child(1),
+  .ghx-zone-overlay-column:nth-last-child(1) {
     display: none;
   }
 }
