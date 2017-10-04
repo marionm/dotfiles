@@ -189,7 +189,7 @@ let g:grepper.simple_prompt = 1
 " vim-rspec
 " TODO: Make this more generic
 let g:rspec_runner="os_x_iterm2"
-let g:rspec_command="spring rspec {spec}"
+let g:rspec_command="spring rspec --order defined {spec}"
 
 
 """ Vim settings
