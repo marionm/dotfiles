@@ -184,7 +184,6 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 """ Plugin settings
 
 " ale
-let g:ale_linters = {'ruby': ['ruby']}
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 
