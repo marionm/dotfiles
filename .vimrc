@@ -218,7 +218,7 @@ set expandtab
 
 set number
 set cursorline
-set colorcolumn=81,101,121
+set colorcolumn=101
 set synmaxcol=200
 set showmode
 set ruler
