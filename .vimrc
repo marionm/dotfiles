@@ -187,6 +187,9 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 
+" nerdtree
+let NERDTreeMinimalUI=1
+
 " vim-grepper
 let g:grepper = {}
 let g:grepper.simple_prompt = 1
