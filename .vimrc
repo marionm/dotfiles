@@ -99,6 +99,9 @@ nmap ]a :cnext<CR>
 noremap <F2> :tabedit $MYVIMRC<CR>
 noremap <F3> :source $MYVIMRC<CR>
 
+" Map \R to redraw the screen in case of a plugin screwup or whathaveyou
+nmap <leader>R :redraw!<CR>
+
 " Map \fr to Ruby
 nmap <leader>fr :set ft=ruby<CR>
 
@@ -112,6 +115,9 @@ vmap <leader>fj :!python -m json.tool<CR>
 
 " Map \h to a hacky one-line Ruby hash exploder
 autocmd FileType ruby nmap <leader>h 0/\(\w:\\| =>\)<CR>?\((\\|\s\)<CR>a{<CR><ESC>$i}<ESC>i<CR><ESC>k:s/,\s*/,\r/g<CR>=i{:nohlsearch<CR>
+
+" Map \rl to toggle relative line numbers
+nmap <leader>rl :set relativenumber!<CR>
 
 
 
