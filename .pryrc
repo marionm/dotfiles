@@ -10,12 +10,11 @@ if defined?(PryByebug)
     Pry.commands.alias_command(shortcut, command)
   end
 
+  repeatable_commands = %w[up down] + debugging_commands.to_a.flatten.map(&:to_s)
   Pry::Commands.command(/^$/, "repeat last command") do
-    command = Pry.history.to_a.last  
-    if debugging_commands.to_a.flatten.map(&:to_s).include?(command)
-      _pry_.run_command(command)
-    end
-  end  
+    command = Pry.history.to_a.last
+    _pry_.run_command(command) if command.in?(repeatable_commands)
+  end
 
   # Filters frames based on closeness to the current directory
   # Useful for filtering out gem internals, but allowing insight local gems
