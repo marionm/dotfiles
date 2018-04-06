@@ -299,6 +299,11 @@ end
 
 colorscheme solarized
 
+" Highlight ES6 template strings
+highlight link javaScriptTemplateDelim Special
+highlight link javaScriptTemplateString String
+highlight link javaScriptTemplateVar Statement
+
 func! Mac()
   return has('unix') && system('uname') == "Darwin\n"
 endfunc
