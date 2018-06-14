@@ -29,6 +29,7 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('kien/ctrlp.vim')
   call dein#add('mhinz/vim-grepper')
   call dein#add('scrooloose/nerdtree')
+  call dein#add('tpope/vim-projectionist')
   call dein#add('tpope/vim-vinegar')
 
   " Visual
@@ -53,6 +54,7 @@ if dein#load_state('~/.vim/bundles')
   " Ruby
   call dein#add('thoughtbot/vim-rspec')
   call dein#add('tpope/vim-endwise')
+  call dein#add('tpope/vim-rails')
   call dein#add('vim-ruby/vim-ruby')
 
   call dein#end()
@@ -191,6 +193,16 @@ let g:ale_lint_on_text_changed = 'never'
 " nerdtree
 let NERDTreeHijackNetrw=0
 let NERDTreeMinimalUI=1
+
+" vim-rails
+let g:rails_projections = {
+\ 'app/*.rb': { 'alternate': 'spec/{}_spec.rb' },
+\ 'lib/*.rb': { 'alternate': 'spec/{}_spec.rb' },
+\ 'spec/*_spec.rb': { 'alternate': 'app/{}.rb' },
+\
+\ 'app/javascript/bundles/*.js': { 'alternate': 'spec/javascript/{}.test.js' },
+\ 'spec/javascript/*.test.js': { 'alternate': 'app/javascript/bundles/{}.js' }
+\ }
 
 " vim-grepper
 let g:grepper = {}
