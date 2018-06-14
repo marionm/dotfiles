@@ -4,6 +4,9 @@ alias ag='ag --path-to-ignore ~/.agignore'
 alias be='bundle exec'
 alias gvim='UBUNTU_MENUPROXY= gvim'
 
+alias cf='git clean -f'
+alias cfd='git clean -fd'
+alias mt='git mergetool'
 alias ra='git rebase --abort'
 alias rc='git rebase --continue'
 
