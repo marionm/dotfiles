@@ -42,9 +42,8 @@ if dein#load_state('~/.vim/bundles')
 
   " JavaScript
   call dein#add('kchmck/vim-coffee-script')
-  call dein#add('jelera/vim-javascript-syntax')
   call dein#add('lukaszb/vim-web-indent')
-  call dein#add('mxw/vim-jsx')
+  call dein#add('neoclide/vim-jsx-improve')
 
   " Markup
   call dein#add('slim-template/vim-slim')
@@ -316,11 +315,6 @@ end
 
 colorscheme solarized
 
-" Highlight ES6 template strings
-highlight link javaScriptTemplateDelim Special
-highlight link javaScriptTemplateString String
-highlight link javaScriptTemplateVar Statement
-
 func! Mac()
   return has('unix') && system('uname') == "Darwin\n"
 endfunc
@@ -340,7 +334,7 @@ endif
 
 func! BeforeBlock()
   if &filetype == "javascript"
-    call feedkeys("obeforeEach(() => {});k=}o  ")
+    call feedkeys("obeforeEach(() => {});k=}o")
   elseif &filetype == "ruby"
     call feedkeys("obefore dok=}jddko")
   endif
