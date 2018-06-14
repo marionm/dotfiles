@@ -29,6 +29,7 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('kien/ctrlp.vim')
   call dein#add('mhinz/vim-grepper')
   call dein#add('scrooloose/nerdtree')
+  call dein#add('tpope/vim-vinegar')
 
   " Visual
   call dein#add('altercation/vim-colors-solarized')
@@ -188,6 +189,7 @@ let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
 
 " nerdtree
+let NERDTreeHijackNetrw=0
 let NERDTreeMinimalUI=1
 
 " vim-grepper
@@ -258,6 +260,9 @@ nnoremap <C-y> 3<C-y>
 " Improve split behavior
 set splitbelow
 set splitright
+
+" Prevent netrw from clobbering the alternate buffer register
+let g:netrw_altfile=1
 
 au BufRead,BufNewFile *.pde set filetype=arduino
 au BufRead,BufNewFile *.ino set filetype=arduino
