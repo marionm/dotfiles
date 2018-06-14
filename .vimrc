@@ -1,6 +1,8 @@
 set nocompatible
 
 set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
+set runtimepath+=/usr/local/opt/fzf
+
 if dein#load_state('~/.vim/bundles')
   call dein#begin('~/.vim/bundles')
   call dein#add('~/.vim/bundles/repos/github.com/Shougo/dein.vim')
@@ -26,7 +28,8 @@ if dein#load_state('~/.vim/bundles')
 
   " Navigation
   call dein#add('bogado/file-line')
-  call dein#add('kien/ctrlp.vim')
+  call dein#add('junegunn/fzf')
+  call dein#add('junegunn/fzf.vim')
   call dein#add('mhinz/vim-grepper')
   call dein#add('scrooloose/nerdtree')
   call dein#add('tpope/vim-projectionist')
@@ -145,6 +148,9 @@ nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . 
 " nmap \e <Plug>(ale_fix)
 nmap <silent> [e <Plug>(ale_previous_wrap)
 nmap <silent> ]e <Plug>(ale_next_wrap)
+
+" fzf
+nnoremap <c-p> :FZF<CR>
 
 " nerdtree
 nmap <silent> <leader>r :NERDTreeFind

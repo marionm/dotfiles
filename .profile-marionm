@@ -30,6 +30,8 @@ alias rspec-branch='
 export EDITOR=vim
 export BUNDLER_EDITOR=gvim
 
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
 export PROMPT_COMMAND='echo -ne "\033]0;${TITLE-${PWD##*/}}\007"'
 
 function title {
