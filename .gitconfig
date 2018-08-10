@@ -1,5 +1,7 @@
 [alias]
   a  = add
+  ama = commit -a --amend --no-edit
+  amm = commit --amend --no-edit
   b  = branch
   br = branch
   ci = commit
