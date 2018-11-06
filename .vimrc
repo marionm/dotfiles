@@ -238,8 +238,8 @@ set expandtab
 
 set number
 set cursorline
-set colorcolumn=101
-set synmaxcol=200
+set colorcolumn=101,121
+set synmaxcol=225
 set showmode
 set ruler
 " Show entered partial commands in ruler
