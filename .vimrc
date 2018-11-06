@@ -124,6 +124,9 @@ autocmd FileType ruby nmap <leader>h 0/\(\w:\\| =>\)<CR>?\((\\|\s\)<CR>a{<CR><ES
 " Map \rl to toggle relative line numbers
 nmap <leader>rl :set relativenumber!<CR>
 
+" Map \yv to yank the current Rails migration version number into the system buffer
+nmap <leader>yv ggO%02f/lvt_"+yu``
+
 
 
 """ Function bindings
