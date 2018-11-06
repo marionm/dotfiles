@@ -206,8 +206,8 @@ let g:rails_projections = {
 \ 'lib/*.rb': { 'alternate': 'spec/{}_spec.rb' },
 \ 'spec/*_spec.rb': { 'alternate': 'app/{}.rb' },
 \
-\ 'app/javascript/bundles/*.js': { 'alternate': 'spec/javascript/{}.test.js' },
-\ 'spec/javascript/*.test.js': { 'alternate': 'app/javascript/bundles/{}.js' }
+\ 'app/javascript/*.js': { 'alternate': 'spec/javascript/{}.test.js' },
+\ 'spec/javascript/*.test.js': { 'alternate': 'app/javascript/{}.js' }
 \ }
 
 " vim-grepper
