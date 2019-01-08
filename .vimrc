@@ -311,12 +311,11 @@ au FileType javascript call JavaScriptFold()
 au FileType javascript normal zn
 set foldlevelstart=20
 
-" Prevent plugins (i.e. vim-ruby) from running expensive operations on mouseover
+" Disable ballooneval, even in the face of plugins (i.e. vim-ruby, NERDTree) and MacVim netrw
 if has("balloon_eval")
+  set balloondelay=100000
   set noballooneval
-
-  " Some plugin keeps turning this back on
-  autocmd FileType ruby set noballooneval
+  setlocal balloonexpr=
 end
 
 
