@@ -23,7 +23,7 @@ if defined?(PryByebug)
       "(?:(#{dirname})|[^/]+)"
     end
 
-    regex = /^(?:\d+: )?\/#{groups.join("/")}/
+    regex = /^(?: *\d+: )?\/#{groups.join("/")}/
     pwd_level = groups.length
 
     known_levels = Set.new
