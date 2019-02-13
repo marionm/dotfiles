@@ -70,9 +70,8 @@ if defined?(PryByebug)
     _pry_.pager.page Pry.filter_frames(frames, captures.length).join($/)
   end
 
-  # wat/wut
-  # Like wtf, but filtered
-  Pry::Commands.command(/^w(?:a|u)t([?!]*)$/, "show last error and backtrace filtered to working directoy") do |captures|
+  # Like wtf, but filtered like the "b" command
+  Pry::Commands.command(/^huh([?!]*)$/, "show last error and backtrace filtered to working directoy") do |captures|
     error = _pry_.last_exception
     raise Pry::CommandError, "No most-recent exception" unless error
 
