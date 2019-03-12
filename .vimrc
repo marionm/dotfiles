@@ -43,6 +43,9 @@ if dein#load_state('~/.vim/bundles')
   " call dein#add('tclem/vim-arduino')
   " call dein#add('vim-scripts/Arduino-syntax-file')
 
+  " Go
+  call dein#add('fatih/vim-go')
+
   " JavaScript
   call dein#add('kchmck/vim-coffee-script')
   call dein#add('lukaszb/vim-web-indent')
@@ -197,7 +200,10 @@ map <Leader>t :call RunCurrentSpecFile()<CR>
 " ale
 let g:ale_lint_on_enter = 0
 let g:ale_lint_on_text_changed = 'never'
-let g:ale_linters = { 'javascript': ['eslint'] }
+let g:ale_linters = {
+\ 'go': ['gotype', 'gofmt'],
+\ 'javascript': ['eslint']
+\ }
 
 " nerdtree
 let NERDTreeHijackNetrw=0
