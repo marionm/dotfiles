@@ -29,6 +29,8 @@
   diffFilter = diff-highlight | less
 [merge]
   tool = vimdiff
+[mergetool "vimdiff"]
+  cmd = vimdiff -c 'wincmd J' -n $MERGED $LOCAL $BASE $REMOTE
 [log]
   date = format:%F %I:%M %p
 [pager]
