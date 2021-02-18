@@ -64,14 +64,14 @@ if defined?(PryByebug)
     frames
   end
 
-  Pry::Commands.command(/^b([?!]*)$/, "show current frames filtered to working directoy") do |captures|
+  Pry::Commands.command(/^b([?!]*)$/, "show current frames filtered to working directory") do |captures|
     # Include frame numbers since they actually are frames
     frames = Pry::Code.new(caller, 0, :text).with_line_numbers.lines
     _pry_.pager.page Pry.filter_frames(frames, captures.length).join($/)
   end
 
   # Like wtf, but filtered like the "b" command
-  Pry::Commands.command(/^huh([?!]*)$/, "show last error and backtrace filtered to working directoy") do |captures|
+  Pry::Commands.command(/^huh([?!]*)$/, "show last error and backtrace filtered to working directory") do |captures|
     error = _pry_.last_exception
     raise Pry::CommandError, "No most-recent exception" unless error
 
