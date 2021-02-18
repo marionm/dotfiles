@@ -177,6 +177,9 @@ if &diff
   nmap gN ?====<CR>
   nmap gk V/>>>><CR>d?<<<<<CR>dd
   nmap gj V?<<<<<CR>d/>>>><CR>dd
+
+  " Schema syntax is annoyingly slow for 4 panes
+  autocmd BufRead,BufNewFile * if expand('%') =~ "schema.rb" | set syntax=off | endif
 endif
 
 " vim-grepper
