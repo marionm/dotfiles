@@ -1,0 +1,50 @@
+# TODO: How to limit these just to rspec files?
+snippet t "Rspec test (rails)"
+require "rails_helper"
+
+RSpec.describe ${1:subject} do
+	subject { $2 }
+
+	$0
+end
+endsnippet
+
+snippet b "Rspec before block"
+before do
+	$0
+end
+endsnippet
+
+snippet a "Rspec after block"
+after do
+	$0
+end
+endsnippet
+
+snippet d "Rspec describe block"
+describe "${1:description}" do
+	$0
+end
+endsnippet
+
+snippet c "Rspec context block"
+context "${1:description}" do
+	$0
+end
+endsnippet
+
+snippet i "Rspec test"
+it "${1:description}" do
+	$0
+end
+endsnippet
+
+snippet l "Rspec let block"
+let(:${1:name}) { $0 }
+endsnippet
+
+snippet le "Rspec let block (multi-line)"
+let(:${1:name}) do
+	$0
+end
+endsnippet

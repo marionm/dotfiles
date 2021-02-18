@@ -1,0 +1,117 @@
+snippet rc "React component (class)"
+import React from 'react';
+import PropTypes from 'prop-types';
+
+export default class $0 extends React.Component {
+	static propTypes = {
+	}
+
+	render() {
+		return (
+			$0
+		);
+	}
+}
+endsnippet
+
+snippet rdc "React/Redux component (class)"
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+
+export class ${1:ComponentName} extends React.Component {
+	static propTypes = {
+	}
+
+	render() {
+		return (
+			$0
+		);
+	}
+}
+
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)($1);
+endsnippet
+
+snippet rf "React component (functional)"
+import React from 'react';
+import PropTypes from 'prop-types';
+
+export default function ${1:ComponentName}({  }) {
+	return (
+		$0
+	);
+}
+
+$1.propTypes = {
+};
+endsnippet
+
+snippet rdf "React/Redux component (functional)"
+import React from 'react';
+import PropTypes from 'prop-types';
+
+import { connect } from 'react-redux';
+
+export function ${1:ComponentName}({  }) {
+	return (
+		$0
+	);
+}
+
+$1.propTypes = {
+};
+
+const mapStateToProps = state => ({
+});
+
+const mapDispatchToProps = {
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)($1);
+endsnippet
+
+# TODO: How to limit these just to jest files?
+snippet d "Jest describe block"
+describe('${1:description}', () => {
+	$0
+});
+endsnippet
+
+snippet b "Jest before block"
+beforeEach(() => {
+	$0
+});
+endsnippet
+
+snippet i "Jest test"
+it('${1:description}', () => {
+	$0
+});
+endsnippet
+
+snippet rt "Enzyme test file"
+import React from 'react';
+
+import ${1:Component} from '${2:path}';
+
+describe('$1', () => {
+	let component;
+
+	beforeEach(() => {
+		component = shallow(
+			<$1
+			/>
+		);
+	});
+
+	$0
+});
+endsnippet

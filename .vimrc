@@ -24,6 +24,7 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('tpope/vim-repeat')
   call dein#add('tpope/vim-speeddating')
   call dein#add('tpope/vim-surround')
+  call dein#add('SirVer/UltiSnips')
   call dein#add('w0rp/ale')
 
   " Navigation
@@ -134,13 +135,6 @@ nmap <leader>yv ggO%02f/lvt_"+yu``
 
 
 """ Function bindings
-
-" Map \be, \d, and \i to framework specific test templates
-nmap <leader>be :call BeforeBlock()
-nmap <leader>d :call DescribeBlock()
-nmap <leader>c :call ContextBlock()
-nmap <leader>i :call ItBlock()
-
 nmap <leader>x :call ExtractVariable()
 
 " Map \bd to delete all empty buffers
@@ -371,34 +365,6 @@ endif
 
 
 """ Functions
-
-func! BeforeBlock()
-  if &filetype == "javascript"
-    call feedkeys("obeforeEach(() => {});k=}o")
-  elseif &filetype == "ruby"
-    call feedkeys("obefore dok=}jddko")
-  endif
-endfunc
-
-func! DescribeBlock()
-  if &filetype == "javascript"
-    call feedkeys("odescribe('', () => {});k=}f'a")
-  elseif &filetype == "ruby"
-    call feedkeys("odescribe \"\" dok=}jddkf\"a")
-  endif
-endfunc
-
-func! ContextBlock()
-  call feedkeys("ocontext \"\" dok=}jddkf\"a")
-endfunc
-
-func! ItBlock()
-  if &filetype == "javascript"
-    call feedkeys("oit('', () => {});k=}f'a")
-  elseif &filetype == "ruby"
-    call feedkeys("oit \"\" dok=}jddkf\"a")
-  endif
-endfunc
 
 " Assigns the last removed text to a variable named to the last added text
 func! ExtractVariable()
