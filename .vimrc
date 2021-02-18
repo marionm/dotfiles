@@ -188,7 +188,7 @@ endif
 nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 nmap <leader>g :Grepper -cword -noprompt<CR>
-nmap <leader>G :Grepper -query 
+nmap <leader>G :GrepperAg 
 
 " vim-rspec
 map <Leader>s :call RunNearestSpec()<CR>
@@ -221,6 +221,8 @@ let g:rails_projections = {
 " vim-grepper
 let g:grepper = {}
 let g:grepper.simple_prompt = 1
+" Puts ag infront of git - keep? Doesn't seem all that much faster honestly
+let g:grepper.tools = ['ag', 'git', 'ack', 'ack-grep', 'grep']
 
 " vim-rspec
 " TODO: Make this more generic
