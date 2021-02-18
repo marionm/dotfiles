@@ -31,7 +31,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('junegunn/fzf')
   call dein#add('junegunn/fzf.vim')
   call dein#add('mhinz/vim-grepper')
-  call dein#add('scrooloose/nerdtree')
   call dein#add('tpope/vim-projectionist')
   call dein#add('tpope/vim-vinegar')
 
@@ -158,9 +157,7 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 " fzf
 nnoremap <c-p> :FZF<CR>
 
-" nerdtree
-nmap <silent> <leader>r :NERDTreeFind
-nmap <silent> <leader>n :NERDTreeToggle
+" undotree
 nmap <silent> <leader>u :UndotreeToggle
 
 " vim-arduino
@@ -205,10 +202,6 @@ let g:ale_linters = {
 \ 'javascript': ['eslint'],
 \ 'ruby': ['rubocop', 'ruby']
 \ }
-
-" nerdtree
-let NERDTreeHijackNetrw=0
-let NERDTreeMinimalUI=1
 
 " vim-rails
 let g:rails_projections = {
@@ -318,7 +311,7 @@ au FileType javascript call JavaScriptFold()
 au FileType javascript normal zn
 set foldlevelstart=20
 
-" Disable ballooneval, even in the face of plugins (i.e. vim-ruby, NERDTree) and MacVim netrw
+" Disable ballooneval, even in the face of plugins (i.e. vim-ruby) and MacVim netrw
 if has("balloon_eval")
   set balloondelay=100000
   set noballooneval
