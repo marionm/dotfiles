@@ -121,10 +121,12 @@ nmap <leader>fj :%!python -m json.tool<CR>:set ft=javascript<CR>
 vmap <leader>fj :!python -m json.tool<CR>
 
 " Map \h to a hacky one-line Ruby hash exploder
-autocmd FileType ruby nmap <leader>h 0/\(\w:\\| =>\)<CR>?\((\\|\s\)<CR>a{<CR><ESC>$i}<ESC>i<CR><ESC>k:s/,\s*/,\r/g<CR>=i{:nohlsearch<CR>
+" autocmd FileType ruby nmap <leader>h 0/\(\w:\\| =>\)<CR>?\((\\|\s\)<CR>a{<CR><ESC>$i}<ESC>i<CR><ESC>k:s/,\s*/,\r/g<CR>=i{:nohlsearch<CR>
+" Grudingly exclude the wrapping braces
+autocmd FileType ruby nmap <leader>h 0/\(\w:\\| =>\)<CR>?\((\\|\s\)<CR>a<CR><ESC>$i<ESC>a<CR><ESC>k:s/,\s*/,\r/g<CR>j=%:nohlsearch<CR>
 
 " Map \rl to toggle relative line numbers
-nmap <leader>rl :set relativenumber!<CR>
+" nmap <leader>rl :call SetRelativeNumber()<CR>:se
 
 " Map \yv to yank the current Rails migration version number into the system buffer
 nmap <leader>yv ggO%02f/lvt_"+yu``
@@ -223,7 +225,7 @@ let g:grepper.simple_prompt = 1
 " vim-rspec
 " TODO: Make this more generic
 let g:rspec_runner="os_x_iterm2"
-let g:rspec_command="spring rspec --order defined {spec}"
+let g:rspec_command="rspec --order defined {spec}"
 
 
 """ Vim settings
@@ -321,6 +323,30 @@ if has("balloon_eval")
   setlocal balloonexpr=
 end
 
+" Only show relative line numbers in the current buffer and when focused
+" augroup numbertoggle
+"   autocmd!
+"   autocmd BufEnter,FocusGained * call EnableRelativeNumber()
+"   autocmd BufLeave,FocusLost * call DisableRelativeNumber()
+" augroup END
+
+" func SetRelativeNumber()
+"   let relativenumber_set = 1
+" endfunc
+
+" func UnsetRelativeNumber()
+"   let relativenumber_set = 0
+" endfunc
+
+" func EnableRelativeNumber()
+"   if relativenumber_set == 1
+"     set relativenumber!
+"   endif
+" endfunc
+
+" func DisableRelativeNumber()
+"   set norelativenumber
+" endfunc
 
 
 """ Visual
