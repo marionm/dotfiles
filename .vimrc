@@ -49,7 +49,8 @@ if dein#load_state('~/.vim/bundles')
   " JavaScript
   call dein#add('kchmck/vim-coffee-script')
   call dein#add('lukaszb/vim-web-indent')
-  call dein#add('neoclide/vim-jsx-improve')
+  call dein#add('pangloss/vim-javascript')
+  call dein#add('MaxMEllon/vim-jsx-pretty')
 
   " Markup
   call dein#add('slim-template/vim-slim')
