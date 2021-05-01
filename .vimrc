@@ -204,16 +204,6 @@ let g:ale_linters = {
 \ 'ruby': ['rubocop', 'ruby']
 \ }
 
-" vim-rails
-let g:rails_projections = {
-\ 'app/*.rb': { 'alternate': 'spec/{}_spec.rb' },
-\ 'lib/*.rb': { 'alternate': 'spec/{}_spec.rb' },
-\ 'spec/*_spec.rb': { 'alternate': 'app/{}.rb' },
-\
-\ 'app/javascript/*.js': { 'alternate': 'spec/javascript/{}.test.js' },
-\ 'spec/javascript/*.test.js': { 'alternate': 'app/javascript/{}.js' }
-\ }
-
 " vim-grepper
 let g:grepper = {}
 let g:grepper.simple_prompt = 1
