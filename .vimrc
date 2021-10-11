@@ -207,7 +207,6 @@ let g:ale_linters = {
 " vim-grepper
 let g:grepper = {}
 let g:grepper.simple_prompt = 1
-" Puts ag infront of git - keep? Doesn't seem all that much faster honestly
 let g:grepper.tools = ['ag', 'git', 'ack', 'ack-grep', 'grep']
 
 " vim-rspec
@@ -300,8 +299,8 @@ endif
 " Enable XML and JS folding
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
-au FileType javascript call JavaScriptFold()
-au FileType javascript normal zn
+" au FileType javascript call JavaScriptFold()
+" au FileType javascript normal zn
 set foldlevelstart=20
 
 " Disable ballooneval, even in the face of plugins (i.e. vim-ruby) and MacVim netrw
@@ -359,6 +358,7 @@ endif
 """ Functions
 
 " Assigns the last removed text to a variable named to the last added text
+" TODO: Can this be done with UltiSnips too? (either way, do it for JS also)
 func! ExtractVariable()
   if &filetype == "ruby"
     call feedkeys("O. = \"")
@@ -381,3 +381,7 @@ func! DeleteEmptyBuffers()
 
   return deleted
 endfunc
+
+" DONT CHECK IN (or maybe do?)
+" Disable shift-k keyword lookup
+nmap K <C-K>
