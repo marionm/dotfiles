@@ -49,3 +49,14 @@ if argument bash; then
 
   . ~/.bashrc
 fi
+
+if argument zsh; then
+  cp $DIR/.profile-marionm ~
+
+  touch ~/.zshrc
+  if ! grep -q profile-marionm ~/.zshrc; then
+    echo 'if [ -f ~/.profile-marionm ]; then . ~/.profile-marionm; fi' >> ~/.zshrc
+  fi
+
+  . ~/.zshrc
+fi

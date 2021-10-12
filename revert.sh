@@ -30,3 +30,7 @@ fi
 if argument bash; then
   rm -f ~/.profile-marionm
 fi
+
+if argument zsh; then
+  rm -f ~/.profile-marionm
+fi

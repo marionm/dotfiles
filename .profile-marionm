@@ -3,6 +3,7 @@ stty -ixon
 alias ag='ag --path-to-ignore ~/.agignore'
 alias be='bundle exec'
 alias gvim='UBUNTU_MENUPROXY= gvim'
+alias less='less -R'
 
 alias cf='git clean -f'
 alias cfd='git clean -fd'
@@ -27,12 +28,12 @@ alias rspec-branch='
   xargs spring rspec
 '
 
-export EDITOR=vim
+export CLICOLOR=1
+export LSCOLORS=gafacadabaegedabagacad
+
 export BUNDLER_EDITOR=gvim
-
+export EDITOR=vim
 export FZF_DEFAULT_COMMAND='ag -g ""'
-
-export PROMPT_COMMAND='echo -ne "\033]0;${TITLE-${PWD##*/}}\007"'
 
 function title {
   TITLE=$*
@@ -42,10 +43,20 @@ function notitle {
   unset TITLE
 }
 
-if [ -f ~/.git-completion.sh ]; then
-  . ~/.git-completion.sh
-fi
+function parse_git_branch {
+  git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/ (\1)/'
+}
 
-if [ -f ~/.git-branch-prompt.sh ]; then
-  . ~/.git-branch-prompt.sh
+if [ -n "$ZSH_VERSION" ]; then
+  setopt PROMPT_SUBST
+  export PS1="%f%n:%1~%F{magenta}\$(parse_git_branch)%f\$ "
+  autoload -Uz compinit && compinit
+else
+  local BRANCH="\[\e[35m\]"
+  local RESET="\[\e[0m\]"
+  export PS1="$RESET\u@\h:\W$BRANCH\$(parse_git_branch)$RESET\$ "
+
+  if [ -f ~/.git-completion.sh ]; then
+    . ~/.git-completion.sh
+  fi
 fi
