@@ -22,10 +22,10 @@ alias rt='git commit -mtmp && rei'
 alias rta='git commit -amtmp && rei'
 
 alias rspec-branch='
-  git diff --name-status master *_spec.rb |
-  grep -E "^(A|M)" |
+  git diff --name-status master |
+  grep -E "^(A|M)\s+.*_spec.rb$" |
   awk "{print \$2}" |
-  xargs spring rspec
+  xargs rspec
 '
 
 export CLICOLOR=1
