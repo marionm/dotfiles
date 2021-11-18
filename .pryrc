@@ -13,7 +13,7 @@ if defined?(PryByebug)
   repeatable_commands = %w[up down] + debugging_commands.to_a.flatten.map(&:to_s)
   Pry::Commands.command(/^$/, "repeat last command") do
     command = Pry.history.to_a.last
-    _pry_.run_command(command) if command.in?(repeatable_commands)
+    pry_instance.run_command(command) if command.in?(repeatable_commands)
   end
 
   # Filters frames based on closeness to the current directory
@@ -67,19 +67,19 @@ if defined?(PryByebug)
   Pry::Commands.command(/^b([?!]*)$/, "show current frames filtered to working directory") do |captures|
     # Include frame numbers since they actually are frames
     frames = Pry::Code.new(caller, 0, :text).with_line_numbers.lines
-    _pry_.pager.page Pry.filter_frames(frames, captures.length).join($/)
+    pry_instance.pager.page Pry.filter_frames(frames, captures.length).join($/)
   end
 
   # Like wtf, but filtered like the "b" command
   Pry::Commands.command(/^huh([?!]*)$/, "show last error and backtrace filtered to working directory") do |captures|
-    error = _pry_.last_exception
+    error = pry_instance.last_exception
     raise Pry::CommandError, "No most-recent exception" unless error
 
-    _pry_.pager.page "#{Pry::Helpers::Text.bold("Exception:")} #{error.class}: #{error.message}"
-    _pry_.pager.page "--"
+    pry_instance.pager.page "#{Pry::Helpers::Text.bold("Exception:")} #{error.class}: #{error.message}"
+    pry_instance.pager.page "--"
 
     # Exclude frame numbers since it is just confusing with pry lines filtered out
-    _pry_.pager.page Pry.filter_frames(error.backtrace, captures.length).join($/)
+    pry_instance.pager.page Pry.filter_frames(error.backtrace, captures.length).join($/)
   end
 end
 
