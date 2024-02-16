@@ -60,3 +60,8 @@ if argument zsh; then
 
   . ~/.zshrc
 fi
+
+if argument hs; then
+  mkdir -p ~/.hammerspoon
+  replace ~/.hammerspoon/init.lua
+fi

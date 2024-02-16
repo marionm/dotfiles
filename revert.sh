@@ -34,3 +34,7 @@ fi
 if argument zsh; then
   rm -f ~/.profile-marionm
 fi
+
+if argument hs; then
+  revert ~/.hammerspoon/init.lua
+fi
