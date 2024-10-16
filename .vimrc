@@ -44,7 +44,7 @@ if dein#load_state('~/.vim/bundles')
   " call dein#add('vim-scripts/Arduino-syntax-file')
 
   " Go
-  call dein#add('fatih/vim-go')
+  " call dein#add('fatih/vim-go')
 
   " JavaScript
   call dein#add('kchmck/vim-coffee-script')
