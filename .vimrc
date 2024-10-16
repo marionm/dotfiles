@@ -124,8 +124,8 @@ nmap <leader>fx :%!xmllint --format -<CR>:set ft=xml<CR>
 vmap <leader>fx :!xmllint --format -<CR>
 
 " Map \fj to JSON formatting with python
-nmap <leader>fj :%!python -m json.tool<CR>:set ft=javascript<CR>
-vmap <leader>fj :!python -m json.tool<CR>
+nmap <leader>fj :%!python3 -m json.tool<CR>:set ft=javascript<CR>
+vmap <leader>fj :!python3 -m json.tool<CR>
 
 " Map \h to a hacky one-line Ruby hash exploder
 " autocmd FileType ruby nmap <leader>h 0/\(\w:\\| =>\)<CR>?\((\\|\s\)<CR>a{<CR><ESC>$i}<ESC>i<CR><ESC>k:s/,\s*/,\r/g<CR>=i{:nohlsearch<CR>
