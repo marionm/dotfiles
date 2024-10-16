@@ -301,12 +301,13 @@ if version >= 703
   set undodir=~/.vimtmp,~/.tmp,~/tmp,/var/tmp,/tmp,c:\tmp
 endif
 
-" Enable XML and JS folding
+" Folding
 let g:xml_syntax_folding=1
 au FileType xml setlocal foldmethod=syntax
 " au FileType javascript call JavaScriptFold()
 " au FileType javascript normal zn
 set foldlevelstart=20
+set foldmethod=indent
 
 " Disable ballooneval, even in the face of plugins (i.e. vim-ruby) and MacVim netrw
 if has("balloon_eval")
