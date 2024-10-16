@@ -217,8 +217,7 @@ let g:grepper.tools = ['ag', 'git', 'ack', 'ack-grep', 'grep']
 " vim-rspec
 " TODO: Make this more generic
 let g:rspec_runner="os_x_iterm2"
-let g:rspec_command="rspec --order defined {spec}"
-
+let g:rspec_command="rspec --format documentation --profile --order defined {spec}"
 
 """ Vim settings
 
