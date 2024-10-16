@@ -13,6 +13,7 @@ if argument nvim; then
   (cd $DIR ; git submodule update --init)
   mkdir -p ~/.config/nvim
   replace ~/.config/nvim/init.vim
+  replace ~/.nvim_iterm2_runner
 fi
 
 if argument pry; then
