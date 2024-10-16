@@ -228,6 +228,7 @@ set hidden
 set mouse=a
 set encoding=utf-8
 set ttyfast
+set belloff=all
 
 set tabstop=2
 set shiftwidth=2
