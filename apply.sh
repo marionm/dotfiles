@@ -9,6 +9,12 @@ if argument vim; then
   replace ~/.vimrc
 fi
 
+if argument nvim; then
+  (cd $DIR ; git submodule update --init)
+  mkdir -p ~/.config/nvim
+  replace ~/.config/nvim/init.vim
+fi
+
 if argument pry; then
   replace ~/.pryrc
 fi

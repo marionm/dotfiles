@@ -7,6 +7,10 @@ if argument vim; then
   revert ~/.vimrc
 fi
 
+if argument nvim; then
+  revert ~/.config/nvim/init.vim
+fi
+
 if argument pry; then
   revert ~/.pryrc
 fi
