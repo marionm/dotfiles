@@ -15,6 +15,12 @@ noremap <D-t> :tabnew<CR>
 noremap <D-s> :w<CR>
 noremap <D-a> ggVGo
 
+" Something about either vim-vinegar, netrw_altfile=1, or both don't work correctly
+" This gets closer
+" TODO: Can I get this to also start with the cursor on the file I came from?
+"       If so, I think I can get rid of vinegar
+noremap - :Explore %:h<CR>
+
 " Neovide settings
 " TODO: Wrap in neovide check
 let g:neovide_cursor_animate_command_line = v:false
