@@ -5,7 +5,7 @@ source ~/.vimrc
 " Autoreload this file when saving it
 autocmd! bufwritepost init.vim source %
 
-" System clipboard bindings
+" System clipboard/sugar bindings
 " TODO: Use C-* instead of D-* for non-osx systems
 noremap <D-c> "+y
 noremap <D-v> "+p
@@ -13,6 +13,7 @@ cnoremap <D-v> <C-r>+
 imap <D-v> <C-r>+
 noremap <D-t> :tabnew<CR>
 noremap <D-s> :w<CR>
+noremap <D-a> ggVGo
 
 " Neovide settings
 " TODO: Wrap in neovide check
