@@ -48,7 +48,7 @@ let g:neovide_scroll_animation_length = 0.00
 " Inlined vim-rspec functionality, since the plugin isn't neovim compatible
 " TODO: Why doesn't ~/. work here?
 let g:rspec_runner = "/Users/mikemarion/.nvim_iterm2_runner"
-let g:rspec_command = "rspec --format documentation --profile --order defined"
+let g:rspec_command = "rspec --format documentation --profile --"
 func! RunRspec(mode)
   let s:is_spec = match(expand("%"), "_spec.rb$") != -1
 
