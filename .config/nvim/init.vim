@@ -15,11 +15,25 @@ noremap <D-t> :tabnew<CR>
 noremap <D-s> :w<CR>
 noremap <D-a> ggVGo
 
-" Something about either vim-vinegar, netrw_altfile=1, or both don't work correctly
-" This gets closer
-" TODO: Can I get this to also start with the cursor on the file I came from?
-"       If so, I think I can get rid of vinegar
-noremap - :Explore %:h<CR>
+" NetrwSeek is ripped off from vim-vinegar so opening netrw starts with the
+" current file selected. You can use :edit instead of :Explore to do the same
+" thing without any additional calls, but that seems to make netrw the altfile,
+" even when you prefix with :keepalt or set g:netrw_altfile=1
+noremap - :Explore %:h<CR>:call NetrwSeek(expand('#:t'))<CR>
+function! NetrwSeek(file) abort
+  if get(b:, 'netrw_liststyle') == 2
+    let pattern = '\%(^\|\s\+\)\zs'.escape(a:file, '.*[]~\').'[/*|@=]\=\%($\|\s\+\)'
+  else
+    let pattern = '^\%(| \)*'.escape(a:file, '.*[]~\').'[/*|@=]\=\%($\|\t\)'
+  endif
+  call search(pattern, 'wc')
+  return pattern
+endfunction
+" This keeps netrw out of altfile, even after navigating up a directory
+augroup netrw_fix
+  autocmd!
+  autocmd FileType netrw setlocal bufhidden=wipe
+augroup END
 
 " Neovide settings
 " TODO: Wrap in neovide check
