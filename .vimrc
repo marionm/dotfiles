@@ -169,6 +169,9 @@ nmap <silent> ]e <Plug>(ale_next_wrap)
 " fzf
 nnoremap <c-p> :FZF<CR>
 
+" ultisnips
+let g:UltiSnipsExpandTrigger="<C-CR>"
+
 " undotree
 nmap <silent> <leader>u :UndotreeToggle
 
