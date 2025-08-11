@@ -223,6 +223,10 @@ let g:ale_linters = {
 \ 'ruby': ['rubocop', 'ruby']
 \ }
 
+""" copilot
+" let g:copilot_settings = #{selectedCompletionModel: 'gpt-4o-copilot'}
+let g:copilot_settings = #{selectedCompletionModel: 'gemini-2.5-pro'}
+
 " vim-grepper
 let g:grepper = {}
 let g:grepper.simple_prompt = 1
