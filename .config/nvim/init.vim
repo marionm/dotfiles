@@ -65,3 +65,93 @@ endfunc
 map <Leader>t :call RunRspec("file")<CR>
 map <Leader>s :call RunRspec("line")<CR>
 map <Leader>p :call RunRspec("last")<CR>
+
+lua << EOF
+-- TODO: What plugin is setting this to a non-zero value?
+conceeallevel = 0
+EOF
+
+lua << EOF
+-- require("CopilotChat").setup {
+-- }
+EOF
+
+lua << EOF
+-- Setup LSP
+local lspconfig = require('lspconfig')
+local cmp = require('cmp')
+
+-- TypeScript LSP
+lspconfig.ts_ls.setup({
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  on_attach = function(client, bufnr)
+    -- Disable semantic highlighting
+    client.server_capabilities.semanticTokensProvider = nil
+  end
+})
+
+-- nvim-cmp setup
+cmp.setup({
+  completion = {
+    autocomplete = false,  -- Disable automatic popup
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-Space>'] = cmp.mapping.complete(),  -- Manual trigger only
+    ['<C-e>'] = cmp.mapping.abort(),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+  }),
+  sources = cmp.config.sources({
+    {
+      name = 'nvim_lsp',
+      entry_filter = function(entry, ctx)
+        -- Filter out Text completion items
+        local kind = require('cmp').lsp.CompletionItemKind
+        return entry:get_kind() ~= kind.Text
+      end
+    },
+    { name = 'buffer' },
+    { name = 'path' },
+  })
+})
+
+-- LSP keybindings
+vim.api.nvim_create_autocmd('LspAttach', {
+  group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+  callback = function(ev)
+    local opts = { buffer = ev.buf }
+    vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+    vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+    vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+    vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+    vim.keymap.set('n', '<leader>k', function()
+      if vim.lsp.get_clients({bufnr = 0})[1] then
+        vim.lsp.buf.signature_help()
+      end
+    end, opts)
+    vim.keymap.set('i', '<C-s>', function()
+      if vim.lsp.get_clients({bufnr = 0})[1] then
+        vim.lsp.buf.signature_help()
+      end
+    end, opts)
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
+    vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
+    vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+  end,
+})
+EOF
