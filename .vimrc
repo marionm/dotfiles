@@ -29,15 +29,9 @@ if dein#load_state('~/.vim/bundles')
 
   " Navigation
   call dein#add('bogado/file-line')
-  call dein#add('junegunn/fzf')
-  call dein#add('junegunn/fzf.vim')
   call dein#add('mhinz/vim-grepper')
   call dein#add('tpope/vim-projectionist')
   call dein#add('tpope/vim-vinegar')
-
-  " Visual
-  call dein#add('altercation/vim-colors-solarized')
-  " call dein#add('nathanaelkane/vim-indent-guides')
 
   " Arduino
   " call dein#add('tclem/vim-arduino')
@@ -47,11 +41,12 @@ if dein#load_state('~/.vim/bundles')
   " call dein#add('fatih/vim-go')
 
   " JavaScript
-  call dein#add('kchmck/vim-coffee-script')
-  call dein#add('lukaszb/vim-web-indent')
-  call dein#add('yuezk/vim-js')
+  " call dein#add('kchmck/vim-coffee-script')
+  " call dein#add('lukaszb/vim-web-indent')
+  " call dein#add('yuezk/vim-js')
   call dein#add('pangloss/vim-javascript')
   call dein#add('MaxMEllon/vim-jsx-pretty')
+  " call dein#add('neoclide/vim-jsx-improve')
 
   " Markup
   call dein#add('slim-template/vim-slim')
@@ -64,9 +59,19 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('tpope/vim-rails')
   call dein#add('vim-ruby/vim-ruby')
 
-  " AI
-  call dein#add('github/copilot.vim')
-  call dein#add('pasky/claude.vim')
+  if !exists('g:vscode')
+    " Navigation
+    call dein#add('junegunn/fzf')
+    call dein#add('junegunn/fzf.vim')
+
+    " Visual
+    call dein#add('altercation/vim-colors-solarized')
+    " call dein#add('overcache/NeoSolarized')
+    " call dein#add('nathanaelkane/vim-indent-guides')
+
+    " Dependencies (unused?)
+    call dein#add('nvim-lua/plenary.nvim')
+  endif
 
   call dein#end()
   call dein#save_state()
@@ -344,7 +349,12 @@ end
 
 """ Visual
 
-colorscheme solarized
+if exists('g:vscode')
+  colorscheme ""
+else
+  " colorscheme NeoSolarized
+  colorscheme solarized
+endif
 
 func! Mac()
   return has('unix') && system('uname') == "Darwin\n"
