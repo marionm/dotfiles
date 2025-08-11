@@ -100,6 +100,11 @@ imap jk <ESC>
 " Add binding for new vertical window
 nmap <C-W>N :vnew
 
+" Bindings for opening the path under the cursor - gf is built-in and uses the same buffer
+nmap gF :tabedit <cfile><CR>
+nmap gS :split <cfile><CR>
+nmap gV :vsplit <cfile><CR>
+
 " Map F5 to paste mode toggle
 set pastetoggle=<F5>
 
