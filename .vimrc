@@ -69,8 +69,15 @@ if dein#load_state('~/.vim/bundles')
     " call dein#add('overcache/NeoSolarized')
     " call dein#add('nathanaelkane/vim-indent-guides')
 
-    " Dependencies (unused?)
     call dein#add('nvim-lua/plenary.nvim')
+
+    if has('nvim')
+      call dein#add('neovim/nvim-lspconfig')
+      call dein#add('hrsh7th/nvim-cmp')
+      call dein#add('hrsh7th/cmp-nvim-lsp')
+      call dein#add('hrsh7th/cmp-buffer')
+      call dein#add('hrsh7th/cmp-path')
+    endif
   endif
 
   call dein#end()
@@ -222,6 +229,7 @@ let g:ale_linters = {
 \ 'javascript': ['eslint'],
 \ 'ruby': ['rubocop', 'ruby']
 \ }
+let g:ale_virtualtext_cursor = 'disabled'
 
 """ copilot
 " let g:copilot_settings = #{selectedCompletionModel: 'gpt-4o-copilot'}
