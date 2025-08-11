@@ -207,6 +207,7 @@ nmap <leader>G :GrepperAg
 map <Leader>s :call RunNearestSpec()<CR>
 map <Leader>p :call RunLastSpec()<CR>
 map <Leader>t :call RunCurrentSpecFile()<CR>
+map <Leader>T :call RunCurrentSpecFile()<CR>
 
 
 
