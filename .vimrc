@@ -106,7 +106,7 @@ nmap gS :split <cfile><CR>
 nmap gV :vsplit <cfile><CR>
 
 " Map F5 to paste mode toggle
-set pastetoggle=<F5>
+" set pastetoggle=<F5>
 
 " Double-tap leader to clear search results
 nmap <silent> <leader><leader> :silent :nohlsearch
