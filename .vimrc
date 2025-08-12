@@ -69,6 +69,8 @@ if dein#load_state('~/.vim/bundles')
     " call dein#add('overcache/NeoSolarized')
     " call dein#add('nathanaelkane/vim-indent-guides')
 
+    " AI
+    call dein#add('github/copilot.vim', { 'rev': '250f24cc485aede5d0069e8765542c3787448d8d' })
     call dein#add('nvim-lua/plenary.nvim')
 
     if has('nvim')
