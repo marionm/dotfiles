@@ -72,65 +72,16 @@ conceeallevel = 0
 EOF
 
 lua << EOF
--- require("CopilotChat").setup {
--- }
-EOF
-
-lua << EOF
--- Setup LSP
 local lspconfig = require('lspconfig')
-local cmp = require('cmp')
 
--- TypeScript LSP
 lspconfig.ts_ls.setup({
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = function(client, bufnr)
-    -- Disable semantic highlighting
+    -- Disable LSP syntax highlighting for now - I prefer Ale
     client.server_capabilities.semanticTokensProvider = nil
   end
 })
 
--- nvim-cmp setup
-cmp.setup({
-  completion = {
-    autocomplete = false,  -- Disable automatic popup
-  },
-  mapping = cmp.mapping.preset.insert({
-    ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
-    ['<C-Space>'] = cmp.mapping.complete(),  -- Manual trigger only
-    ['<C-e>'] = cmp.mapping.abort(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ['<Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-    ['<S-Tab>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, { 'i', 's' }),
-  }),
-  sources = cmp.config.sources({
-    {
-      name = 'nvim_lsp',
-      entry_filter = function(entry, ctx)
-        -- Filter out Text completion items
-        local kind = require('cmp').lsp.CompletionItemKind
-        return entry:get_kind() ~= kind.Text
-      end
-    },
-    { name = 'buffer' },
-    { name = 'path' },
-  })
-})
-
--- LSP keybindings
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),
   callback = function(ev)
@@ -149,9 +100,43 @@ vim.api.nvim_create_autocmd('LspAttach', {
         vim.lsp.buf.signature_help()
       end
     end, opts)
-    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
     vim.keymap.set({ 'n', 'v' }, '<leader>ca', vim.lsp.buf.code_action, opts)
     vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+
+    -- TODO: This doesn't seem to work as expected - it will only rename things in open buffers, not
+    --       across the whole project (even though `gr` can find appropriate references).
+    --       Also, it doesn't save those other buffers after a rename.
+    vim.keymap.set('n', '<leader>rn', vim.lsp.buf.rename, opts)
   end,
+})
+EOF
+
+lua << EOF
+local cmp = require('cmp')
+
+cmp.setup({
+  completion = {
+    autocomplete = false,  -- Disable automatic popup
+    completeopt = 'menu,menuone',
+  },
+  mapping = cmp.mapping.preset.insert({
+    ['<C-Space>'] = cmp.mapping.complete(),
+    ['<C-n>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item({ behavior = cmp.SelectBehavior.Select })
+      else
+        fallback()
+      end
+    end, { 'i' }),
+    ['<C-p>'] = cmp.mapping(function()
+      cmp.select_prev_item({ behavior = cmp.SelectBehavior.Select })
+    end, { 'i' }),
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+  }),
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'buffer' },
+    { name = 'path' },
+  })
 })
 EOF
