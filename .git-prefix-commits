@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [ $# -ne 1 ]; then
+  echo "Usage: $0 <prefix>"
+  exit 1
+fi
+
+# Load the `rei` alias, suppressing errors from local variables outside functions
+shopt -s expand_aliases
+source ~/.profile-marionm 2>/dev/null || true
+
+GIT_SEQUENCE_EDITOR='sed -i "" '"'"'s/^pick \([a-f0-9]*\) \(.*\)$/pick \1 \2\
+x git commit --amend -m "'"$1"': \2"/'"'"' ' rei

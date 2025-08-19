@@ -20,6 +20,7 @@ alias reip='rebase_on_master -i -p'
 alias repi='rebase_on_master -i -p'
 alias rt='git commit -mtmp && rei'
 alias rta='git commit -amtmp && rei'
+alias rej='~/.git-prefix-commits'
 
 alias rspec-branch='
   git diff --name-status master |
