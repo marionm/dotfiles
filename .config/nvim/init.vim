@@ -74,6 +74,20 @@ EOF
 lua << EOF
 local lspconfig = require('lspconfig')
 
+vim.lsp.enable('clangd')
+
+capabilities = require('cmp_nvim_lsp').default_capabilities()
+local project_root = "/home/mike/code/vcvrack/MyPlugin"
+vim.lsp.config('clangd', {
+  cmd = { "clangd", "--compile-commands-dir=" .. project_root, "--background-index", "--clang-tidy", "--completion-style=detailed" },
+  filetypes = { "c", "cpp", "objc", "objcpp" },
+  root_dir = lspconfig.util.root_pattern("Makefile", ".git", "compile_commands.json"),
+  capabilities = capabilities,
+  init_options = {
+    compilationDatabasePath = project_root
+  }
+})
+
 vim.lsp.config('ts_ls', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = function(client, bufnr)
