@@ -91,6 +91,12 @@ if dein#check_install()
   helptags ALL
 endif
 
+" Patch MatchTagAlways autocommand to avoid E117 warning
+augroup FixMatchTagAlways
+  autocmd!
+  autocmd FileType * if exists('*MatchTagAlways#Setup') | call MatchTagAlways#Setup() | endif
+augroup END
+
 """ Bindings
 
 " Use Q instead of @q to enable easier one-shot macros
