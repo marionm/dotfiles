@@ -74,7 +74,7 @@ EOF
 lua << EOF
 local lspconfig = require('lspconfig')
 
-lspconfig.ts_ls.setup({
+vim.lsp.config('ts_ls', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = function(client, bufnr)
     -- Disable LSP syntax highlighting for now - I prefer Ale
