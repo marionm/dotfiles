@@ -422,6 +422,5 @@ func! DeleteEmptyBuffers()
   return deleted
 endfunc
 
-" DONT CHECK IN (or maybe do?)
 " Disable shift-k keyword lookup
 nmap K <C-K>
