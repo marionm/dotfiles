@@ -107,7 +107,7 @@ imap jj <ESC>
 imap jk <ESC>
 
 " Add binding for new vertical window
-nmap <C-W>N :vnew
+nmap <C-W>N :vnew<CR>
 
 " Bindings for opening the path under the cursor - gf is built-in and uses the same buffer
 nmap gF :tabedit <cfile><CR>
@@ -118,7 +118,7 @@ nmap gV :vsplit <cfile><CR>
 " set pastetoggle=<F5>
 
 " Double-tap leader to clear search results
-nmap <silent> <leader><leader> :silent :nohlsearch
+nmap <silent> <leader><leader> :silent :nohlsearch<CR>
 
 " Map * and # to begin seaching for current selection
 vmap * "*y:/<C-R>*
@@ -160,11 +160,11 @@ nmap <leader>yv ggO%02f/lvt_"+yu``
 
 
 """ Function bindings
-nmap <leader>x :call ExtractVariable()
+nmap <leader>x :call ExtractVariable()<CR>
 
 " Map \bd to delete all empty buffers
 " The set/echo ensures the message is displayed even if an open window is closed
-nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . deleted . ' buffer(s)'
+nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . deleted . ' buffer(s)'<CR>
 
 
 
@@ -182,13 +182,13 @@ nnoremap <c-p> :FZF<CR>
 let g:UltiSnipsExpandTrigger="<C-CR>"
 
 " undotree
-nmap <silent> <leader>u :UndotreeToggle
+nmap <silent> <leader>u :UndotreeToggle<CR>
 
 " vim-arduino
 " let g:vim_arduino_map_keys = 0
-" nnoremap <leader>c :call ArduinoCompile()
-" nnoremap <leader>d :call ArduinoDeploy()
-" nnoremap <leader>s :call ArduinoSerialMonitor()
+" nnoremap <leader>c :call ArduinoCompile()<CR>
+" nnoremap <leader>d :call ArduinoDeploy()<CR>
+" nnoremap <leader>s :call ArduinoSerialMonitor()<CR>
 
 " vim-fugitive
 if &diff
