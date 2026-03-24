@@ -422,11 +422,6 @@ func! DeleteEmptyBuffers()
   return deleted
 endfunc
 
-" TODO: Can this be read from an environment variable?
-let g:claude_api_key = ''
-" If your system node is not at least v18, you can set an override to an asdf or whatever installed version here
-" let g:copilot_node_command = '/Users/mikemarion/.asdf/installs/nodejs/18.18.2/bin/node'
-
 " DONT CHECK IN (or maybe do?)
 " Disable shift-k keyword lookup
 nmap K <C-K>
