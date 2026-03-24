@@ -159,7 +159,7 @@ nnoremap <leader>yp :let @+ = expand('%:.')<CR>
 nnoremap <leader>yf :let @+ = expand('%:p')<CR>
 
 " Map \yv to yank the current Rails migration version number into the system buffer
-nmap <leader>yv ggO%02f/lvt_"+yu``
+nnoremap <leader>yv :let @+ = matchstr(expand('%:t'), '^\d\+')<CR>
 
 
 
