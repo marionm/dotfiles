@@ -236,6 +236,7 @@ let g:ale_linters = {
 \ 'ruby': ['rubocop', 'ruby']
 \ }
 let g:ale_virtualtext_cursor = 'disabled'
+let g:ale_ruby_rubocop_executable = 'bundle'
 
 " vim-grepper
 let g:grepper = {}
