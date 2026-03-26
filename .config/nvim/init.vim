@@ -77,7 +77,7 @@ local lspconfig = require('lspconfig')
 lspconfig.ts_ls.setup({
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = function(client, bufnr)
-    -- Disable LSP syntax highlighting for now - I prefer Ale
+    -- Disable LSP syntax highlighting
     client.server_capabilities.semanticTokensProvider = nil
   end
 })
@@ -139,4 +139,44 @@ cmp.setup({
     { name = 'path' },
   })
 })
+EOF
+
+lua << EOF
+-- nvim-lint configuration
+local lint = require('lint')
+
+lint.linters_by_ft = {
+  javascript = {'eslint'},
+  javascriptreact = {'eslint'},
+  typescript = {'eslint'},
+  typescriptreact = {'eslint'},
+  ruby = {'rubocop'},
+}
+
+-- Use bundler for rubocop (project uses bundler-only gems)
+local rubocop = lint.linters.rubocop
+rubocop.cmd = 'bundle'
+rubocop.args = {'exec', 'rubocop', '--format', 'json', '--force-exclusion', '--stdin', function() return vim.api.nvim_buf_get_name(0) end}
+
+-- Lint on save
+vim.api.nvim_create_autocmd({'BufWritePost'}, {
+  callback = function()
+    lint.try_lint()
+  end,
+})
+
+-- Clamp lint underlining to the first character of the offending block
+local orig_underline_handler = vim.diagnostic.handlers.underline
+vim.diagnostic.handlers.underline = {
+  show = function(ns, bufnr, diagnostics, opts)
+    local clamped = vim.tbl_map(function(d)
+      return vim.tbl_extend("force", d, {
+        end_lnum = d.lnum,
+        end_col = d.col + 1,
+      })
+    end, diagnostics)
+    orig_underline_handler.show(ns, bufnr, clamped, opts)
+  end,
+  hide = orig_underline_handler.hide,
+}
 EOF

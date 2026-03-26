@@ -25,7 +25,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('tpope/vim-speeddating')
   call dein#add('tpope/vim-surround')
   call dein#add('SirVer/UltiSnips')
-  call dein#add('w0rp/ale')
 
   " Navigation
   call dein#add('bogado/file-line')
@@ -79,6 +78,7 @@ if dein#load_state('~/.vim/bundles')
       call dein#add('hrsh7th/cmp-nvim-lsp')
       call dein#add('hrsh7th/cmp-buffer')
       call dein#add('hrsh7th/cmp-path')
+      call dein#add('mfussenegger/nvim-lint')
     endif
   endif
 
@@ -174,10 +174,9 @@ nmap <silent> <leader>bd :let deleted = DeleteEmptyBuffers():echo 'Deleted ' . 
 
 """ Plugin bindings
 
-" ale
-" nmap \e <Plug>(ale_fix)
-nmap <silent> [e <Plug>(ale_previous_wrap)
-nmap <silent> ]e <Plug>(ale_next_wrap)
+" Diagnostic navigation for used by nvim-lint and LSP
+nmap <silent> [e <cmd>lua vim.diagnostic.goto_prev()<CR>
+nmap <silent> ]e <cmd>lua vim.diagnostic.goto_next()<CR>
 
 " fzf
 nnoremap <c-p> :FZF<CR>
@@ -225,18 +224,6 @@ map <Leader>T :call RunCurrentSpecFile()<CR>
 
 
 """ Plugin settings
-
-" ale
-let g:ale_lint_on_enter = 0
-let g:ale_lint_on_insert_leave = 0
-let g:ale_lint_on_text_changed = 'never'
-let g:ale_linters = {
-\ 'go': ['gotype', 'gofmt'],
-\ 'javascript': ['eslint'],
-\ 'ruby': ['rubocop', 'ruby']
-\ }
-let g:ale_virtualtext_cursor = 'disabled'
-let g:ale_ruby_rubocop_executable = 'bundle'
 
 " vim-grepper
 let g:grepper = {}
