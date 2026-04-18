@@ -53,11 +53,10 @@ if [ -n "$ZSH_VERSION" ]; then
   export PS1="%f%n:%1~%F{magenta}\$(parse_git_branch)%f\$ "
   autoload -Uz compinit && compinit
 
-  # ESC to edit current command in vim
+  # Ctrl-X Ctrl-E to edit current command in vim (bash's default binding)
   autoload -U edit-command-line
   zle -N edit-command-line
-  bindkey '\033' edit-command-line
-  export KEYTIMEOUT=1 # The default is sluggish for ESC above
+  bindkey '^X^E' edit-command-line
 else
   local BRANCH="\[\e[35m\]"
   local RESET="\[\e[0m\]"
