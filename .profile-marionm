@@ -29,6 +29,15 @@ alias rspec-branch='
   xargs rspec
 '
 
+ccusage() {
+  if [ "$1" = "--month" ]; then
+    shift
+    npx ccusage@latest -s "$(date +%Y%m01)" "$@"
+  else
+    npx ccusage@latest "$@"
+  fi
+}
+
 export CLICOLOR=1
 export LSCOLORS=gafacadabaegedabagacad
 
