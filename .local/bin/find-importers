@@ -1,0 +1,11 @@
+#!/bin/bash
+
+export NODE_PATH="$(npm root -g)"
+
+if ! command -v tsx &> /dev/null || ! node -e "require('ts-morph')" &> /dev/null; then
+  echo "Error: Missing dependencies." >&2
+  echo "Run: npm install -g tsx ts-morph" >&2
+  exit 1
+fi
+
+tsx ~/.local/bin/find-importers.ts "$@"
