@@ -1,7 +1,7 @@
 set nocompatible
 
 set runtimepath+=~/.vim/bundles/repos/github.com/Shougo/dein.vim
-set runtimepath+=/usr/local/opt/fzf
+set runtimepath+=/opt/homebrew/opt/fzf
 
 if dein#load_state('~/.vim/bundles')
   call dein#begin('~/.vim/bundles')
