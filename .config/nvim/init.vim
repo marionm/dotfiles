@@ -113,6 +113,30 @@ vim.api.nvim_create_autocmd('LspAttach', {
 EOF
 
 lua << EOF
+-- Only inside `nvim -d` (git mergetool: `nvim -d ... $MERGED $LOCAL $BASE $REMOTE`),
+-- four .rb buffers attach to ruby-lsp in one tick and their pull-diagnostic requests
+-- race: nvim cancels a superseded one and drops its callback, but ruby-lsp already
+-- shipped the result, so it lands with no callback -> NO_RESULT_CALLBACK_FOUND. Core
+-- dumps the whole response via nvim_echo's error path, tripping the hit-enter prompt.
+-- write_error runs before any user on_error hook, so nvim_echo is the only seam.
+-- Gated on -d so normal editing is untouched; the diagnostics use a separate handler.
+if vim.list_contains(vim.v.argv, '-d') and not vim.g.lsp_echo_filter then
+  vim.g.lsp_echo_filter = true
+  local orig_echo = vim.api.nvim_echo
+  vim.api.nvim_echo = function(chunks, history, opts)
+    if opts and opts.err then
+      for _, chunk in ipairs(chunks) do
+        if type(chunk[1]) == 'string' and chunk[1]:find('NO_RESULT_CALLBACK_FOUND', 1, true) then
+          return
+        end
+      end
+    end
+    return orig_echo(chunks, history, opts)
+  end
+end
+EOF
+
+lua << EOF
 local cmp = require('cmp')
 
 cmp.setup({
