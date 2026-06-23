@@ -12,6 +12,14 @@ noremap <D-v> "+p
 cnoremap <D-v> <C-r>+
 imap <D-v> <C-r>+
 noremap <D-t> :tabnew<CR>
+
+" Terminal-friendly clipboard: <D-c> never reaches nvim in a terminal (iTerm owns Cmd),
+" so route yanks to the + register instead. An explicit register still wins (e.g. "ay),
+" and deletes (d/x/c) stay on the unnamed register so they never clobber the clipboard.
+nnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y'
+nnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y'
+xnoremap <expr> y (v:register ==# '"' ? '"+' : '') . 'y'
+xnoremap <expr> Y (v:register ==# '"' ? '"+' : '') . 'Y'
 noremap <D-s> :w<CR>
 noremap <D-a> ggVGo
 
@@ -72,15 +80,29 @@ conceeallevel = 0
 EOF
 
 lua << EOF
-local lspconfig = require('lspconfig')
-
-lspconfig.ts_ls.setup({
+-- Base ts_ls config (cmd/filetypes/root markers) comes from lspconfig's
+-- lsp/ts_ls.lua on the runtimepath; these overrides merge on top.
+vim.lsp.config('ts_ls', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
   on_attach = function(client, bufnr)
     -- Disable LSP syntax highlighting
     client.server_capabilities.semanticTokensProvider = nil
   end
 })
+vim.lsp.enable('ts_ls')
+
+-- Base ruby_lsp config (cmd/filetypes/root markers) comes from lspconfig's
+-- lsp/ruby_lsp.lua on the runtimepath; these overrides merge on top.
+-- ruby-lsp is installed as a global gem (asdf shim) and composes its own
+-- per-project bundle, so the repo's Gemfile is left untouched.
+vim.lsp.config('ruby_lsp', {
+  capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  on_attach = function(client, bufnr)
+    -- Disable LSP syntax highlighting
+    client.server_capabilities.semanticTokensProvider = nil
+  end
+})
+vim.lsp.enable('ruby_lsp')
 
 vim.api.nvim_create_autocmd('LspAttach', {
   group = vim.api.nvim_create_augroup('UserLspConfig', {}),

@@ -25,13 +25,14 @@
   indentHeuristic = true
 [format]
   pretty = format:%Cblue%cd %Cgreen%h %Creset%s %Cblue(%aN)%Cgreen%d
-[interactive]
-  diffFilter = diff-so-fancy --patch
 [merge]
-  conflictstyle = diff3
-  tool = vimdiff
-[mergetool "vimdiff"]
-  cmd = vimdiff -c 'wincmd J' -n $MERGED $LOCAL $BASE $REMOTE
+  conflictstyle = merge
+  tool = nvimdiff
+[mergetool]
+  prompt = false
+  keepBackup = false
+[mergetool "nvimdiff"]
+  cmd = nvim -d -c 'wincmd J' "$MERGED" "$LOCAL" "$BASE" "$REMOTE"
 [log]
   date = format:%F %I:%M %p
 [pager]

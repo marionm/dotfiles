@@ -60,16 +60,18 @@ if dein#load_state('~/.vim/bundles')
 
   if !exists('g:vscode')
     " Navigation
-    call dein#add('junegunn/fzf')
+    " junegunn/fzf (base, defines :FZF + fzf#run) and junegunn/fzf.vim (commands)
+    " both ship plugin/fzf.vim; dein's flat merge collides on that filename and
+    " the base loses. Keep the base unmerged so its plugin/fzf.vim still loads.
+    call dein#add('junegunn/fzf', {'merged': 0})
     call dein#add('junegunn/fzf.vim')
 
     " Visual
-    call dein#add('altercation/vim-colors-solarized')
     " call dein#add('overcache/NeoSolarized')
     " call dein#add('nathanaelkane/vim-indent-guides')
 
     " AI
-    call dein#add('github/copilot.vim', { 'rev': '250f24cc485aede5d0069e8765542c3787448d8d' })
+    " call dein#add('github/copilot.vim', { 'rev': '250f24cc485aede5d0069e8765542c3787448d8d' })
     call dein#add('nvim-lua/plenary.nvim')
 
     if has('nvim')
@@ -108,6 +110,9 @@ imap jk <ESC>
 
 " Add binding for new vertical window
 nmap <C-W>N :vnew<CR>
+
+" Add binding for new tab (shadows the default jump-to-top-window; <C-W>T preserved)
+nnoremap <C-W>t :tabnew<CR>
 
 " Bindings for opening the path under the cursor - gf is built-in and uses the same buffer
 nmap gF :tabedit <cfile><CR>
@@ -360,11 +365,19 @@ end
 
 """ Visual
 
+" Use 24-bit truecolor in terminals that advertise it (iTerm sets COLORTERM=truecolor).
+" GUIs like Neovide enable this themselves. Without it, terminal Neovim is limited to
+" the cterm palette, which is why it looked washed out compared to the GUI.
+if has('termguicolors') && ($COLORTERM ==# 'truecolor' || $COLORTERM ==# '24bit')
+  set termguicolors
+endif
+
 if exists('g:vscode')
   colorscheme ""
 else
-  " colorscheme NeoSolarized
-  colorscheme solarized
+  colorscheme habamax
+  " colorscheme slate
+  " colorscheme sorbet
 endif
 
 func! Mac()
