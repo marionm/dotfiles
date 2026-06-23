@@ -187,7 +187,7 @@ nmap <silent> ]e <cmd>lua vim.diagnostic.goto_next()<CR>
 nnoremap <c-p> :FZF<CR>
 
 " ultisnips
-let g:UltiSnipsExpandTrigger="<C-CR>"
+let g:UltiSnipsExpandTrigger="<Tab>"
 
 " undotree
 nmap <silent> <leader>u :UndotreeToggle<CR>
