@@ -220,11 +220,24 @@ xmap gs <plug>(GrepperOperator)
 nmap <leader>g :Grepper -cword -noprompt<CR>
 nmap <leader>G :GrepperAg 
 
-" vim-rspec
-map <Leader>s :call RunNearestSpec()<CR>
-map <Leader>p :call RunLastSpec()<CR>
-map <Leader>t :call RunCurrentSpecFile()<CR>
-map <Leader>T :call RunCurrentSpecFile()<CR>
+" vim-rspec — run the spec in a separate iTerm window via ~/.local/bin/send-to-other-iterm.sh.
+" The plugin only reaches for an iTerm runner under MacVim, so terminal nvim and
+" Neovide both fall back to running in-process. Instead we set g:rspec_command per
+" call to shell out to the shim, which targets any iTerm window that isn't nvim's.
+let s:rspec_shim = expand('~/.local/bin/send-to-other-iterm.sh')
+
+function! s:RunSpecElsewhere(SpecFunc)
+  let g:rspec_command = "silent !" . s:rspec_shim . " "
+        \ . shellescape("cd " . getcwd()
+        \ . " && bundle exec rspec --format documentation --profile --order defined {spec}")
+  call call(a:SpecFunc, [])
+  redraw!
+endfunction
+
+map <Leader>s :call <SID>RunSpecElsewhere(function('RunNearestSpec'))<CR>
+map <Leader>p :call <SID>RunSpecElsewhere(function('RunLastSpec'))<CR>
+map <Leader>t :call <SID>RunSpecElsewhere(function('RunCurrentSpecFile'))<CR>
+map <Leader>T :call <SID>RunSpecElsewhere(function('RunCurrentSpecFile'))<CR>
 
 
 
@@ -234,11 +247,6 @@ map <Leader>T :call RunCurrentSpecFile()<CR>
 let g:grepper = {}
 let g:grepper.simple_prompt = 1
 let g:grepper.tools = ['ag', 'git', 'ack', 'ack-grep', 'grep']
-
-" vim-rspec
-" TODO: Make this more generic
-let g:rspec_runner="os_x_iterm2"
-let g:rspec_command="rspec --format documentation --profile --order defined {spec}"
 
 """ Vim settings
 

@@ -53,27 +53,6 @@ let g:neovide_cursor_animation_length = 0 " The flag to disable animations in co
 " let g:neovide_scroll_animation_far_lines = 0
 let g:neovide_scroll_animation_length = 0.00
 
-" Inlined vim-rspec functionality, since the plugin isn't neovim compatible
-" TODO: Why doesn't ~/. work here?
-let g:rspec_runner = "/Users/mikemarion/.nvim_iterm2_runner"
-let g:rspec_command = "rspec --format documentation --profile --"
-func! RunRspec(mode)
-  let s:is_spec = match(expand("%"), "_spec.rb$") != -1
-
-  if a:mode == "file" && s:is_spec
-    let s:rspec_target = expand("%")
-  elseif a:mode == "line" && s:is_spec
-    let s:rspec_target = expand("%") . ":" . line(".")
-  elseif !exists("s:rspec_target")
-    return
-  endif
-
-  execute "silent ! " . g:rspec_runner . " '" . g:rspec_command . " \"" . s:rspec_target . "\"'"
-endfunc
-map <Leader>t :call RunRspec("file")<CR>
-map <Leader>s :call RunRspec("line")<CR>
-map <Leader>p :call RunRspec("last")<CR>
-
 lua << EOF
 -- TODO: What plugin is setting this to a non-zero value?
 conceeallevel = 0
