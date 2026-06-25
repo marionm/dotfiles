@@ -63,6 +63,11 @@ lua << EOF
 conceeallevel = 0
 EOF
 
+" These blocks require dein-managed plugins. When nvim is launched in a context
+" where dein hasn't sourced them (git's rebase/commit editor, headless), a bare
+" require() throws an E5108 wall and a hit-enter prompt. Gate each block on the
+" plugin being loadable so it cleanly no-ops instead.
+if luaeval('(pcall(require, "cmp_nvim_lsp"))')
 lua << EOF
 -- Base ts_ls config (cmd/filetypes/root markers) comes from lspconfig's
 -- lsp/ts_ls.lua on the runtimepath; these overrides merge on top.
@@ -116,6 +121,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end,
 })
 EOF
+endif
 
 lua << EOF
 -- Only inside `nvim -d` (git mergetool: `nvim -d ... $MERGED $LOCAL $BASE $REMOTE`),
@@ -141,6 +147,7 @@ if vim.list_contains(vim.v.argv, '-d') and not vim.g.lsp_echo_filter then
 end
 EOF
 
+if luaeval('(pcall(require, "cmp"))')
 lua << EOF
 local cmp = require('cmp')
 
@@ -170,7 +177,9 @@ cmp.setup({
   })
 })
 EOF
+endif
 
+if luaeval('(pcall(require, "lint"))')
 lua << EOF
 -- nvim-lint configuration
 local lint = require('lint')
@@ -210,3 +219,4 @@ vim.diagnostic.handlers.underline = {
   hide = orig_underline_handler.hide,
 }
 EOF
+endif
