@@ -1,5 +1,10 @@
 set runtimepath^=~/.vim runtimepath+=~/.vim/after
 let &packpath=&runtimepath
+
+" Neovim's Python 3 provider lives in a dedicated venv so pynvim stays off the
+" macOS system Python. Set before sourcing ~/.vimrc so UltiSnips sees it on load.
+let g:python3_host_prog = expand('~/.config/nvim/venv/bin/python3')
+
 source ~/.vimrc
 
 " Autoreload this file when saving it
