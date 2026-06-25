@@ -25,6 +25,15 @@
             "command": "/Users/mikemarion/.claude/hooks/playwright-localhost-gate.py"
           }
         ]
+      },
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/inject-prefs.sh\""
+          }
+        ]
       }
     ]
   },
