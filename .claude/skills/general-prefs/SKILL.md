@@ -32,6 +32,9 @@ For the same mechanical change across many files, run `compile:check` / eslint *
 ## Simple branch diffs
 For a branch review, use `git diff master` to see everything at once — don't separate committed vs staged vs unstaged. Primary commands: `git diff master` and `git log master..HEAD --oneline`.
 
+## Never stage or commit for Mike
+Do **not** run `git add`/`git commit` on Mike's behalf — not even when a unit of work is finished, tested, and lint-clean. Leave the working tree unstaged; just tell him what's ready and let him stage and commit himself. This holds regardless of the surrounding workflow (per-model, per-feature, etc.); "test → commit" rhythms mean *he* stages and commits, not you. Only stage/commit if he explicitly asks you to in that moment.
+
 ## Routing "remember this" requests
 When Mike asks you to remember a preference, **first evaluate whether it belongs in one of these preference skills** (`ruby-prefs`, `js-prefs`, `general-prefs`) rather than as a standalone memory file:
 

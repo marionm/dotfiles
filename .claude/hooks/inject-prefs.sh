@@ -13,16 +13,18 @@ fi
 
 parts=()
 
+# Language-specific first so it lands in the visible inline preview; general-prefs is
+# long and would otherwise push these into the truncated overflow.
+case "$file" in
+  *.rb) parts+=("$SKILLS/ruby-prefs/SKILL.md") ;;
+  *.js|*.jsx|*.ts|*.tsx) parts+=("$SKILLS/js-prefs/SKILL.md") ;;
+esac
+
 # general-prefs: code and config, but skip prose/data/generated files where none of it applies
 case "$file" in
   *.md|*.markdown|*.mdx|*.txt|*.rst|*.adoc|*.csv|*.tsv|*.log|*.svg|*.snap) ;;
   *.lock|*-lock.json|*/yarn.lock|*/Gemfile.lock|*/package-lock.json) ;;
   *) parts+=("$SKILLS/general-prefs/SKILL.md") ;;
-esac
-
-case "$file" in
-  *.rb) parts+=("$SKILLS/ruby-prefs/SKILL.md") ;;
-  *.js|*.jsx|*.ts|*.tsx) parts+=("$SKILLS/js-prefs/SKILL.md") ;;
 esac
 
 if [ ${#parts[@]} -eq 0 ]; then
