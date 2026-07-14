@@ -2,7 +2,8 @@ stty -ixon
 
 alias ag='ag --path-to-ignore ~/.agignore'
 alias be='bundle exec'
-alias gvim='UBUNTU_MENUPROXY= gvim'
+alias vi='nvim'
+alias vim='nvim'
 alias less='less -R'
 
 alias cf='git clean -f'
@@ -41,8 +42,8 @@ ccusage() {
 export CLICOLOR=1
 export LSCOLORS=gafacadabaegedabagacad
 
-export BUNDLER_EDITOR=gvim
-export EDITOR=vim
+export BUNDLER_EDITOR=nvim
+export EDITOR=nvim
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
 function title {
