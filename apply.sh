@@ -1,74 +1,73 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Symlink every tracked dotfile into $HOME.
+#   ./apply.sh             apply everything tracked (minus the excludes below)
+#   ./apply.sh vim claude  only tracked paths containing one of these substrings
+set -euo pipefail
+DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$DIR"
 
-DIR=`dirname $0`
-. $DIR/util.sh
+# Tracked but NOT symlinked into $HOME:
+#   repo infra      - the installer itself, readme, submodule metadata
+#   manual import   - iTerm profiles/keymaps/colors and browser CSS (imported via their own apps)
+#   top-level dupes - find-importers{,.ts} are copies of the .local/bin versions that go on PATH
+#   per-machine     - ~/.claude/settings.json stays a real file (model/vim/plugins differ per box)
+is_excluded() {
+  case "$1" in
+    apply.sh|revert.sh|README.md|.gitmodules) return 0 ;;
+    css/*|iterm_*|*.itermcolors) return 0 ;;
+    find-importers|find-importers.ts) return 0 ;;
+    .claude/settings.json) return 0 ;;
+  esac
+  return 1
+}
 
-if argument vim; then
-  (cd $DIR ; git submodule update --init)
-  replace ~/.vim
-  replace ~/.vimrc
-fi
-
-if argument nvim; then
-  (cd $DIR ; git submodule update --init)
-  mkdir -p ~/.config/nvim
-  replace ~/.config/nvim/init.vim
-  replace ~/.nvim_iterm2_runner
-fi
-
-if argument pry; then
-  replace ~/.pryrc
-fi
-
-if argument tmux; then
-  replace ~/.tmux.conf
-fi
-
-if argument screen; then
-  replace ~/.screenrc
-fi
-
-if argument git; then
-  $DIR/revert.sh git
-
-  touch ~/.gitconfig
-  cp ~/.gitconfig ~/.gitconfig.original
-
-  echo '# start marionm' > ~/.gitconfig
-  cat $DIR/.gitconfig >> ~/.gitconfig
-  echo '# end marionm' >> ~/.gitconfig
-  cat ~/.gitconfig.original >> ~/.gitconfig
-
-  rm ~/.gitconfig.original
-
-  cp $DIR/.git-completion.sh ~
-  cp $DIR/.git-branch-helper ~
-  cp $DIR/.git-branch-prompt.sh ~
-fi
-
-if argument bash; then
-  cp $DIR/.profile-marionm ~
-
-  touch ~/.bashrc
-  if ! grep -q profile-marionm ~/.bashrc; then
-    echo 'if [ -f ~/.profile-marionm ]; then . ~/.profile-marionm; fi' >> ~/.bashrc
+# symlink $DIR/$1 -> ~/$1, backing up a pre-existing real file once (as the old replace() did)
+link() {
+  local src="$DIR/$1" dest="$HOME/$1"
+  if [ -L "$dest" ]; then
+    ln -sfn "$src" "$dest"
+  else
+    if [ -e "$dest" ] && [ ! -e "$dest-orig" ]; then
+      mv "$dest" "$dest-orig"
+    fi
+    rm -rf "$dest"
+    mkdir -p "$(dirname "$dest")"
+    ln -s "$src" "$dest"
   fi
+}
 
-  . ~/.bashrc
+# one-time: lift the machine-specific tail out of an old marker-merged ~/.gitconfig into
+# ~/.gitconfig.local, which the tracked .gitconfig now [include]s last (no-op on a fresh box).
+if [ ! -e "$HOME/.gitconfig.local" ] && [ -f "$HOME/.gitconfig" ] && grep -q '# end marionm' "$HOME/.gitconfig"; then
+  sed -n '/# end marionm/,$p' "$HOME/.gitconfig" | sed '1d' > "$HOME/.gitconfig.local"
+  echo "migrated machine-specific git config -> ~/.gitconfig.local"
 fi
 
-if argument zsh; then
-  cp $DIR/.profile-marionm ~
-
-  touch ~/.zshrc
-  if ! grep -q profile-marionm ~/.zshrc; then
-    echo 'if [ -f ~/.profile-marionm ]; then . ~/.profile-marionm; fi' >> ~/.zshrc
+filters=("$@")
+git ls-files | while IFS= read -r f; do
+  if is_excluded "$f"; then
+    continue
   fi
+  if [ ${#filters[@]} -gt 0 ]; then
+    match=""
+    for needle in "${filters[@]}"; do
+      case "$f" in *"$needle"*) match=1 ;; esac
+    done
+    if [ -z "$match" ]; then
+      continue
+    fi
+  fi
+  link "$f"
+  echo "linked  ~/$f"
+done
 
-  . ~/.zshrc
-fi
+# symlinks can't do this: have the machine's shell rc source our profile
+for rc in "$HOME/.zshrc" "$HOME/.bashrc"; do
+  [ -e "$rc" ] || continue
+  if ! grep -q profile-marionm "$rc"; then
+    echo 'if [ -f ~/.profile-marionm ]; then . ~/.profile-marionm; fi' >> "$rc"
+  fi
+done
 
-if argument hs; then
-  mkdir -p ~/.hammerspoon
-  replace ~/.hammerspoon/init.lua
-fi
+# vim plugin manager (dein) lives in a submodule
+git submodule update --init

@@ -46,3 +46,5 @@
 [diff-so-fancy]
   markEmptyLines = false
   stripLeadingSymbols = false
+[include]
+  path = ~/.gitconfig.local

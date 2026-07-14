@@ -1,44 +1,33 @@
-#!/bin/bash
+#!/usr/bin/env bash
+# Remove symlinks this repo placed in $HOME and restore any *-orig backups.
+#   ./revert.sh            revert everything
+#   ./revert.sh vim claude only tracked paths containing one of these substrings
+set -euo pipefail
+DIR="$(cd "$(dirname "$0")" && pwd)"
+cd "$DIR"
 
-. `dirname $0`/util.sh
-
-if argument vim; then
-  revert ~/.vim
-  revert ~/.vimrc
-fi
-
-if argument nvim; then
-  revert ~/.config/nvim/init.vim
-fi
-
-if argument pry; then
-  revert ~/.pryrc
-fi
-
-if argument tmux; then
-  revert ~/.tmux.conf
-fi
-
-if argument screen; then
-  echo doit
-  revert ~/.screenrc
-fi
-
-if argument git; then
-  TARGET=~/.gitconfig
-  TMP=/tmp/.gitconfig.marionm
-  sed -e '/# start marionm/,/# end marionm/d' $TARGET > $TMP
-  mv $TMP $TARGET
-fi
-
-if argument bash; then
-  rm -f ~/.profile-marionm
-fi
-
-if argument zsh; then
-  rm -f ~/.profile-marionm
-fi
-
-if argument hs; then
-  revert ~/.hammerspoon/init.lua
-fi
+filters=("$@")
+git ls-files | while IFS= read -r f; do
+  dest="$HOME/$f"
+  if [ ${#filters[@]} -gt 0 ]; then
+    match=""
+    for needle in "${filters[@]}"; do
+      case "$f" in *"$needle"*) match=1 ;; esac
+    done
+    if [ -z "$match" ]; then
+      continue
+    fi
+  fi
+  # only touch symlinks that point back into this repo
+  if [ -L "$dest" ]; then
+    case "$(readlink "$dest")" in
+      "$DIR"/*)
+        rm "$dest"
+        if [ -e "$dest-orig" ]; then
+          mv "$dest-orig" "$dest"
+        fi
+        echo "unlinked ~/$f"
+        ;;
+    esac
+  fi
+done
