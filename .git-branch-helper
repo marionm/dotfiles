@@ -10,7 +10,12 @@ fi
 # Do this after the above so a useful error can be displayed
 set -e
 
-TARGET_BRANCH=master
+if git branch | grep main; then
+  TARGET_BRANCH=main
+else
+  TARGET_BRANCH=master
+fi
+
 while [[ $# -gt 0 ]]; do
   case $1 in
     -p|--pull) PULL=true ;;
