@@ -1,51 +1,103 @@
 {
-  "$schema": "https://json.schemastore.org/claude-code-settings.json",
-  "model": "opus[1m]",
-  "permissions": {
-    "defaultMode": "acceptEdits"
+  "attribution": {
+    "commit": "",
+    "pr": ""
   },
+  "permissions": {
+    "defaultMode": "auto"
+  },
+  "model": "opus[1m]",
   "hooks": {
-    "SessionEnd": [
-      {
-        "matcher": "other",
-        "hooks": [
-          {
-            "type": "command",
-            "command": "echo 'Exiting Claude'"
-          }
-        ]
-      }
-    ],
     "PreToolUse": [
       {
         "matcher": "mcp__playwright__.*",
         "hooks": [
           {
             "type": "command",
-            "command": "/Users/mikemarion/.claude/hooks/playwright-localhost-gate.py"
+            "command": "\"$HOME/.claude/hooks/playwright-localhost-gate.py\""
           }
         ]
       },
       {
-        "matcher": "Edit|Write|MultiEdit",
+        "matcher": "Write|Bash",
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.claude/hooks/inject-prefs.sh\""
+            "command": "\"$HOME/.claude/hooks/new-migration-gate.py\""
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/prefs-review-baseline.sh\""
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/prefs-review-mark.sh\""
           }
         ]
       }
     ]
   },
-  "enabledPlugins": {
-    "typescript-lsp@claude-plugins-official": true,
-    "ruby-lsp@claude-plugins-official": true
+  "extraKnownMarketplaces": {
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    }
   },
-  "effortLevel": "medium",
   "awaySummaryEnabled": false,
-  "editorMode": "vim",
-  "useAutoModeDuringPlan": true,
-  "feedbackSurveyState": {
-    "lastShownTime": 1754345828361
+  "skipWorkflowUsageWarning": true,
+  "theme": "dark",
+  "editorMode": "normal",
+  "terminalProgressBarEnabled": true,
+  "autoMode": {
+    "soft_deny": [
+      "$defaults",
+      "Bash(bundle exec rake spec:*) in /Users/mike/code/buildout — CLAUDE.md flags full serial test suite run as forbidden without explicit request",
+      "Bash(npx:*) in /Users/mike/code/buildout — CLAUDE.md mandates Yarn Classic only, npx use is a documented footgun",
+      "Bash(npm:*) in /Users/mike/code/buildout — CLAUDE.md mandates Yarn Classic only, npm use is a documented footgun"
+    ],
+    "environment": [
+      "### Org-wide",
+      "**Organization**: Buildout (github.com/buildoutinc) — inferred from repo remote",
+      "**Cloud provider(s)**: AWS — S3 (BO_S3_BUCKET_NAME) and SQS for the HSoA/REflex integration (HSOA_REFLEX_AWS_SQS_QUEUE_URL, HSOA_REFLEX_AWS_ACCESS_KEY_ID, HSOA_REFLEX_AWS_SECRET_ACCESS_KEY, HSOA_REFLEX_AWS_REGION); credential values live in .env, names only in .env.sample",
+      "**Repository visibility**: not queryable here — assume private (default assumption; no contrary signal found)",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: config/master.key (Rails encrypted credentials, gitignored); CI secrets referenced by name only (AIRBRAKE_PROJECT_ID, AIRBRAKE_PROJECT_KEY, BUNDLE_ENTERPRISE__CONTRIBSYS__COM, FONTAWESOME_PRO_TOKEN, GITHUB_TOKEN)",
+      "**Default / protected branches**: master (default branch, per repo facts) — protection status not queryable here",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Source control**: github.com:buildoutinc/buildout.git (origin) — this repo and its remote only",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: the S3 bucket named by BO_S3_BUCKET_NAME (value in .env, not in the repo)",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: npm.fontawesome.com, npm.pkg.github.com (both in .npmrc, tokens as ${VAR} interpolations), enterprise.contribsys.com (Sidekiq Pro/Enterprise gem source, Gemfile — credential BUNDLE_ENTERPRISE__CONTRIBSYS__COM)",
+      "**Sensitive data locations & audiences**: config/master.key, .env / .env.sample / .env.e2e.local.sample, config/secrets.yml, jira_privatekey.pcks8, jira_privatekey.pem, jira_publickey.cer, jira_publickey.pem, .jira_oauth_access_secret, .jira_oauth_access_token, and app/db files handling login/email/syndication/API credentials (app/models/credential.rb, app/models/login_credential.rb, db/migrate/*login_credential*, etc.) — share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries prod or production as a whole word or name segment; note BO_PRODUCTION_DEPLOY_USER/BO_PRODUCTION_PASSWORD and BO_STAGING_DEPLOY_USER/BO_STAGING_DEPLOY_PASSWORD env vars exist in .env.sample (values not present)",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries prod or production as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (Ruby on Rails / React SaaS platform — Buildout)",
+      "**Trusted repo**: /Users/mike/code/buildout (working directory) and its remote github.com:buildoutinc/buildout.git — visibility not queryable here, treat as private by default",
+      "**Org-specific CLIs**: None configured",
+      "routine under /Users/mike/code/buildout/ prefix: bundle, ruby, rails, bin/, gem — consistent with this Rails project's toolchain"
+    ]
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": true
   }
 }
