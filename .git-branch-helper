@@ -10,7 +10,7 @@ fi
 # Do this after the above so a useful error can be displayed
 set -e
 
-if git branch | grep main; then
+if git show-ref --verify --quiet refs/heads/main; then
   TARGET_BRANCH=main
 else
   TARGET_BRANCH=master
