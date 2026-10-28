@@ -8,13 +8,13 @@ cd "$DIR"
 
 # Tracked but NOT symlinked into $HOME:
 #   repo infra      - the installer itself, readme, submodule metadata
-#   manual import   - iTerm profiles/keymaps/colors and browser CSS (imported via their own apps)
+#   manual import   - browser CSS (imported via the browser)
 #   top-level dupes - find-importers{,.ts} are copies of the .local/bin versions that go on PATH
 #   per-machine     - ~/.claude/settings.json stays a real file (model/vim/plugins differ per box)
 is_excluded() {
   case "$1" in
     apply.sh|revert.sh|README.md|.gitmodules) return 0 ;;
-    css/*|iterm_*|*.itermcolors) return 0 ;;
+    css/*) return 0 ;;
     find-importers|find-importers.ts) return 0 ;;
     .claude/settings.json) return 0 ;;
   esac
