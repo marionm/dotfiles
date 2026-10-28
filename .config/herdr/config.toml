@@ -23,6 +23,12 @@ description = "new worktree with claude, diff, and shell tabs"
 width = 60
 height = 8
 
+[[keys.command]]
+key = "cmd+shift+s"
+type = "shell"
+command = "~/.config/herdr/start-servers.sh"
+description = "servers tab with rails, sidekiq, and the webpack dev server"
+
 [ui.toast]
 delivery = "herdr"
 
