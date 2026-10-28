@@ -48,6 +48,23 @@ claude() {
   fi
 }
 
+# Tint the terminal while connected to a server, so a production session can't be mistaken for a local one.
+goto() {
+  case "$1" in
+    production)
+      printf '\033]11;#360000\007'
+      ;;
+    staging*)
+      printf '\033]11;#363400\007'
+      ;;
+    uat*|UAT*)
+      printf '\033]11;#0a3600\007'
+      ;;
+  esac
+  command goto "$@"
+  printf '\033]111\007'
+}
+
 export CLICOLOR=1
 export LSCOLORS=gafacadabaegedabagacad
 
@@ -71,6 +88,10 @@ if [ -n "$ZSH_VERSION" ]; then
   setopt PROMPT_SUBST
   export PS1="%f%n:%1~%F{magenta}\$(parse_git_branch)%f\$ "
   autoload -Uz compinit && compinit
+
+  # Without this zsh picks the keymap by matching the substring "vi" against
+  # $EDITOR, and nvim matches.
+  bindkey -e
 
   # Ctrl-X Ctrl-E to edit current command in vim (bash's default binding)
   autoload -U edit-command-line
