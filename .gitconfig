@@ -17,6 +17,7 @@
   s  = status
   st = status
   su = submodule update --init --recursive
+  wt = worktree
 [color]
   branch = auto
   diff   = auto
