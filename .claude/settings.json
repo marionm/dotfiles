@@ -4,10 +4,38 @@
     "pr": ""
   },
   "permissions": {
+    "allow": [
+      "Bash(herdr agent *)",
+      "Bash(herdr pane *)",
+      "Bash(herdr workspace list *)",
+      "Bash(herdr workspace get *)",
+      "Bash(herdr worktree list *)",
+      "Bash(herdr tab list *)"
+    ],
     "defaultMode": "auto"
   },
-  "model": "opus[1m]",
   "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit|Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME/.claude/hooks/prefs-review-mark.sh\""
+          }
+        ]
+      },
+      {
+        "matcher": "EnterWorktree",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "jq -r '.tool_response.worktreePath // .cwd' | { read -r dir; cd \"$dir\" && \"$HOME/.local/bin/worktree-prep\"; }",
+            "statusMessage": "Linking worktree config"
+          }
+        ]
+      }
+    ],
     "PreToolUse": [
       {
         "matcher": "mcp__playwright__.*",
@@ -36,19 +64,24 @@
             "command": "\"$HOME/.claude/hooks/prefs-review-baseline.sh\""
           }
         ]
-      }
-    ],
-    "PostToolUse": [
+      },
       {
-        "matcher": "Edit|Write|MultiEdit|Bash",
+        "matcher": "^(startup|resume|clear|compact|fork)$",
         "hooks": [
           {
             "type": "command",
-            "command": "\"$HOME/.claude/hooks/prefs-review-mark.sh\""
+            "command": "bash '/Users/mike/.claude/hooks/herdr-agent-state.sh' session",
+            "timeout": 10
           }
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": false,
+    "jira-ticket-plugin@buildout-plugins": true,
+    "xref-plugin@buildout-plugins": true,
+    "cc-plugin-diff@builtin": false
   },
   "extraKnownMarketplaces": {
     "ponytail": {
@@ -56,12 +89,27 @@
         "source": "github",
         "repo": "DietrichGebert/ponytail"
       }
+    },
+    "buildout-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "buildoutinc/claude-plugins"
+      }
+    }
+  },
+  "modelSettings": {
+    "claude-opus-5-5": {
+      "effortLevel": "high"
     }
   },
   "awaySummaryEnabled": false,
+  "tui": "fullscreen",
   "skipWorkflowUsageWarning": true,
   "theme": "dark",
   "editorMode": "normal",
+  "verbose": false,
+  "idleCompaction": false,
+  "switchModelsOnFlag": false,
   "terminalProgressBarEnabled": true,
   "autoMode": {
     "soft_deny": [
@@ -96,8 +144,5 @@
       "**Org-specific CLIs**: None configured",
       "routine under /Users/mike/code/buildout/ prefix: bundle, ruby, rails, bin/, gem — consistent with this Rails project's toolchain"
     ]
-  },
-  "enabledPlugins": {
-    "ponytail@ponytail": true
   }
 }
