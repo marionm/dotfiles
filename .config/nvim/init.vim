@@ -86,6 +86,15 @@ vim.lsp.enable('ts_ls')
 -- per-project bundle, so the repo's Gemfile is left untouched.
 vim.lsp.config('ruby_lsp', {
   capabilities = require('cmp_nvim_lsp').default_capabilities(),
+  -- Stop ruby-lsp-rails from prompting "Run Migrations" on startup and on every
+  -- db/migrate/* change (the "Ruby LSP Rails" key is the addon's name()).
+  init_options = {
+    addonSettings = {
+      ["Ruby LSP Rails"] = {
+        enablePendingMigrationsPrompt = false,
+      },
+    },
+  },
   on_attach = function(client, bufnr)
     -- Disable LSP syntax highlighting
     client.server_capabilities.semanticTokensProvider = nil
