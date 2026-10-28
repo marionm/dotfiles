@@ -39,6 +39,15 @@ ccusage() {
   fi
 }
 
+claude() {
+  # Claude Code only opens links on a Cmd-click when it knows it's in Ghostty, and herdr hides that
+  if [ "$TERM_PROGRAM" = herdr ]; then
+    TERM_PROGRAM=ghostty command claude "$@"
+  else
+    command claude "$@"
+  fi
+}
+
 export CLICOLOR=1
 export LSCOLORS=gafacadabaegedabagacad
 
