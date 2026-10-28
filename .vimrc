@@ -227,6 +227,9 @@ nmap <leader>G :GrepperAg
 let g:grepper = {}
 let g:grepper.simple_prompt = 1
 let g:grepper.tools = ['ag', 'git', 'ack', 'ack-grep', 'grep']
+" grepper calls repeat#set at load time whenever its operator is mapped, so the first `.` of a
+" session replays <plug>(GrepperOperator) and leaves `g@` pending instead of repeating the last change.
+autocmd VimEnter * silent! call repeat#invalidate()
 
 """ Vim settings
 
