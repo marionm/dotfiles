@@ -53,7 +53,6 @@ if dein#load_state('~/.vim/bundles')
   call dein#add('Valloric/MatchTagAlways')
 
   " Ruby
-  call dein#add('thoughtbot/vim-rspec')
   call dein#add('tpope/vim-endwise')
   call dein#add('tpope/vim-rails')
   call dein#add('vim-ruby/vim-ruby')
@@ -219,25 +218,6 @@ nmap gs <plug>(GrepperOperator)
 xmap gs <plug>(GrepperOperator)
 nmap <leader>g :Grepper -cword -noprompt<CR>
 nmap <leader>G :GrepperAg 
-
-" vim-rspec — run the spec in a separate iTerm window via ~/.local/bin/send-to-other-iterm.sh.
-" The plugin only reaches for an iTerm runner under MacVim, so terminal nvim and
-" Neovide both fall back to running in-process. Instead we set g:rspec_command per
-" call to shell out to the shim, which targets any iTerm window that isn't nvim's.
-let s:rspec_shim = expand('~/.local/bin/send-to-other-iterm.sh')
-
-function! s:RunSpecElsewhere(SpecFunc)
-  let g:rspec_command = "silent !" . s:rspec_shim . " "
-        \ . shellescape("cd " . getcwd()
-        \ . " && bundle exec rspec --format documentation --profile --order defined {spec}")
-  call call(a:SpecFunc, [])
-  redraw!
-endfunction
-
-map <Leader>s :call <SID>RunSpecElsewhere(function('RunNearestSpec'))<CR>
-map <Leader>p :call <SID>RunSpecElsewhere(function('RunLastSpec'))<CR>
-map <Leader>t :call <SID>RunSpecElsewhere(function('RunCurrentSpecFile'))<CR>
-map <Leader>T :call <SID>RunSpecElsewhere(function('RunCurrentSpecFile'))<CR>
 
 
 
