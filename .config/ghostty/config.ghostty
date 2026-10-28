@@ -1,0 +1,10 @@
+theme = Builtin Dark
+font-family = Monaco
+font-size = 14
+bold-color = #ffffff
+palette = 4=#0000bb
+font-thicken = true
+cursor-style-blink = false
+
+# Open a Rails console on a server goto is connected to
+keybind = super+alt+c=text:source ~/.profile; history -d $(history 1)\ncd ~/current\nbundle exec rails c\n\n

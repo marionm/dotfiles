@@ -1,0 +1,14 @@
+#!/bin/sh
+# Focus the herdr Ghostty instance if it's running, otherwise start one.
+pid=$(pgrep -f 'MacOS/ghostty --config-file=.*herdr\.ghostty' | head -1)
+if [ -n "$pid" ]; then
+  osascript -l JavaScript -e "ObjC.import('AppKit'); \$.NSRunningApplication.runningApplicationWithProcessIdentifier($pid).activateWithOptions(\$.NSApplicationActivateAllWindows)" >/dev/null
+else
+  # Opened from a shell inside herdr, Ghostty would inherit its environment, and herdr refuses to start when it looks
+  # nested inside a herdr pane.
+  for var in $(env | sed -n 's/^\(HERDR_[A-Z_]*\)=.*/\1/p'); do
+    unset "$var"
+  done
+
+  open -na Ghostty.app --args --config-file="$HOME/.config/ghostty/herdr.ghostty"
+fi

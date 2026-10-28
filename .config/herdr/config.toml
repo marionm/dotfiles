@@ -1,0 +1,46 @@
+onboarding = false
+
+[keys]
+prefix = ["ctrl+space", "ctrl+b"]
+switch_tab = ["prefix+1..9", "cmd+1..9"]
+next_workspace = "cmd+j"
+previous_workspace = "cmd+k"
+new_tab = ["prefix+c", "cmd+t"]
+new_workspace = ["prefix+shift+n", "cmd+n"]
+close_workspace = ["prefix+shift+d", "cmd+shift+x"]
+
+[[keys.command]]
+key = "cmd+shift+n"
+type = "shell"
+command = "~/.config/herdr/new-workspace.sh"
+description = "new workspace with claude, diff, and shell tabs"
+
+[[keys.command]]
+key = "cmd+shift+b"
+type = "popup"
+command = "~/.config/herdr/new-worktree.sh"
+description = "new worktree with claude, diff, and shell tabs"
+width = 60
+height = 8
+
+[ui.toast]
+delivery = "herdr"
+
+[ui.toast.herdr]
+position = "top-right"
+
+[ui.toast.clipboard]
+enabled = false
+
+[ui.sound]
+enabled = false
+
+[theme]
+name = "catppuccin"
+auto_switch = false
+
+[ui]
+window_title = "herdr: {workspace}"
+status_indicators = "symbols"
+copy_on_select = false
+prompt_new_tab_name = false

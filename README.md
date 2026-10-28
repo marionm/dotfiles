@@ -6,7 +6,7 @@ git clone https://github.com/marionm/dotfiles
 dotfiles/apply.sh
 ````
 
-The apply script will reconfigure everything by default, or it can take any of `bash`, `git`, `irb`, `screen`, `tmux`, and `vim` as arguments. For example, to apply only git and vim:
+Pass any part of a path to apply just those files - for example, just git and vim:
 ```
 dotfiles/apply.sh git vim
 ```
@@ -14,4 +14,16 @@ dotfiles/apply.sh git vim
 Revert with:
 ```
 dotfiles/revert.sh
+```
+
+It removes the symlinks that point into this repo and restores the `-orig` backups. It takes the same path filters as
+`apply.sh`.
+
+## Ghostty + herdr
+
+[herdr](https://herdr.dev) runs in its own Ghostty instance, separate from regular Ghostty windows, so it can take over
+Cmd shortcuts there without breaking them everywhere else. Launch via Herdr.app, packed this way so that it is indexed
+by OSX Spotlight. To apply just this part:
+```
+dotfiles/apply.sh ghostty herdr hunk Herdr.app
 ```
