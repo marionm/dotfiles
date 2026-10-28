@@ -24,6 +24,10 @@ set_up_tabs() {
 
 cd "${HERDR_ACTIVE_PANE_CWD:-$PWD}"
 
+# herdr only creates and opens worktrees from the repo's main checkout, so start there even when this runs from inside
+# a worktree.
+cd "$(dirname "$(git rev-parse --path-format=absolute --git-common-dir)")"
+
 printf 'Branch: '
 read -r branch
 if [ -z "$branch" ]; then

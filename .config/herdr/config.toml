@@ -7,7 +7,7 @@ next_workspace = "cmd+j"
 previous_workspace = "cmd+k"
 new_tab = ["prefix+c", "cmd+t"]
 new_workspace = ["prefix+shift+n", "cmd+n"]
-close_workspace = ["prefix+shift+d", "cmd+shift+x"]
+close_workspace = "prefix+shift+d"
 
 [[keys.command]]
 key = "cmd+shift+n"
@@ -28,6 +28,14 @@ key = "cmd+shift+s"
 type = "shell"
 command = "~/.config/herdr/start-servers.sh"
 description = "servers tab with rails, sidekiq, and the webpack dev server"
+
+[[keys.command]]
+key = "cmd+shift+x"
+type = "popup"
+command = "~/.config/herdr/close-workspace.sh"
+description = "close workspace, optionally deleting its worktree"
+width = 70
+height = 12
 
 [ui.toast]
 delivery = "herdr"
