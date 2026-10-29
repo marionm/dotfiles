@@ -25,3 +25,4 @@ keybind = super+digit_9=unbind
 keybind = super+9=unbind
 keybind = super+t=unbind
 keybind = super+n=unbind
+keybind = super+shift+j=unbind

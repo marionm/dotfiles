@@ -30,6 +30,18 @@ command = "~/.config/herdr/start-servers.sh"
 description = "servers tab with rails, sidekiq, and the webpack dev server"
 
 [[keys.command]]
+key = "cmd+shift+j"
+type = "shell"
+command = "~/.config/herdr/move-workspace.sh down"
+description = "move workspace down"
+
+[[keys.command]]
+key = "cmd+shift+k"
+type = "shell"
+command = "~/.config/herdr/move-workspace.sh up"
+description = "move workspace up"
+
+[[keys.command]]
 key = "cmd+shift+x"
 type = "popup"
 command = "~/.config/herdr/close-workspace.sh"
