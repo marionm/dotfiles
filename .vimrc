@@ -12,7 +12,6 @@ if dein#load_state('~/.vim/bundles')
   " General
   " call dein#add('airblade/vim-gitgutter')
   call dein#add('kana/vim-fakeclip')
-  call dein#add('MarcWeber/vim-addon-local-vimrc')
   call dein#add('mbbill/undotree')
   call dein#add('milkypostman/vim-togglelist')
   call dein#add('rhysd/committia.vim')

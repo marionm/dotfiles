@@ -7,6 +7,8 @@ let g:python3_host_prog = expand('~/.config/nvim/venv/bin/python3')
 
 source ~/.vimrc
 
+set exrc
+
 " Autoreload this file when saving it
 autocmd! bufwritepost init.vim source %
 
