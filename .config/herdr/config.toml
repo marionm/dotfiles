@@ -8,6 +8,7 @@ previous_workspace = "cmd+k"
 new_tab = ["prefix+c", "cmd+t"]
 new_workspace = ["prefix+shift+n", "cmd+n"]
 close_workspace = "prefix+shift+d"
+clear_pane = "prefix+cmd+k"
 
 [[keys.command]]
 key = "cmd+shift+n"
