@@ -447,6 +447,8 @@ No follow-up commits. When review turns up a bug in something an earlier commit 
 ### Commit messages — a subject line, usually nothing more
 Format: `BSD-12345: Capitalized subject`. Most commits need only that. A body that says what the code does repeats the diff, and one that restates a comment repeats the code - both are noise. Add a body only when it carries something neither the diff nor the comments can, and expect that to be rare.
 
+Keep the whole subject line, ticket prefix included, within 72 characters - GitHub cuts it off around there. It's a soft limit: drop filler words or pick a tighter verb to stay under it, and only go over when fitting would blur what the commit does. A clear 80-character subject beats a vague 70-character one.
+
 No `Co-Authored-By` trailer. Attribution is off in Mike's settings; don't copy one from other commits in the log.
 
 ### Rebasing and force-pushing a `mike/` branch
