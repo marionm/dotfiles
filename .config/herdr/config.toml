@@ -50,6 +50,14 @@ description = "close workspace, optionally deleting its worktree"
 width = 70
 height = 12
 
+# Ghostty inherits the environment it's opened from, and the HERDR_* variables would make its shells look like
+# they're inside herdr.
+[[keys.command]]
+key = "prefix+cmd+n"
+type = "shell"
+command = "env $(env | sed -n 's/^\\(HERDR_[A-Z_]*\\)=.*/-u \\1/p') open -na Ghostty.app"
+description = "open a normal Ghostty window"
+
 [ui.toast]
 delivery = "herdr"
 
