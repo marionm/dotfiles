@@ -449,6 +449,8 @@ Format: `BSD-12345: Capitalized subject`. Most commits need only that. A body th
 
 Keep the whole subject line, ticket prefix included, within 72 characters - GitHub cuts it off around there. It's a soft limit: drop filler words or pick a tighter verb to stay under it, and only go over when fitting would blur what the commit does. A clear 80-character subject beats a vague 70-character one.
 
+When a commit moves code into a method, module, or class of its own, the verb is "Extract" - not "Split", "Pull out", "Give", or "Share". It's the standard refactoring term, so it says what happened without the reader decoding it: `Extract forgeable_channel? from step_up_required?`, not `Split forgeable_channel? out of step_up_required?`.
+
 No `Co-Authored-By` trailer. Attribution is off in Mike's settings; don't copy one from other commits in the log.
 
 ### Rebasing and force-pushing a `mike/` branch
