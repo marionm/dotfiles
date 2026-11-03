@@ -1,6 +1,9 @@
 theme = Builtin Dark
 font-family = Monaco
 font-size = 14
+# Monaco has no dingbats, and Ghostty falls back to Zapf Dingbats for them, which draws the wrong glyphs (an S
+# for ✳, a B for ✢).
+font-codepoint-map = U+2700-U+27BF=Menlo
 bold-color = #ffffff
 palette = 4=#0000bb
 font-thicken = true
