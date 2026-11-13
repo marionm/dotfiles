@@ -10,11 +10,8 @@ fi
 # Do this after the above so a useful error can be displayed
 set -e
 
-if git show-ref --verify --quiet refs/heads/main; then
-  TARGET_BRANCH=main
-else
-  TARGET_BRANCH=master
-fi
+DEFAULT_BRANCH=`git symbolic-ref --quiet --short refs/remotes/origin/HEAD || echo origin/master`
+TARGET_BRANCH=${DEFAULT_BRANCH#origin/}
 
 while [[ $# -gt 0 ]]; do
   case $1 in
@@ -33,17 +30,21 @@ if [[ $CURRENT_BRANCH == $TARGET_BRANCH ]]; then
   exit 1
 fi
 
-if [[ $PULL ]]; then
+if [[ $COMMAND == 'rebase' ]]; then
+  # Fetch rather than pull, and rebase onto the remote branch - git won't check out a branch that another worktree
+  # already has checked out.
+  if [[ $PULL ]]; then
+    git fetch origin $TARGET_BRANCH
+  fi
+
+  if git show-ref --verify --quiet refs/remotes/origin/$TARGET_BRANCH; then
+    git rebase $REBASE_ARGS origin/$TARGET_BRANCH
+  else
+    git rebase $REBASE_ARGS $TARGET_BRANCH
+  fi
+elif [[ $COMMAND == 'mark_as_merged' ]]; then
   git checkout $TARGET_BRANCH
   git pull
-fi
-
-if [[ $COMMAND == 'rebase' ]]; then
-  if [[ $PULL ]]; then
-    git checkout $CURRENT_BRANCH
-  fi
-  git rebase $REBASE_ARGS $TARGET_BRANCH
-elif [[ $COMMAND == 'mark_as_merged' ]]; then
   git branch -d $CURRENT_BRANCH
   git remote prune origin
 fi

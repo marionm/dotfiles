@@ -24,7 +24,7 @@ alias rta='git commit -amtmp && rei'
 alias rej='~/.git-prefix-commits'
 
 alias rspec-branch='
-  git diff --name-status master |
+  git diff --name-status $(git merge-base HEAD origin/master) |
   grep -E "^(A|M)\s+.*_spec.rb$" |
   awk "{print \$2}" |
   xargs rspec
