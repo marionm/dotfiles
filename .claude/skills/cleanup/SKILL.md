@@ -61,10 +61,23 @@ agent holds ten diffs against thirty-odd rules.
 model with its serializer. Related files in one agent is the seam that costs nothing; splitting a
 file from its spec is the seam that hides cross-file rules.
 
-## 3. Adjudicate, then report
+## 3. Check commit messages
+
+Only when the scope covers commits — the `branch` form or a ref range. `prefs-audit` only sees diffs,
+so read the messages yourself while the agents run:
+
+```
+git log --format='%h %s%n%b' <base>..HEAD
+```
+
+Check each against the prefs' **Commit messages** rule, and report each miss with its SHA and a
+suggested message. Rewording a commit rewrites history, so don't amend or rebase for it — Mike asks
+for that separately.
+
+## 4. Adjudicate, then report
 
 The agents cannot edit — `prefs-audit` has no write tools, by design. Everything below is yours to
-do: you adjudicate, you apply, you stage. Their findings are claims, and two agents can disagree with
+do: you adjudicate, and you apply. Their findings are claims, and two agents can disagree with
 each other — in one run, one flagged `rescue => e` as a single-letter local while another cleared it
 after grepping up 449 precedents against 14. Reconcile before reporting rather than passing both on.
 
@@ -75,19 +88,16 @@ Then apply what survives — this skill cleans up, it does not hand back a list 
 Mike **only** the violations and the fixes; never the clean verdicts, never the per-rule walk. If
 nothing survives, one line saying so is the whole report.
 
-## 4. Put each fix where its code already lives
+## 5. Leave every fix unstaged
 
-Never commit, and never rebase. Where a fix lands depends on where the line it corrects came from —
-check with `git blame -L <line>,<line> -- <file>`:
+No `git add`, no commit, and no rebase, even for fixes to staged or committed code. Mike reads the
+fixes as an unstaged diff and stages them himself.
 
-| the violated line is | leave the fix |
-|---|---|
-| unstaged | unstaged |
-| staged | staged (`git add` it) |
-| committed on this branch | staged |
+For a fix to a line committed on this branch, note the commit it belongs to: `git blame` the line it
+corrects (for a pure addition, the line beside it), and record the target SHA per hunk, not per file
+— one file's fixes can belong to two commits.
 
-Staging a fix to committed code leaves it sitting ready for Mike to fold into the right commit
-himself — his history, his call. Don't `git commit --fixup`, don't `git rebase --autosquash`, and
-don't write a cleanup commit.
-
-A single file can hit more than one of these at once. Go by the line, not the file.
+If any fix has a target commit, end the report with a **When asked to fold** block, listing each
+target commit with its files and hunks. Do nothing with it until Mike asks. When he does: `git add -p`
+the hunks for one target, `git commit --fixup <sha>`, repeat per target, then
+`git rebase --autosquash --autostash <oldest target>~1`.

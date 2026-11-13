@@ -1,6 +1,6 @@
 ---
 name: prefs-audit
-description: Audits a diff against Mike's prefs skills, one verdict per rule. Reports violations with file:line; never edits. Launched by the Stop-time prefs gate.
+description: Audits a diff against Mike's prefs skills, one verdict per rule. Reports violations with file:line; never edits. Launched by /cleanup and /review-loop.
 tools: Read, Bash, Grep
 model: sonnet
 ---
