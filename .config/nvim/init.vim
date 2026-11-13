@@ -135,14 +135,13 @@ EOF
 endif
 
 lua << EOF
--- Only inside `nvim -d` (git mergetool: `nvim -d ... $MERGED $LOCAL $BASE $REMOTE`),
--- four .rb buffers attach to ruby-lsp in one tick and their pull-diagnostic requests
--- race: nvim cancels a superseded one and drops its callback, but ruby-lsp already
--- shipped the result, so it lands with no callback -> NO_RESULT_CALLBACK_FOUND. Core
+-- When nvim cancels a pull-diagnostic request that ruby-lsp has already answered - several
+-- buffers attaching at once, as in `nvim -d` for git mergetool, or a request superseded
+-- while editing - the result lands with no callback -> NO_RESULT_CALLBACK_FOUND. Core
 -- dumps the whole response via nvim_echo's error path, tripping the hit-enter prompt.
--- write_error runs before any user on_error hook, so nvim_echo is the only seam.
--- Gated on -d so normal editing is untouched; the diagnostics use a separate handler.
-if vim.list_contains(vim.v.argv, '-d') and not vim.g.lsp_echo_filter then
+-- write_error runs before any user on_error hook, so nvim_echo is the only seam. The
+-- diagnostics themselves arrive through a separate handler, so nothing is lost.
+if not vim.g.lsp_echo_filter then
   vim.g.lsp_echo_filter = true
   local orig_echo = vim.api.nvim_echo
   vim.api.nvim_echo = function(chunks, history, opts)
