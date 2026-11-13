@@ -20,8 +20,12 @@ Cross-language defaults (Ruby, JS/TS, configs) for any code edit. Language-speci
 ### Minimal diffs — prefer Edit
 Keep diffs as small as the change requires. Modify existing files with targeted `Edit`s on the specific lines — do **not** re-`Write` a whole file from memory (it silently reverts/alters unrelated lines and buries the real change in review noise). Leave pre-existing code alone — even code that violates a preference — unless changing it *is* the task; at most flag it. Reach for `Write` only for brand-new files or a full replacement Mike asked for.
 
+A line touched only by a rename still counts as pre-existing code. Keep the shape of the lines around it rather than bringing it up to every pref. Real miss: renaming `excludeFakeUsers` to `includeFakeUsers` braced one of four matching one-line `if`s because "Always brace `if`" applies to touched lines, leaving the block half-and-half.
+
 ### Comments — why, not what
 Comments explain a non-obvious *why*, and only when the why is genuinely interesting. Never restate *what* the code does — the code shows that. No comment is completely fine. Banned: describing evident behavior ("Notify the pipeline, then close the modal"); facts that rot ("Shared by the X and Y modals" on a generic hook). Before writing a comment, ask "is this a non-obvious why?" If it describes behavior, callers, or return values, delete it.
+
+A "so" or "because" doesn't make a comment a why. If the method name and the line beside it already imply the reason, the comment is noise, however it is phrased. Real miss: `# The browser removes this site's localStorage, sessionStorage, and IndexedDB, so nothing the app cached there outlives the session.` above `def clear_browser_storage`, which sets `Clear-Site-Data: "storage"` on logout. The first half restates the header; the second is the reason anyone would clear storage at logout, and the method name already says it.
 
 **Never name other code across a boundary.** A comment on X that names Y — who calls X, what Y guarantees before calling, who else does the same thing, or what a page does with X — is wrong as soon as a second call site appears, and it rots *silently*, because nothing about editing Y makes anyone reread X. Four shapes, all banned:
 
@@ -58,6 +62,24 @@ rescue RSpec::Expectations::ExpectationNotMetError => e
 end
 ```
 
+Within a `rescue`, there are two lines a comment can be about. Why *this exception* is caught - its class, why it can happen at all - goes above the `rescue` line, as above. Why the handler does what it does - carrying on, returning `nil`, storing something anyway - goes inside the `rescue`, above the handling line. Placed above `rescue` instead, it sits at the indentation of the body before it and reads as part of that code.
+
+```ruby
+# bad - reads as a note on the block above, and it's about the nil
+  end
+  # Not every server can read HEIC yet, and the original is still worth storing without a conversion
+rescue Errno::ENOENT
+  nil
+end
+
+# good
+  end
+rescue Errno::ENOENT
+  # Not every server can read HEIC yet, and the original is still worth storing without a conversion
+  nil
+end
+```
+
 A comment describing the method as a whole is still fine above the `def` — the rule is that a comment about *one line* goes on that line.
 
 Test the exception before taking it: would the comment still be true with every guard and early return removed? If it only makes sense beside one of them, it is about that line, however much it sounds like it describes the method. Real miss: `# Setting a status the deal already has would still run what moving to it does, such as activating a voucher.` sat above `def write_status` and read like a note on writing a status, but it explained the one `return … if status == current_status` that skips the write. It belonged on that `return`.
@@ -65,6 +87,8 @@ Test the exception before taking it: would the comment still be true with every 
 **Why something is called goes at the call; what a method does goes on the method.** A reason for making a call - why this branch takes it, why it runs here, why it runs at all - belongs on the call, and most of all inside a conditional, where the reader is working out which branch they're in and why. A comment on the `def` explains the method itself: what it returns, or a non-obvious why inside its own body. The tell is a method comment that only makes sense next to its caller: one that opens with "Otherwise", "So", or "Because", or that reads as a reason to take a branch. That comment is answering a question the call site asks. Real case: why a rep deal or a lease space skips the property writers sat on `attach_documents` and `refuse_property_values`, where it read as unexplained; it belonged on the `else` that calls them. Naming the callee in such a comment is fine - it's on the line in front of you.
 
 The same goes one level up: a class or module header says what the thing is for, in a sentence or two, and nothing more. Its details — a mode that fills blanks rather than replacing, a case it refuses, a guard it applies — go on the method or line that does them. A header that gathers every rule in the file is a second copy of them, kept far from the code, and it goes stale the first time one of those lines changes. Real case: a four-line header on `WriteVoucherFiguresFromIngest` restated the fill-or-replace rule, the commission-mode guard, the validity check, and the transaction-sides refusal; two of those already had comments on their own methods, and the guard's wording was wrong.
+
+Being short doesn't make a header right - test each sentence of it on its own. If a sentence only makes sense next to one line, it goes on that line, however short the header is. This applies to the header of any file, initializers and scripts included. Real miss: a two-sentence header on a session-expiry initializer passed as "says what the file is for", but its second sentence (that the sign-in time is safe in the session because the cookie is encrypted and signed) was about the one line that writes that time.
 
 ### Blank lines around a comment mid-block
 A comment on a line (or a few related lines) in the middle of a block gets a blank line above the comment and one below the code it explains. That makes the comment stand out and shows how far it reaches - the reader can see it belongs to that code and not to what follows. Skip the blank line where the block already marks the edge: right after `def`/`do`/`if`, or right before `end`/`else`/`rescue`.
@@ -110,6 +134,17 @@ memory of what it replaced? If it only makes sense beside a diff, it goes in the
 
 Length is the tell. A six-line header over a ten-line module is almost always this — the explanation
 outgrew the code because it stopped describing the code.
+
+### No temporal comments
+A comment never dates the code: no "from before November 2026", "older rows", "until the backfill runs", "now
+that X ships", or "used to". A date or era in a comment is true the day it's written and gets less relevant every
+day after, and nothing reminds anyone to remove it. When it explains a historical reason, that reason belongs in the
+commit message.
+
+The comment is often a sign of a bigger problem: code bending to fit old data. Before writing code around historical
+rows, ask whether they matter. Often they don't. Real miss: an admin lookup matched ingest reviews by company instead
+of user, with `# By company rather than user, since reviews from before November 2026 don't record a user.` The
+comment and the workaround both went, and the lookup went back to matching on the user.
 
 ### Comment voice — plain technical English, the way Mike writes
 Write comments the way Mike does: direct, plain, and in the words engineers already use. His rewrites of
@@ -163,6 +198,21 @@ and commit messages. It's the more common word in this codebase, so it's the one
 COLUMN_ALLOWLIST = { ... }
 # good
 WHITELIST_BY_TABLE = { ... }
+```
+
+### Ticket numbers only in TODO and FIXME comments
+Don't put a ticket number in a comment, including on a migration. The commit already carries it, and `git blame`
+gets a reader from the line to the ticket. In a comment it says why the code was written, not why it is the way it
+is, and the reader has to open Jira to get anything from it. The exception is a TODO or FIXME, where the ticket is
+the work still to do (see below).
+
+```ruby
+# bad
+# BSD-41028. The user who started the ingest.
+add_column :projects_ingest_reviews, :user_id, :integer
+
+# good - no comment needed
+add_column :projects_ingest_reviews, :user_id, :integer
 ```
 
 ### TODO format — `TODO: BSD-<number> -`
@@ -376,6 +426,11 @@ If a flag exists only to make code ignore what a record says — `in_dollars: tr
 unit — change the record so it says what's true, and drop the flag. Comment on the line that makes the change,
 since that's the non-obvious step.
 
+### Say it in the code, not around it
+When the language or the codebase already has a way to express something, use it rather than a workaround - a
+comment standing in for a type the code could declare, a loose type where a real one exists, a string where an
+enum or constant exists. Check that the real thing is reachable from the file first.
+
 ### Stay on the change's purpose
 Don't widen a change to raise a metric — an eval pass rate, a lint count — or to fix things adjacent to the
 task. When a run turns up problems outside the change's purpose, report them as findings and leave the fixes
@@ -432,6 +487,9 @@ That still catches the wrong records, the wrong order, keys added after serializ
 
 **The line:** reuse the *collaborators* the subject delegates to; never build an expectation from the subject itself — `expect(subject.call).to eq(subject.call)` passes for every change, including wrong ones. When unsure which side of the line a test sits on, mutate it (flip the expected order, change an id) and confirm it actually fails.
 
+### Every test has to earn its place
+Don't add a test that repeats what another example already covers, tests the framework or a library rather than this code, or would still pass with the change it covers reverted. Each one is more to read and maintain, and catches nothing the rest don't. When a change makes an existing test redundant, remove it in the same change, and say which example now covers it.
+
 ### Simple branch diffs
 For a branch review, use `git diff master` to see everything at once — don't separate committed vs staged vs unstaged. Primary commands: `git diff master` and `git log master..HEAD --oneline`.
 
@@ -448,6 +506,17 @@ No follow-up commits. When review turns up a bug in something an earlier commit 
 Format: `BSD-12345: Capitalized subject`. Most commits need only that. A body that says what the code does repeats the diff, and one that restates a comment repeats the code - both are noise. Add a body only when it carries something neither the diff nor the comments can, and expect that to be rare.
 
 Keep the whole subject line, ticket prefix included, within 72 characters - GitHub cuts it off around there. It's a soft limit: drop filler words or pick a tighter verb to stay under it, and only go over when fitting would blur what the commit does. A clear 80-character subject beats a vague 70-character one.
+
+Say what the commit adds or changes, at the level of the feature or system it touches - not a sentence about the behavior the code produces. Use a plain verb (Add, Support, Make, Fix), name the part of the app it lands in, and leave the mechanism to the diff. A user-facing feature name goes in quotes. Mike's rewrites from one branch:
+
+| Drafted | Mike's |
+|---|---|
+| `Recommend choosing values for a deal ingest awaiting choices` | `Add pending ingest reviews to recommendation engine` |
+| `Give Brief Me per-reason prompts and the record it's about` | `Support per-type "Brief Me" prompts for recommendations` |
+| `Brief a held ingest review by showing its conflicts` | `Custom "Brief Me" prompt for ingest recommendations` |
+| `Give a DealProject the apex_deal a Property has` | `Make DealProject better match ::Property's API` |
+
+The drafts narrate what happens to the user or the record ("recommend choosing values", "brief … by showing its conflicts") and cram a second change into the subject ("and the record it's about"). The rewrites say which system changed and how, in words someone scanning `git log` already knows.
 
 When a commit moves code into a method, module, or class of its own, the verb is "Extract" - not "Split", "Pull out", "Give", or "Share". It's the standard refactoring term, so it says what happened without the reader decoding it: `Extract forgeable_channel? from step_up_required?`, not `Split forgeable_channel? out of step_up_required?`.
 
@@ -483,6 +552,35 @@ Do **not** run `git add`/`git commit` on Mike's behalf — not even when a unit 
 
 ### Branch names — no Jira number up front
 Name a new branch `mike/<short-description>`, e.g. `mike/resend-phone-code`, not `mike/BSD-38889-resend-phone-code`. The ticket number goes in commit messages (`BSD-38889: …`), not at the front of the branch name. Don't rename existing branches to comply.
+
+### Pull requests open as drafts
+Whenever Mike asks you to open a PR, open it as a draft (`gh pr create --draft`), always. He marks it ready himself.
+
+Give it the "Team AI" label when you open it (`--label "Team AI"`).
+
+cubic doesn't review drafts on its own, so right after opening one, call the cubic MCP's `trigger_pr_review` on it.
+
+### Before opening a PR, its ticket is assigned and in progress
+Before opening a PR, check the Jira ticket it's for - the one in the branch's commit subjects (`BSD-12345: …`):
+
+- Unassigned → assign it to Mike. Assigned to someone else → leave it, and tell Mike.
+- Before "In Progress" (Backlog, To Do, etc.) → move it to In Progress. Already in progress or past it (In Review, QA,
+  Done) → leave it - never move a ticket backwards.
+
+If the branch has no ticket number, say so rather than guessing one.
+
+### PR descriptions — Jira link, then plain paragraphs
+A PR description is the ticket link on the first line, then the description as plain paragraphs. No headers, no
+"Description of Change", no manual or automated testing sections - skip the repo's PR template.
+
+```
+[BSD-41509](https://buildout.atlassian.net/browse/BSD-41509)
+
+The sparkle button on `AiField` has `z-index: 10` so it stays above a focused field, but nothing scoped that
+z-index to the field, so it painted over fixed headers on the page.
+
+This puts `isolation: isolate` on the wrapper around the field and the sparkle...
+```
 
 ## Ruby / Rails
 
@@ -660,6 +758,8 @@ deal_type = tool.deal_fields["deal_type"]
 OK exceptions: `acc` for an `each_with_object` accumulator, `_` for ignored args. Plain `i` is NOT OK — use `index`.
 
 ### FastSerializer — `.new` vs `.serialize`
+A new serializer subclasses `FastSerializer`, never `ActiveModel::Serializer`.
+
 Open the serializer and check how it preloads before choosing the entry point:
 
 - No preloading, or per-attribute preloading (`preload:` on `attribute` / `with_preloading`) → `ThingSerializer.new(thing, params: { ... })`.
@@ -674,6 +774,8 @@ When a schema tweak is needed and the migration that introduced the table/column
 `db/schema.rb` is output, not source. Change it only by running the migration (`bin/rails db:migrate`, or `db:migrate:redo` for an amended one) and letting Rails dump it, then use the `stage-schema` skill to keep just this branch's changes out of the churn. Never write table definitions, indexes, or the version line into it by hand — not to avoid touching the dev DB, not to save a step, not because the migration "obviously" produces a given block.
 
 A hand-written block is a guess at what the database will produce: charset, collation, column order, and defaults are all things MySQL decides, and a copied-from-a-neighbor guess can be wrong without looking wrong. The next real `db:migrate` then rewrites it, and the difference lands in someone else's diff.
+
+Churn in `db/schema.rb` that this branch's migrations didn't produce - other branches' columns, charset flips, index renames - can always be discarded (`git checkout db/schema.rb` once this branch's part is committed or staged). Don't ask first, and don't mention it in the report.
 
 ### Simple interactors are class methods
 An interactor that just takes its inputs and does one job is a class method. Don't write the `def self.call` → `new(...).call` → `def initialize` → `def call` dance with `attr_reader`s, which is four definitions to carry the arguments one hop. Define the methods inside `class << self`, pass helpers what they need as arguments, and hide them under a plain `private` in that block, not with `private_class_method`.
@@ -765,10 +867,9 @@ end
 ```
 
 Corollary: organize `describe` blocks around the public method or the behavior, not around each
-private helper. Don't make a method public just to cover it, either — and if its behavior can't be
-reached through the public interface at all, skipping the test is a better answer than poking at
-internals. Mike rejected a `send(:tag_exchange, ...)` unit test as bad and preferred no test over
-it; simpler production code needs isolating tests less anyway.
+private helper. Don't make a method public just to cover it, either. If its behavior really can't be
+reached through the public interface, it's dead code - delete it. Otherwise the setup is what needs
+work, not the test's access.
 
 ### No reaching into internals
 Never read or write another object's private state to get your work done: no `instance_variable_get` / `instance_variable_set`, and no `send`/`__send__` to invoke a private method. Go through the public API. If what you need isn't exposed, that's a design signal — add a reader, or observe/stub at a public seam — not a license to reach past the interface. This holds everywhere, not just specs: in a spec, stub a public method (e.g. the callback registrar an object exposes), never `obj.instance_variable_get(:@provider)`.
@@ -784,22 +885,47 @@ Prefer real instances to `instance_double`/mocks. Build the thing: `build`/`buil
 Never copy/paste a literal that appears in both setup and an expectation (id, key, token, path). Extract it to a `let` and reference it in both, or read it off the created record — never hardcode a factory's default in an assertion (assert `record.x`). Derive related values by interpolation (`"prefix/#{request_id}.pdf"`) and reference `params[:x]` in assertions rather than retyping. Never assert exact error-message strings — assert behavior (status, state, whether a collaborator was called); for pass-throughs use an arbitrary `let` and check it round-trips. Same for incidental values: when only existence or a property matters, assert the property (`be_positive`, presence, a range) — don't pin the exact literal. Asserting a config default is `25` turns a harmless tuning change into a red build; assert that a sane default *exists* instead. And never repeat a constant or its arithmetic across examples (the limit *and* limit+1) — put it in one `let` and derive the rest.
 
 ### Specs — chaining matchers on a block expectation
-When the block body fits on one line, keep `expect { ... }` on one line and put the chained matcher on the next, indented under it. Don't expand a one-statement block into `expect do … end` just because a matcher is chained off it.
+When the block body fits on one line, keep `expect { ... }` on one line. Don't expand a one-statement block into `expect do … end` just because a matcher is chained off it.
+
+A single matcher can stay on the same line as the block when the whole line is about 100 characters or less. Past that, move the matcher to the next line, indented under the block. That is shorter than the 120 linter limit on purpose, because the block and its matcher read as two parts. A compound chain (`.to change(...).and change(...)`) gets one matcher per line regardless of length.
 
 ```ruby
 # bad
 expect do
   post(:ai_summary, params: { id: property.id })
 end.not_to change(SummarizePropertyWorker.jobs, :size)
-# good
-expect { post(:ai_summary, params: { id: property.id }) }
+
+# good - one matcher, fits on the line
+expect { post(:ai_summary, params: { id: property.id }) }.not_to change(SummarizePropertyWorker.jobs, :size)
+
+# good - too long for one line
+expect { post(:ai_summary, params: { id: property.id, include_listings: true }) }
   .not_to change(SummarizePropertyWorker.jobs, :size)
+
+# good - a compound chain, one matcher per line
+expect { post(:create, params:) }
+  .to change(Upload, :count).by(1)
+  .and change(Attachment, :count).by(1)
 ```
 
 Use the `expect do … end` multi-line form only when the block genuinely needs multiple statements.
 
 ### Specs — no `describe "#perform"` in worker specs
 A worker spec's whole point is `#perform`, so don't wrap its examples in a `describe "#perform"` block — put the `it`s directly under the top-level `RSpec.describe Worker`. Only add a `describe ".method"` for a *distinct* method on the worker (e.g. a class method like `.stash_file`).
+
+### No `../..` in `require_relative`
+A single `../` is fine. Two or more stops describing what's being required and starts counting directories — the reader has to walk the tree to find out what it points at, and it silently means something else the moment either file moves. Same rule as js-prefs "No `../..` in import paths".
+
+```ruby
+# bad
+require_relative "../../spec_helper"
+# good
+require_relative "../spec_helper"
+require "rails_helper"
+require "./test/ai/evals/spec_helper"
+```
+
+When the file can't reach what it needs within one level, require it by name from the load path, or by its path from the project root (`./` resolves against the directory Ruby runs in, which is the root for rspec and rake here) - not a longer chain of `../`.
 
 ## JavaScript / TypeScript / React
 
