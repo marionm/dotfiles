@@ -93,6 +93,9 @@ if [ -n "$ZSH_VERSION" ]; then
   # $EDITOR, and nvim matches.
   bindkey -e
 
+  # Fn-Delete sends this, and zsh's emacs keymap leaves it unbound - so the ~ at its end gets typed instead.
+  bindkey '^[[3~' delete-char
+
   # Ctrl-X Ctrl-E to edit current command in vim (bash's default binding)
   autoload -U edit-command-line
   zle -N edit-command-line
