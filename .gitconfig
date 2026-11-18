@@ -2,7 +2,8 @@
   a  = add
   ama = commit -a --amend --no-edit
   amm = commit --amend --no-edit
-  b  = branch
+  # `git blame` with a stray space is `git b lame`, which made a branch named lame - so run blame instead
+  b  = "!f() { if [ \"$1\" = lame ]; then shift; cd \"${GIT_PREFIX:-.}\" && git blame \"$@\"; else git branch \"$@\"; fi; }; f"
   br = branch
   ci = commit
   co = checkout
