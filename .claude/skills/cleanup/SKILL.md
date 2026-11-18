@@ -71,8 +71,8 @@ git log --format='%h %s%n%b' <base>..HEAD
 ```
 
 Check each against the prefs' **Commit messages** rule, and report each miss with its SHA and a
-suggested message. Rewording a commit rewrites history, so don't amend or rebase for it — Mike asks
-for that separately.
+suggested message. Rewording a commit rewrites history, so don't amend or rebase for it now — list it in
+the **When asked to fold** block, and apply it when Mike asks to fold.
 
 ## 4. Adjudicate, then report
 
@@ -97,7 +97,8 @@ For a fix to a line committed on this branch, note the commit it belongs to: `gi
 corrects (for a pure addition, the line beside it), and record the target SHA per hunk, not per file
 — one file's fixes can belong to two commits.
 
-If any fix has a target commit, end the report with a **When asked to fold** block, listing each
-target commit with its files and hunks. Do nothing with it until Mike asks. When he does: `git add -p`
-the hunks for one target, `git commit --fixup <sha>`, repeat per target, then
-`git rebase --autosquash --autostash <oldest target>~1`.
+If any fix has a target commit, or a commit message needs rewording, end the report with a **When asked to
+fold** block, listing each target commit with its files and hunks, and its new message if it gets one. Do
+nothing with it until Mike asks. When he does: `git add -p` the hunks for one target, `git commit --fixup
+<sha>`, repeat per target, then `git rebase --autosquash --autostash <oldest target>~1` - and apply the
+new messages in the same rebase.

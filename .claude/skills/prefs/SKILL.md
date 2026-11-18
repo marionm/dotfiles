@@ -529,6 +529,8 @@ This is not permission to commit unprompted — "Never stage or commit for Mike"
 
 Anywhere else (`master`, a shared branch, someone else's `name/` branch), the old caution applies: say that the commit is published and let him decide.
 
+A request to fold covers the commit messages too. When a review or `/cleanup` has suggested rewording a commit on the branch, apply the new message in the same rebase as the fixups, without waiting to be asked again.
+
 Mechanics that avoid the unsupported interactive flags:
 
 ```
