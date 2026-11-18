@@ -5,11 +5,27 @@ set -e
 # Runs in a popup that closes when this exits, so leave errors on screen until a key is pressed.
 trap 'status=$?; if [ $status -ne 0 ]; then printf "\nFailed - press enter to close"; read -r _; fi' EXIT
 
-# -D rather than -d: squash merges leave a merged branch looking unmerged to git, so -d would refuse.
-delete_branch() {
-  if [ -n "$branch" ]; then
-    git -C "$main" branch -D "$branch"
-  fi
+# The popup belongs to the workspace it closes and dies with it, so the deletion runs detached and waits for the
+# workspace to be gone. Closing first stops what runs there - a dev server left running keeps writing files into the
+# checkout while it's being deleted. Nothing is left on screen by then, so a failure shows as a herdr notification.
+close_and_delete() {
+  perl -MPOSIX -e 'POSIX::setsid(); exec @ARGV' sh -c '
+    workspace=$1 main=$2 checkout=$3 branch=$4
+    shift 4
+
+    attempts=0
+    while herdr workspace get "$workspace" >/dev/null 2>&1 && [ "$attempts" -lt 50 ]; do
+      sleep 0.2
+      attempts=$((attempts + 1))
+    done
+
+    # -D rather than -d: squash merges leave a merged branch looking unmerged to git, so -d would refuse.
+    if ! errors=$({ git -C "$main" worktree remove "$@" "$checkout" && { [ -z "$branch" ] || git -C "$main" branch -D "$branch"; }; } 2>&1); then
+      herdr notification show "Could not delete $(basename "$checkout")" --body "$errors" >/dev/null
+    fi
+  ' sh "$workspace" "$main" "$checkout" "$branch" "$@" >/dev/null 2>&1 &
+
+  herdr workspace close "$workspace" >/dev/null
 }
 
 # Commits on the branch whose changes were never pushed. Compared by patch rather than commit id, so a commit counts as
@@ -85,21 +101,15 @@ if [ -n "$checkout" ]; then
 
   case "$answer" in
     y|Y)
-      # Close first: that stops what runs in the workspace, and a dev server left running keeps writing files into
-      # the checkout while it's being deleted.
-      herdr workspace close "$workspace" >/dev/null
-      git -C "$main" worktree remove "$checkout"
-      delete_branch
+      close_and_delete
       ;;
     f|F)
-      herdr workspace close "$workspace" >/dev/null
       if [ -n "$lock_reason" ]; then
         # A second --force is what overrides a lock.
-        git -C "$main" worktree remove --force --force "$checkout"
+        close_and_delete --force --force
       else
-        git -C "$main" worktree remove --force "$checkout"
+        close_and_delete --force
       fi
-      delete_branch
       ;;
     c|C)
       herdr workspace close "$workspace" >/dev/null
