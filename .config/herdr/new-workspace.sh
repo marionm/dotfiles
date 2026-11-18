@@ -9,6 +9,13 @@ workspace=$(echo "$created" | jq -r .result.workspace.workspace_id)
 claude_tab=$(echo "$created" | jq -r .result.tab.tab_id)
 claude_pane=$(echo "$created" | jq -r .result.root_pane.pane_id)
 
+# herdr only groups a workspace with its repo's worktrees after a worktree command runs from it, and workspace create
+# isn't one. Opening the checkout it's already in does nothing else.
+checkout=$(git -C "$cwd" rev-parse --show-toplevel 2>/dev/null || true)
+if [ -n "$checkout" ] && [ "$checkout" = "$(dirname "$(git -C "$cwd" rev-parse --path-format=absolute --git-common-dir)")" ]; then
+  herdr worktree open --workspace "$workspace" --path "$checkout" --no-focus >/dev/null
+fi
+
 herdr tab rename "$claude_tab" claude >/dev/null
 herdr pane run "$claude_pane" claude >/dev/null
 

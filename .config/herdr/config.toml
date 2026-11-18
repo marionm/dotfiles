@@ -33,13 +33,13 @@ description = "servers tab with rails, sidekiq, and the webpack dev server"
 [[keys.command]]
 key = "cmd+shift+j"
 type = "shell"
-command = "~/.config/herdr/move-workspace.sh down"
+command = "~/.config/herdr/move-workspace.py down"
 description = "move workspace down"
 
 [[keys.command]]
 key = "cmd+shift+k"
 type = "shell"
-command = "~/.config/herdr/move-workspace.sh up"
+command = "~/.config/herdr/move-workspace.py up"
 description = "move workspace up"
 
 [[keys.command]]

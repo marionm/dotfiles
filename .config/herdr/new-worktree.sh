@@ -36,15 +36,32 @@ fi
 
 base=$(git symbolic-ref --short refs/remotes/origin/HEAD 2>/dev/null || echo HEAD)
 
-existing=$(herdr worktree list --cwd "$PWD" | jq -r --arg branch "$branch" '.result.worktrees[] | select(.branch == $branch)')
+# herdr names a worktree's folder after the branch it was created for, but the folder can since have moved to another
+# branch or a detached HEAD - and creating the branch's worktree again would then collide with it.
+folder=$(echo "$branch" | tr '[:upper:]' '[:lower:]' | sed -E 's/[^a-z0-9]+/-/g; s/^-+|-+$//g')
+worktrees=$(herdr worktree list --cwd "$PWD")
+existing=$(echo "$worktrees" | jq -c --arg branch "$branch" 'first(.result.worktrees[] | select(.branch == $branch))')
+if [ -z "$existing" ]; then
+  existing=$(echo "$worktrees" | jq -c --arg folder "$folder" 'first(.result.worktrees[] | select(.is_linked_worktree and (.path | endswith("/" + $folder))))')
+fi
+
 if [ -n "$existing" ]; then
   checkout=$(echo "$existing" | jq -r .path)
+
+  if [ "$(echo "$existing" | jq -r '.branch // empty')" != "$branch" ]; then
+    if [ -n "$(git -C "$checkout" status --porcelain)" ]; then
+      printf '%s is on %s with uncommitted changes - commit or stash them there first.\n' \
+        "$checkout" "$(git -C "$checkout" rev-parse --abbrev-ref HEAD)"
+      exit 1
+    fi
+    git -C "$checkout" checkout --quiet "$branch"
+  fi
 
   # Opening a checkout another workspace already has would only focus that workspace, so start a separate one there.
   if [ "$(echo "$existing" | jq -r '.open_workspace_id // empty')" ]; then
     set_up_tabs "$(herdr workspace create --cwd "$checkout" --focus)" "$checkout"
   else
-    set_up_tabs "$(herdr worktree open --cwd "$PWD" --branch "$branch" --focus)" "$checkout"
+    set_up_tabs "$(herdr worktree open --cwd "$PWD" --path "$checkout" --focus)" "$checkout"
   fi
   exit 0
 fi
